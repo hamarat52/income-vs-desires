@@ -1,0 +1,34 @@
+{
+  "siteUrl": "https://incomevsdesires.com",
+  "pages": [
+    { "path": "/", "changefreq": "monthly", "priority": "1.0" },
+    { "path": "/blog/", "changefreq": "weekly", "priority": "0.7" },
+    { "path": "/gizlilik.html", "changefreq": "yearly", "priority": "0.3" }
+  ],
+  "posts": [
+    {
+      "slug": "saatlik-ucret-nasil-hesaplanir",
+      "title": "Saatlik ücret nasıl hesaplanır? 225 saat mi, 176 saat mi?",
+      "summary": "Maaşını saate bölmenin iki yolu var. İkisi de doğru ama farklı soruların cevabı, ve aradaki fark yüzde 28.",
+      "date": "2026-07-31",
+      "readingTime": "6 dakika",
+      "targetQuery": "saatlik ücret hesaplama"
+    },
+    {
+      "slug": "kira-maasin-yuzde-kaci-olmali",
+      "title": "Kira maaşın yüzde kaçı olmalı? Yüzdeyi bırak, güne bak",
+      "summary": "Yüzde 30 kuralı 1969'da başka bir ülkede kondu. Kirayı 'ayın kaç günü' olarak ölçmek çok daha net bir cevap veriyor.",
+      "date": "2026-07-31",
+      "readingTime": "5 dakika",
+      "targetQuery": "kira maaşın yüzde kaçı olmalı"
+    },
+    {
+      "slug": "durtusel-alisveristen-kurtulmak",
+      "title": "Dürtüsel alışverişi bırakmanın en sıkıcı ama en işe yarayan yolu",
+      "summary": "İrade isteyen bütün yöntemler tam ihtiyacın olduğu anda tükeniyor. İşe yarayan tek şey, fiyatın birimini değiştirmek.",
+      "date": "2026-07-31",
+      "readingTime": "6 dakika",
+      "targetQuery": "dürtüsel alışveriş"
+    }
+  ]
+}

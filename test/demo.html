@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <title>IncomeVsDesires — test sayfası</title>
+    <link rel="stylesheet" href="../src/content.css" />
+    <style>
+      body { font: 16px/1.5 system-ui, sans-serif; padding: 24px; max-width: 640px; }
+      .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 8px 0; }
+      .note { color: #777; font-size: 13px; }
+      /* Amazon'un a-offscreen kuralının aynısı */
+      .a-offscreen {
+        position: absolute !important;
+        clip: rect(1px, 1px, 1px, 1px);
+        overflow: hidden;
+        height: 1px;
+        width: 1px;
+        padding: 0;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Test sayfası</h1>
+    <p class="note">
+      Ayarlar sabit: ayda 50.000, günde 8 saat, ayda 22 gün. Süreye tıkla, fiyata
+      döner.
+    </p>
+
+    <div class="card" id="c1">Spor ayakkabı — <b>500 TL</b></div>
+    <div class="card" id="c2">Ceket <span>₺1.299,90</span> yerine 899,00 TL</div>
+    <div class="card" id="c3">Kulaklık $19.99 · Klavye 249,90 € · Fare £45</div>
+    <div class="card" id="c4">OUTLET 2024 — 3 adet kaldı, kargo 1.500 TL üzeri bedava</div>
+    <div class="card" id="c5">Laptop <a href="#gitmemeli">64.999 TL</a></div>
+
+    <p class="note">React'in böldüğü fiyatlar (Trendyol'daki gerçek yapı):</p>
+    <div class="card" id="c6">Sepette <span>1.599,59<!-- --> <!-- -->TL</span></div>
+    <div class="card" id="c7">(<!-- -->5,83<!-- --> <!-- -->TL<!-- --> / <!-- -->tablet<!-- -->)</div>
+    <div class="card" id="c8">2.665,99<!-- --> <!-- -->TL</div>
+
+    <p class="note">Element sınırıyla bölünen fiyatlar (Hepsiburada'daki gerçek yapı):</p>
+    <div class="card" id="c10">
+      <div class="price">2.144<span>,35 TL</span></div>
+    </div>
+    <div class="card" id="c11"><span>1.299</span><sup>,90</sup> TL</div>
+
+    <p class="note">
+      Amazon'un gerçek yapısı — fiyat iki kez var, ilki ekran okuyucu için gizli.
+      Sadece görünen çevrilmeli, kart "TL" kalıntısıyla kalmamalı:
+    </p>
+    <div class="card" id="c14">
+      <span class="a-price">
+        <span class="a-offscreen">499,99&nbsp;TL</span
+        ><span aria-hidden="true"
+          ><span class="a-price-whole">499<span class="a-price-decimal">,</span></span
+          ><span class="a-price-fraction">99</span
+          ><span class="a-price-symbol">TL</span></span
+        >
+      </span>
+    </div>
+
+    <p class="note">Bunlar birleştirilmemeli:</p>
+    <div class="card" id="c9">Beden 500 <b>·</b> TL Bank taksiti</div>
+    <div class="card" id="c12">
+      <div>Kargo 50</div>
+      <div>TL Bank ile taksit</div>
+    </div>
+    <div class="card" id="c13">Beden 42 500 TL</div>
+
+    <p class="note">
+      Tek sayfa uygulaması benzetmesi: adres değişiyor, içerik yerinde
+      yenileniyor (Sahibinden'de kategori değiştirmek gibi).
+    </p>
+    <button type="button" id="spaNav">Kategori değiştir (pushState)</button>
+    <div id="spa"></div>
+
+    <div id="late"></div>
+
+    <script>
+      // content.js async bir IIFE — içindeki hata sessiz promise reddi oluyor.
+      window.__ivdErrors = [];
+      addEventListener('error', (e) => window.__ivdErrors.push(e.message + ' @' + e.lineno));
+      addEventListener('unhandledrejection', (e) =>
+        window.__ivdErrors.push('reject: ' + ((e.reason && e.reason.stack) || e.reason)));
+    </script>
+    <script>
+      // chrome.* API'lerinin sahtesi — content.js'i eklenti olmadan çalıştırmak için.
+      const store = {
+        sync: {
+          enabled: true,
+          salary: 50000,
+          currency: 'TRY',
+          hoursPerDay: 8,
+          daysPerMonth: 22,
+          disabledHosts: [],
+        },
+        local: {
+          rates: {
+            rates: { EUR: 1, USD: 1.08, GBP: 0.85, TRY: 45 },
+            fetchedAt: Date.now(),
+            source: 'test',
+          },
+        },
+      };
+      window.chrome = {
+        storage: {
+          sync: { get: (defaults) => Promise.resolve({ ...defaults, ...store.sync }) },
+          local: { get: (key) => Promise.resolve({ [key]: store.local[key] }) },
+          onChanged: { addListener() {} },
+        },
+        runtime: { onMessage: { addListener() {} } },
+      };
+    </script>
+    <script src="../src/lib/money.js"></script>
+    <script src="../src/content.js"></script>
+    <script>
+      // SPA gezinmesi: adres değişir, içerik yerinde değişir.
+      let sayac = 0;
+      document.getElementById('spaNav').addEventListener('click', () => {
+        sayac++;
+        history.pushState({}, '', '?kategori=' + sayac);
+        document.getElementById('spa').innerHTML =
+          '<div class="card">' + sayac + '. kategori ürünü: ' + sayac + '.499 TL</div>';
+      });
+
+      // Sonsuz kaydırma benzetmesi: art arda gelen partiler de yakalanmalı.
+      let batch = 0;
+      const timer = setInterval(() => {
+        batch++;
+        const card = document.createElement('div');
+        card.className = 'card lazy';
+        card.append(`${batch}. parti ürün: `);
+        // 811,41 + TL gibi bitişik iki ayrı metin düğümü (React'in yaptığı)
+        const price = document.createElement('span');
+        price.append(document.createTextNode(`${batch}.250,50`));
+        price.append(document.createTextNode('TL'));
+        card.append(price);
+        document.getElementById('late').append(card);
+        if (batch === 3) clearInterval(timer);
+      }, 500);
+    </script>
+  </body>
+</html>

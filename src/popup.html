@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>IncomeVsDesires</title>
+  </head>
+  <body>
+    <header>
+      <h1>IncomeVsDesires</h1>
+      <label class="switch">
+        <input type="checkbox" id="enabled" role="switch" />
+        <span id="enabledLabel">Açık</span>
+      </label>
+    </header>
+
+    <label class="field">
+      <span>Aylık net maaşın</span>
+      <div class="row">
+        <input type="text" id="salary" inputmode="numeric" autocomplete="off" placeholder="örn. 50000" />
+        <select id="currency"></select>
+      </div>
+    </label>
+
+    <div class="field">
+      <span>Çalışma düzenin</span>
+      <div class="row">
+        <label class="sub">
+          <input type="number" id="hoursPerDay" min="1" max="24" step="any" placeholder="8" />
+          <small>saat / gün</small>
+        </label>
+        <label class="sub">
+          <input type="number" id="daysPerMonth" min="1" max="31" step="any" placeholder="22" />
+          <small>gün / ay</small>
+        </label>
+      </div>
+    </div>
+
+    <p class="rate" id="rate"></p>
+
+    <div class="actions">
+      <button type="button" id="openOptions" class="primary">Giderlerin ve grafik →</button>
+      <button type="button" id="rescan" class="ghost">Sayfayı yeniden tara</button>
+      <button type="button" id="toggleHost" class="ghost"></button>
+    </div>
+
+    <footer id="rateInfo"></footer>
+
+    <script src="lib/money.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

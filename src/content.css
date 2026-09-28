@@ -1,0 +1,14 @@
+/* Fiyatın yerine geçen süre etiketi. Sayfanın tipografisini bozmamak için
+   font/renk miras alınır; sadece ince bir alt çizgi ile ayırt edilir. */
+.ivd-chip {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-bottom: 1px dotted currentColor;
+  white-space: nowrap;
+}
+
+.ivd-chip[data-ivd='money'] {
+  border-bottom-style: solid;
+  opacity: 0.75;
+}

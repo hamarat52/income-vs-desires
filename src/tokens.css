@@ -1,0 +1,148 @@
+/* =========================================================================
+   "Mesai kartı" tasarım dili — eklenti arayüzlerinin ortak değişkenleri.
+   Tanıtım sitesiyle (site/style.css) aynı palet ve aynı tipografi kuralları.
+
+   Kağıt yüzey, cetvel çizgileri, monospace rakamlar, tek mühür aksanı.
+   Rakamlar ürünün kendisi olduğu için tipografi onların etrafında kuruldu:
+   sayı gördüğün her yer monospace, açıklama metni sans.
+
+   Aydınlık **varsayılan**, karanlık tercihe bağlı. Sistem karanlık olsa bile
+   aydınlık açılır; karanlığı kullanıcı Giderler sayfasından seçer. Karanlık
+   değerler mekanik ters çevirme değil; zemin nötr siyah yerine sıcak koyu,
+   mühür kırmızısı koyu zeminde kontrastı tutsun diye açık.
+   ========================================================================= */
+
+:root {
+  color-scheme: light;
+
+  --paper: #f2efe6;
+  --surface: #fbf9f4;
+  --ink: #17150f;
+  --ink-2: #57534a;
+  --muted: #8b857a;
+  --rule: #d9d4c6;
+  --rule-soft: #e8e3d6;
+  --stamp: #b8371f;
+  --stamp-soft: rgba(184, 55, 31, 0.1);
+
+  /* Grafik yuvaları. İlk üçü dataviz referans paletinden; dördüncüsü (taksit)
+     aday taraması sonucu seçildi, çünkü referansın 4. yuvası (sarı) turuncuyla
+     all-pairs testinde düşüyordu (normal görüş 13.7, eşik 15).
+     validate_palette.js ile bu zeminlere karşı doğrulandı, all-pairs:
+       açık  CVD ΔE 9.2 · normal görüş 18.5 · geçti
+       koyu  CVD ΔE 6.3 (6-8 bandı) · normal görüş 15.8 · geçti
+     Koyu moddaki band, ikincil kodlamayla meşru: efsanede yazılı değerler,
+     parçalar arası zemin boşluğu ve tam gider tablosu. */
+  --series-kira: #2a78d6;
+  --series-abonelik: #eb6834;
+  --series-diger: #1baf7a;
+  --series-taksit: #c43f8f;
+  --series-kalan: #c3c2b7;
+
+  --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: #12110d;
+  --surface: #1a1813;
+  --ink: #f0ece1;
+  --ink-2: #b8b2a4;
+  --muted: #8b857a;
+  --rule: #2e2b23;
+  --rule-soft: #24211b;
+  --stamp: #e07056;
+  --stamp-soft: rgba(224, 112, 86, 0.14);
+
+  --series-kira: #3987e5;
+  --series-abonelik: #d95926;
+  --series-diger: #199e70;
+  --series-taksit: #d95aa3;
+  --series-kalan: #4a4a46;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* --- Ortak öğeler --------------------------------------------------------- */
+
+/* Küçük, seyrek harflenmiş alan etiketi. Sitedeki .eyebrow ile aynı ses. */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+input,
+select,
+textarea {
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--surface);
+  color: inherit;
+  font-family: var(--mono);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--stamp);
+  outline-offset: -1px;
+}
+
+/* Dolu buton: mühür rengiyle sert gölge. Sitedeki .btn ile aynı hareket. */
+.primary {
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.primary:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--stamp);
+}
+
+.ghost {
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--mono);
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--ink);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--rule);
+}
+
+.primary:disabled,
+.ghost:disabled {
+  color: var(--stamp);
+  border-color: var(--stamp);
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,205 @@
+/* Ayar paneli. Ortak değişkenler tokens.css'te. */
+
+body {
+  width: 300px;
+  margin: 0;
+  padding: 18px 18px 16px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 14px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* Anahtar. Yuvarlak hap yerine köşeli ray + kare düğme: defter dilinde
+   kalsın diye. Gerçek bir checkbox, klavyeyle odaklanıp boşlukla değişiyor. */
+.switch input {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.switch input::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--muted);
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.switch input:checked {
+  background: var(--stamp);
+  border-color: var(--stamp);
+}
+
+.switch input:checked::after {
+  transform: translateX(16px);
+  background: var(--paper);
+}
+
+.switch input:focus-visible {
+  outline: 2px solid var(--stamp);
+  outline-offset: 2px;
+}
+
+.switch input:checked + span {
+  color: var(--ink);
+}
+
+/* --- Alanlar -------------------------------------------------------------- */
+
+.field {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.field > span {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.row input {
+  flex: 1;
+  min-width: 0;
+}
+
+input,
+select {
+  padding: 9px 11px;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+input[type="number"] {
+  width: 100%;
+}
+
+select {
+  width: auto;
+  flex: 0 0 auto;
+}
+
+/* Çalışma düzeni: iki küçük alan yan yana. */
+.sub {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sub small {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Boş zorunlu alan: placeholder'ı dolu sanmayı önlemek için. */
+input.missing {
+  border-color: var(--stamp);
+  background: var(--stamp-soft);
+}
+
+input::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* --- Sonuç satırı --------------------------------------------------------- */
+
+.rate {
+  margin: 16px 0 14px;
+  padding-top: 12px;
+  border-top: 2px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--stamp);
+}
+
+.rate.muted {
+  border-top-color: var(--rule);
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* --- Butonlar ------------------------------------------------------------- */
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.primary,
+.ghost {
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+}
+
+/* --- Alt bilgi ------------------------------------------------------------ */
+
+footer {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-align: center;
+}

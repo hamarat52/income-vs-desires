@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "IncomeVsDesires",
+  "version": "0.1.0",
+  "description": "İnternetteki fiyatları, senin maaşına göre çalışma süresine çevirir. 500 TL yerine \"1 saat\".",
+  "permissions": ["storage", "alarms", "activeTab"],
+  "host_permissions": ["https://api.frankfurter.app/*"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_title": "IncomeVsDesires"
+  },
+  "options_ui": {
+    "page": "src/options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "exclude_matches": [
+        "*://mail.google.com/*",
+        "*://*.gmail.com/*",
+        "*://docs.google.com/*",
+        "*://drive.google.com/*",
+        "*://calendar.google.com/*",
+        "*://*.slack.com/*",
+        "*://*.notion.so/*",
+        "*://*.figma.com/*",
+        "*://github.com/*",
+        "*://*.bankasi.com.tr/*",
+        "*://*.garantibbva.com.tr/*",
+        "*://*.isbank.com.tr/*",
+        "*://*.akbank.com/*"
+      ],
+      "js": ["src/lib/money.js", "src/content.js"],
+      "css": ["src/content.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="options.css" />
+    <title>IncomeVsDesires · Giderlerin</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="head">
+        <div>
+          <h1>Giderlerin</h1>
+          <p class="lede">
+            Sabit giderlerini gir, ayın kaç gününü onlara çalıştığını gör.
+          </p>
+        </div>
+
+        <div class="theme" id="theme" role="group" aria-label="Görünüm seçimi">
+          <button type="button" data-theme-value="light" aria-pressed="true">
+            Aydınlık
+          </button>
+          <button type="button" data-theme-value="dark" aria-pressed="false">
+            Karanlık
+          </button>
+        </div>
+      </header>
+
+      <section class="panel">
+        <h2>Kazancın</h2>
+        <div class="setup">
+          <label class="field">
+            <span>Aylık net maaş</span>
+            <div class="row">
+              <input type="text" id="salary" inputmode="numeric" autocomplete="off" placeholder="örn. 50000" />
+              <select id="currency"></select>
+            </div>
+          </label>
+          <label class="field">
+            <span>Saat / gün</span>
+            <input type="number" id="hoursPerDay" min="1" max="24" step="any" placeholder="8" />
+          </label>
+          <label class="field">
+            <span>Gün / ay</span>
+            <input type="number" id="daysPerMonth" min="1" max="31" step="any" placeholder="22" />
+          </label>
+        </div>
+        <p class="rate" id="rate"></p>
+      </section>
+
+      <section class="panel" id="summary" hidden>
+        <h2>Ayın nereye gidiyor</h2>
+
+        <div class="tiles" id="tiles"></div>
+
+        <div class="chart-row">
+          <figure class="donut-figure">
+            <svg
+              id="donut"
+              viewBox="0 0 200 200"
+              role="img"
+              aria-labelledby="donutTitle donutDesc"
+            >
+              <title id="donutTitle">Aylık mesainin dağılımı</title>
+              <desc id="donutDesc"></desc>
+              <g id="donutArcs" transform="rotate(-90 100 100)"></g>
+              <text id="donutValue" class="donut-value" x="100" y="97"></text>
+              <text id="donutLabel" class="donut-label" x="100" y="117"></text>
+            </svg>
+            <div class="tooltip" id="tooltip" hidden></div>
+          </figure>
+
+          <ul class="legend" id="legend"></ul>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Sabit giderlerin</h2>
+
+        <form class="add" id="addForm">
+          <label class="field grow">
+            <span>Ne için?</span>
+            <input type="text" id="name" placeholder="Kira, Netflix, Spotify…" required />
+          </label>
+          <label class="field">
+            <span>Tutar</span>
+            <input type="number" id="amount" min="0" step="any" placeholder="0" required />
+          </label>
+          <label class="field">
+            <span>Dönem</span>
+            <select id="period">
+              <option value="monthly">Aylık</option>
+              <option value="yearly">Yıllık</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Tür</span>
+            <select id="category"></select>
+          </label>
+          <button type="submit" class="primary">Ekle</button>
+        </form>
+
+        <table class="items" id="items">
+          <caption class="sr-only">
+            Gider listesi ve her birinin aylık çalışma karşılığı
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Ne için</th>
+              <th scope="col">Tür</th>
+              <th scope="col" class="num">Aylık tutar</th>
+              <th scope="col" class="num">Ne kadar çalışma</th>
+              <th scope="col" class="num">Maaşın %</th>
+              <th scope="col"><span class="sr-only">Sil</span></th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody"></tbody>
+        </table>
+
+        <p class="empty" id="empty">Henüz gider eklemedin.</p>
+      </section>
+
+      <section class="panel">
+        <details class="fold">
+          <summary><h2>Test edilmiş siteler</h2></summary>
+          <p class="lede small">
+            Bu siteler gerçek sayfalarda tek tek denendi. Listede olmayan siteler
+            de büyük ihtimalle çalışır; eklenti site tanımaz, sayfadaki fiyat
+            yazımını tanır.
+          </p>
+          <ul class="sites" id="sites"></ul>
+        </details>
+      </section>
+
+      <section class="panel">
+        <h2>Hata bildir / özellik iste</h2>
+
+        <form class="feedback" id="feedbackForm">
+          <div class="setup">
+            <label class="field">
+              <span>Ne göndermek istiyorsun?</span>
+              <select id="fbType">
+                <option value="hata">Hata bildirimi</option>
+                <option value="ozellik">Özellik isteği</option>
+              </select>
+            </label>
+            <label class="field grow">
+              <span>Hangi site? (hata ise)</span>
+              <input type="text" id="fbSite" placeholder="ornek.com" />
+            </label>
+          </div>
+
+          <label class="field block">
+            <span>Ne oldu / ne olsun istiyorsun?</span>
+            <textarea
+              id="fbText"
+              rows="4"
+              required
+              placeholder="Fiyatlar dönüşmedi, ürün kartında 1.299 TL yazıyor ama süre çıkmadı…"
+            ></textarea>
+          </label>
+
+          <p class="privacy">
+            Rapora eklenen teknik bilgi: eklenti sürümü, tarayıcı, para birimin ve
+            çalışma düzenin. <strong>Maaşın ve giderlerin gönderilmez.</strong>
+          </p>
+
+          <div class="fb-actions">
+            <button type="submit" class="primary" id="fbSend">
+              E-posta ile gönder
+            </button>
+          </div>
+        </form>
+
+        <details class="preview">
+          <summary>Gönderilecek raporu göster</summary>
+          <pre id="fbPreview"></pre>
+        </details>
+      </section>
+    </div>
+
+    <script src="lib/money.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>
