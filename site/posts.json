@@ -1,5 +1,5 @@
 {
-  "siteUrl": "https://incomevsdesires.com",
+  "siteUrl": "https://hamarat52.github.io/income-vs-desires",
   "pages": [
     { "path": "/", "changefreq": "monthly", "priority": "1.0" },
     { "path": "/blog/", "changefreq": "weekly", "priority": "0.7" },

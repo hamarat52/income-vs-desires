@@ -16,7 +16,8 @@ const path = require('path');
 
 const ROOT = __dirname;
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'posts.json'), 'utf8'));
-const { siteUrl, pages, posts } = data;
+const { pages, posts } = data;
+const siteUrl = data.siteUrl.replace(/\/+$/, '');
 
 const escape = (text) =>
   String(text).replace(
@@ -35,9 +36,23 @@ const trDate = (iso) =>
 //
 // Sadece adres taşıyan satırlara dokunuluyor (canonical / og:url /
 // mainEntityOfPage), gövde metnindeki bağlantılar zaten göreli.
+//
+// siteUrl alt yol içerebilir (ör. https://hamarat52.github.io/income-vs-desires,
+// GitHub Pages proje yolu). Bu yüzden eski adresin sadece origin'ini değiştirmek
+// yetmez (ikinci çalıştırmada yol iki kez eklenirdi); her sayfanın adresi dosya
+// konumundan baştan kuruluyor: siteUrl + sayfanın yolu. Tekrar çalıştırmak güvenli.
+//
+// Sayfa içi bağlantılar (style.css, calc.js, /blog/ …) SAYFA-GÖRELİ yazılır
+// (./style.css, ../style.css): böylece site hem alan adının kökünde hem bir alt
+// yolda hiçbir değişiklik olmadan çalışır. Kök-göreli (/style.css) yol alt yolda
+// kırılacağı için aşağıda engelleniyor.
 
 const ADDRESS_LINES = /(canonical|og:url|mainEntityOfPage)/;
-const ORIGIN = /https:\/\/[a-z0-9.-]+\.[a-z]{2,}/gi;
+const ADDRESS = /https?:\/\/[^\s"'<>]+/gi;
+const ROOT_RELATIVE = /(?:href|src)="\/(?!\/)[^"]*"/g;
+
+const pagePathOf = (file) =>
+  '/' + path.relative(ROOT, file).split(path.sep).join('/').replace(/(^|\/)index\.html$/, '$1');
 
 function htmlFiles(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -53,7 +68,9 @@ for (const file of htmlFiles(ROOT)) {
   const before = fs.readFileSync(file, 'utf8');
   const after = before
     .split('\n')
-    .map((line) => (ADDRESS_LINES.test(line) ? line.replace(ORIGIN, siteUrl) : line))
+    .map((line) =>
+      ADDRESS_LINES.test(line) ? line.replace(ADDRESS, siteUrl + pagePathOf(file)) : line
+    )
     .join('\n');
 
   if (after !== before) {
@@ -67,7 +84,7 @@ for (const file of htmlFiles(ROOT)) {
 const items = posts
   .map(
     (post) => `        <li>
-          <a href="/blog/${post.slug}.html">
+          <a href="../blog/${post.slug}.html">
             <time datetime="${post.date}">${trDate(post.date)} · ${escape(post.readingTime)}</time>
             <div>
               <h3>${escape(post.title)}</h3>
@@ -94,23 +111,23 @@ const blogIndex = `<!DOCTYPE html>
     <meta property="og:locale" content="tr_TR" />
     <meta property="og:title" content="Yazılar: para, zaman ve alışveriş üzerine" />
 
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏳</text></svg>"
     />
-    <script src="/theme.js"></script>
+    <script src="../theme.js"></script>
   </head>
 
   <body>
     <a class="skip" href="#main">İçeriğe geç</a>
 
     <header class="wrap topbar">
-      <a class="brand" href="/">income<span>vs</span>desires</a>
+      <a class="brand" href="../">income<span>vs</span>desires</a>
       <nav class="topnav">
-        <a href="/#hesapla">Hesapla</a>
-        <a href="/#kanit">Testler</a>
-        <a href="/#kur" style="color: var(--stamp)">Kur →</a>
+        <a href="../#hesapla">Hesapla</a>
+        <a href="../#kanit">Testler</a>
+        <a href="../#kur" style="color: var(--stamp)">Kur →</a>
         <button type="button" class="theme-toggle" aria-label="Karanlık görünüme geç" aria-pressed="false">☾</button>
       </nav>
     </header>
@@ -129,7 +146,7 @@ ${items}
       </ul>
 
       <p style="margin-top: 48px">
-        <a class="btn" href="/#kur">Chrome'a ücretsiz ekle</a>
+        <a class="btn" href="../#kur">Chrome'a ücretsiz ekle</a>
       </p>
     </main>
 
@@ -141,9 +158,9 @@ ${items}
         </div>
         <div>
           <strong>Site</strong>
-          <a href="/">Ana sayfa</a>
-          <a href="/#hesapla">Saatlik ücret hesaplama</a>
-          <a href="/gizlilik.html">Gizlilik</a>
+          <a href="../">Ana sayfa</a>
+          <a href="../#hesapla">Saatlik ücret hesaplama</a>
+          <a href="../gizlilik.html">Gizlilik</a>
         </div>
       </div>
     </footer>
@@ -206,6 +223,20 @@ if (!process.env.IVD_DOMAIN_HAZIR) {
     'NOT: alan adı henüz alınmadı. Alınca posts.json > siteUrl satırını\n' +
       '     değiştirip bu betiği tekrar çalıştır, canonical adresler kendi kendine düzelir.'
   );
+}
+
+// --- kök-göreli yol kontrolü ------------------------------------------------
+
+const rootRelative = htmlFiles(ROOT).flatMap((file) =>
+  (fs.readFileSync(file, 'utf8').match(ROOT_RELATIVE) || []).map(
+    (hit) => `${path.relative(ROOT, file)}: ${hit}`
+  )
+);
+
+if (rootRelative.length) {
+  console.warn('UYARI: kök-göreli yol var, alt yolda (GitHub Pages) kırılır. Sayfa-göreli yaz:');
+  rootRelative.forEach((hit) => console.warn(`  - ${hit}`));
+  process.exitCode = 1;
 }
 
 if (missing.length) {

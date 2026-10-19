@@ -1,0 +1,53 @@
+# main'e site/ altında bir değişiklik push'lanınca tanıtım sitesini GitHub Pages'e yayınlar.
+#
+# GitHub Pages "branch'ten yayınla" modu yalnız kökü ya da /docs'u sunabiliyor;
+# site /site altında olduğu için Actions tabanlı yayın kullanılıyor.
+# Şimdilik proje yolunda: https://hamarat52.github.io/income-vs-desires/
+# Alan adı alınınca: site/posts.json > siteUrl + Settings > Pages > Custom domain.
+name: Siteyi yayınla
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Bağımlılık yok. Kök-göreli yol (/style.css) ya da eksik yazı varsa hata verip yayını durdurur.
+      - run: node site/build.js
+      # Derleyici ve veri dosyası yayına çıkmasın.
+      - run: |
+          mkdir _site
+          cp -R site/. _site/
+          rm _site/build.js _site/posts.json
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

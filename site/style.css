@@ -243,7 +243,7 @@ p {
   .topnav {
     gap: 12px;
   }
-  .topnav a:not([href$="#kur"]):not([href="/blog/"]) {
+  .topnav a:not([href$="#kur"]):not([href$="blog/"]) {
     display: none;
   }
 }

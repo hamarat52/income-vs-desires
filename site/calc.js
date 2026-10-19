@@ -90,7 +90,8 @@
   }
 
   function render() {
-    const salary = positive(ui.salary.value);
+    // Maaş alanı "50.000" biçiminde (binlik ayraç); Number("50.000") = 50 olurdu.
+    const salary = positive(ui.salary.value.replace(/\D/g, ''));
     const hoursPerDay = positive(ui.hoursPerDay.value);
     const daysPerMonth = positive(ui.daysPerMonth.value);
 
