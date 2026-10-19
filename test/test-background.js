@@ -115,10 +115,47 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
     const { kayitli } = kur({ fetchImpl: async () => yanit(API_BODY) });
     kayitli.onInstalled();
     check('alarm kuruldu', kayitli.alarms[0].name, 'ivd-refresh-rates');
-    check('alarm periyodu (dk)', kayitli.alarms[0].opts.periodInMinutes, 360);
+    check('alarm periyodu (dk)', kayitli.alarms[0].opts.periodInMinutes, 720);
     check('mesaj dinleyici var', typeof kayitli.mesajDinleyici, 'function');
     check('async yanıt için true', kayitli.mesajDinleyici({ type: 'ivd:refreshRates' }, null, () => {}), true);
     check('alakasız mesaja false', kayitli.mesajDinleyici({ type: 'baska' }, null, () => {}), false);
+  }
+
+  console.log('\n--- 6. tazeleme sıklığı: alarm ile önbellek ömrü aynı faza bağlı ---');
+  {
+    // Alarm tetiklendiğinde önbellek "12 saat eksi ağ gecikmesi" yaşında olur.
+    // Eski kod bunu taze sayıp atlıyor ve tazeleme 18. saate kayıyordu.
+    let cagrildi = 0;
+    const neredeyse12 = { rates: { EUR: 1, TRY: 50 }, fetchedAt: Date.now() - (12 * 3600e3 - 250), source: 'frankfurter' };
+    const { kayitli } = kur({
+      store: { rates: neredeyse12 },
+      fetchImpl: async () => { cagrildi++; return yanit(API_BODY); },
+    });
+    kayitli.onAlarm({ name: 'ivd-refresh-rates' });
+    await new Promise((r) => setTimeout(r, 5));
+    check('alarm yaş kontrolüne takılmadan çekti', cagrildi, 1);
+
+    // Açılış yolu ise taze önbelleğe dokunmaz.
+    let acilis = 0;
+    const taze = { rates: { EUR: 1, TRY: 50 }, fetchedAt: Date.now() - 3600e3, source: 'frankfurter' };
+    const b = kur({ store: { rates: taze }, fetchImpl: async () => { acilis++; return yanit(API_BODY); } });
+    b.kayitli.onStartup();
+    await new Promise((r) => setTimeout(r, 5));
+    check('açılışta taze önbellek korunur', acilis, 0);
+
+    // Alarm da 1 saatlik önbelleği tekrar çekmez (günde en fazla ~2 istek).
+    b.kayitli.onAlarm({ name: 'ivd-refresh-rates' });
+    await new Promise((r) => setTimeout(r, 5));
+    check('alarm taze önbelleği yeniden çekmez', acilis, 0);
+
+    // Açılışta kaçırılmış alarm + onStartup aynı anda: tek istek.
+    let cift = 0;
+    const bayat = { rates: { EUR: 1, TRY: 40 }, fetchedAt: 0, source: 'frankfurter' };
+    const c = kur({ store: { rates: bayat }, fetchImpl: async () => { cift++; return yanit(API_BODY); } });
+    c.kayitli.onStartup();
+    c.kayitli.onAlarm({ name: 'ivd-refresh-rates' });
+    await new Promise((r) => setTimeout(r, 5));
+    check('eşzamanlı açılış+alarm tek istek', cift, 1);
   }
 
   console.log(fail === 0 ? '\nHepsi geçti.' : `\n${fail} test başarısız.`);
