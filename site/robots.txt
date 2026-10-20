@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hamarat52.github.io/income-vs-desires/sitemap.xml
+Sitemap: https://ind.hamaratlabs.com/sitemap.xml
