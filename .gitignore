@@ -2,3 +2,8 @@
 test/popup-preview.html
 test/options-preview.html
 test/popup-stage.html
+
+# Safari/Xcode kullanıcı ve derleme artefaktları
+safari/**/xcuserdata/
+safari/**/build/
+safari/**/DerivedData/
