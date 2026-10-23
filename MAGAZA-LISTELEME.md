@@ -133,7 +133,7 @@ Google inceleme sırasında bunu ister:
 | `storage` | Kullanıcının maaşını, çalışma düzenini ve gider listesini cihazda saklamak için. |
 | `activeTab` | Panelden "sayfayı yeniden tara" denince yalnızca aktif sekmeye mesaj göndermek için. |
 | `alarms` | Döviz kurlarını 12 saatte bir tazelemek için. |
-| `host_permissions: api.frankfurter.app` | Döviz kuru tablosunu çekmek için. Tek dış istek budur. |
+| `host_permissions: api.frankfurter.dev` | Döviz kuru tablosunu çekmek için. Tek dış istek budur. |
 | `content_scripts: <all_urls>` | Fiyat hangi sitede olursa olsun çevrilebilsin diye. Eklenti site listesi tutmaz. |
 
 ---

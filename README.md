@@ -56,7 +56,7 @@ Sayfanın altında iki bölüm daha var:
 
 - **Saatlik kazanç** = aylık maaş ÷ (günlük saat × aylık gün)
 - Sayfadaki fiyat farklı bir para birimindeyse (`$`, `€`, `£`) önce senin para
-  birimine çevrilir. Kurlar [Frankfurter](https://frankfurter.app) (ECB verisi)
+  birimine çevrilir. Kurlar [Frankfurter](https://frankfurter.dev) (ECB verisi)
   üzerinden 12 saatte bir tazelenir; API'ye ulaşılamazsa yaklaşık sabit kurlar
   kullanılır ve panelde uyarı çıkar.
 - Birim otomatik seçilir: **dk → saat → gün → ay → yıl**, ve sınırlar senin

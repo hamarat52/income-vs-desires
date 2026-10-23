@@ -23,7 +23,9 @@ const MAX_AGE_MS = REFRESH_HOURS * 60 * 60 * 1000;
 // gelirse ikincisi taze önbelleği görür, çift istek olmaz.
 const ALARM_SLACK_MS = 30 * 60 * 1000;
 const ALARM_NAME = 'ivd-refresh-rates';
-const API_URL = 'https://api.frankfurter.app/latest?from=EUR&to=USD,GBP,TRY';
+// api.frankfurter.app artık 301 ile buraya yönlendiriyor; yönlendirme yanıtında
+// CORS başlığı yok, bu yüzden doğrudan yeni adrese gidiyoruz.
+const API_URL = 'https://api.frankfurter.dev/v1/latest?from=EUR&to=USD,GBP,TRY';
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.alarms.create(ALARM_NAME, { periodInMinutes: REFRESH_HOURS * 60 });

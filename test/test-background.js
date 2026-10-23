@@ -64,8 +64,15 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
 
   console.log('\n--- 1. başarılı çekim ---');
   {
-    const { context, store } = kur({ fetchImpl: async () => yanit(API_BODY) });
+    let istenenUrl = null;
+    const { context, store } = kur({ fetchImpl: async (url) => { istenenUrl = url; return yanit(API_BODY); } });
     const p = await vm.runInContext('refreshRates()', context);
+    // Eski api.frankfurter.app 301 veriyor; doğrudan yeni adrese gidilmeli ve
+    // o adres manifest'te izinli olmalı (yoksa fetch CORS'ta düşer).
+    const host = new URL(istenenUrl).host;
+    const manifest = JSON.parse(fs.readFileSync(require('path').join(__dirname, '..', 'manifest.json'), 'utf8'));
+    check('istek frankfurter.dev/v1', istenenUrl.startsWith('https://api.frankfurter.dev/v1/latest'), true);
+    check('host manifest izninde', manifest.host_permissions.includes(`https://${host}/*`), true);
     check('kaynak', p.source, 'frankfurter');
     check('TRY kuru', p.rates.TRY, 54.58);
     check('EUR tabanı eklendi', p.rates.EUR, 1);
