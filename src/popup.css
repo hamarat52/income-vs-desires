@@ -86,6 +86,13 @@ h1 {
   color: var(--ink);
 }
 
+/* Alan içindeki seçenek anahtarları: başlıktaki anahtarın aynısı, alt alta. */
+.switch.option {
+  margin-top: 8px;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+
 /* --- Alanlar -------------------------------------------------------------- */
 
 .field {
@@ -174,6 +181,15 @@ input::placeholder {
   border-top-color: var(--rule);
   color: var(--muted);
   font-style: italic;
+}
+
+/* Hesap seçeneği uygulanamadığında (gider yok / maaşı aşıyor) kısa açıklama. */
+.note {
+  margin: -6px 0 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--muted);
 }
 
 /* --- Butonlar ------------------------------------------------------------- */

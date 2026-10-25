@@ -4,7 +4,11 @@
   "version": "0.1.0",
   "description": "İnternetteki fiyatları, senin maaşına göre çalışma süresine çevirir. 500 TL yerine \"1 saat\".",
   "permissions": ["storage", "alarms", "activeTab"],
-  "host_permissions": ["https://api.frankfurter.dev/*"],
+  "host_permissions": [
+    "https://api.frankfurter.dev/*",
+    "https://open.er-api.com/*",
+    "https://cdn.jsdelivr.net/*"
+  ],
   "background": {
     "service_worker": "src/background.js"
   },

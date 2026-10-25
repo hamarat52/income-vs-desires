@@ -46,11 +46,17 @@
   const NUMBER_SRC =
     '(?:\\d{1,3}(?:[.,\\u00A0\\u202F]\\d{3})+(?:[.,]\\d{1,2})?|\\d+(?:[.,]\\d{1,2})?)';
 
-  /** Yeni bir eşleştirme regex'i üretir (lastIndex paylaşılmasın diye her seferinde yeni). */
+  /**
+   * Yeni bir eşleştirme regex'i üretir (lastIndex paylaşılmasın diye her seferinde yeni).
+   *
+   * Bilerek **büyük/küçük harfe duyarlı** (`i` bayrağı yok). Duyarsızken
+   * İngilizce "try 3 times" metni `TRY 3` diye okunup chip'e dönüyordu; küçük
+   * harfli "tl", "eur" da aynı şekilde. Siteler para kodunu büyük yazıyor.
+   */
   function createPriceRegex() {
     return new RegExp(
       `(?:(${SYMBOL_BEFORE})\\s{0,2}(${NUMBER_SRC}))|(?:(${NUMBER_SRC})\\s{0,2}(${SYMBOL_AFTER}))`,
-      'gi'
+      'g'
     );
   }
 
@@ -110,23 +116,70 @@
   // --- Kur çevrimi -----------------------------------------------------------
 
   /**
-   * API ulaşılamazsa kullanılan kaba kurlar (EUR bazlı). Yaklaşıktır ve
-   * bayatlar; panelde "yaklaşık değerler kullanılıyor" uyarısı bu yüzden var.
+   * `amount` birimini `from`dan `to`ya çevirir. rates EUR bazlı olmalı.
    *
-   * 31.07.2026'da ECB verisiyle güncellendi. Önceki değerler (TRY 45) enflasyon
-   * yüzünden %20 sapmıştı, yani API'ye ulaşılamadığında dövizli fiyatlar
-   * olduğundan ucuz görünüyordu. Sürüm çıkarken bir kez daha tazelenmeli.
+   * Koda gömülü yedek kur tablosu **yok**. Eskiden vardı ve elle
+   * güncellenmesi gerekiyordu; unutulunca (TRY 45 → 54) dövizli fiyatlar
+   * %20 ucuz görünüyordu. Artık tek kaynak, background.js'in son başarılı
+   * çekimde storage'a yazdığı tablo. Hiç çekim olmadıysa (kurulum anında
+   * çevrimdışı) döviz çevrilmez, null döner; aynı birim her zaman çalışır.
    */
-  const FALLBACK_RATES = { EUR: 1, USD: 1.15, GBP: 0.86, TRY: 54.6 };
-
-  /** `amount` birimini `from`dan `to`ya çevirir. rates EUR bazlı olmalı. */
   function convert(amount, from, to, rates) {
     if (from === to) return amount;
-    const table = rates && rates.EUR ? rates : FALLBACK_RATES;
-    const fromRate = table[from];
-    const toRate = table[to];
+    if (!rates || !rates.EUR) return null;
+    const fromRate = rates[from];
+    const toRate = rates[to];
     if (!fromRate || !toRate) return null;
     return (amount / fromRate) * toRate;
+  }
+
+  // --- Giderler --------------------------------------------------------------
+
+  /**
+   * Bir gideri `currency` biriminde aylık tutara indirger. Yıllıklar 12'ye
+   * bölünür. Para birimi kaydı olmayan eski giderler maaşın biriminde sayılır.
+   * Kur yoksa (döviz gider, hiç çekim yapılmamış) null.
+   */
+  function expenseMonthly(item, currency, rates) {
+    const own = item.period === 'yearly' ? item.amount / 12 : item.amount;
+    return convert(own, item.currency || currency, currency, rates);
+  }
+
+  /**
+   * Fiyatların çevrileceği saatlik değer. `basis: 'leftover'` seçiliyse
+   * sabit giderler maaştan düşülür: "bu ayakkabı, giderlerden sonra elinde
+   * kalanın 3 günü".
+   *
+   * Giderler maaşı aşıyorsa kalan sıfır ya da eksi; o zaman bölme anlamsız
+   * olur (sonsuz süre). Bu durumda maaşa dönülür ve `fallback` ile bildirilir,
+   * panel kullanıcıya söyler.
+   *
+   * Dönüş: { perHour, basis: 'salary' | 'leftover', fallback: null | 'no-expenses' | 'overspent', skipped }
+   * `skipped`: kuru olmadığı için hesaba katılamayan döviz gider sayısı.
+   */
+  function effectiveRate(settings, expenses, rates) {
+    const perHour = hourlyRate(settings);
+    if (!perHour) return null;
+
+    const salaryRate = (fallback, skipped = 0) => ({ perHour, basis: 'salary', fallback, skipped });
+    if (settings.basis !== 'leftover') return salaryRate(null);
+
+    const list = Array.isArray(expenses) ? expenses : [];
+    if (!list.length) return salaryRate('no-expenses');
+
+    let total = 0;
+    let skipped = 0;
+    for (const item of list) {
+      const monthly = expenseMonthly(item, settings.currency, rates);
+      if (monthly === null) skipped++;
+      else total += monthly;
+    }
+
+    const leftover = Number(settings.salary) - total;
+    if (leftover <= 0) return salaryRate('overspent', skipped);
+
+    const shift = shiftLengths(settings);
+    return { perHour: leftover / shift.hoursPerMonth, basis: 'leftover', fallback: null, skipped };
   }
 
   // --- Süre ------------------------------------------------------------------
@@ -154,7 +207,7 @@
    */
   function formatDuration(hours, settings) {
     if (!Number.isFinite(hours) || hours < 0) return null;
-    const shift = shiftLengths(settings);
+    const shift = unitLengths(settings);
     if (!shift) return null;
 
     if (hours === 0) return 'yok';
@@ -164,6 +217,22 @@
     if (hours < shift.hoursPerMonth) return `${round(hours / shift.hoursPerDay)} gün`;
     if (hours < shift.hoursPerYear) return `${round(hours / shift.hoursPerMonth)} ay`;
     return `${round(hours / shift.hoursPerYear)} yıl`;
+  }
+
+  /**
+   * Süre yazılırken "gün / ay / yıl"ın kaç saat sayılacağı.
+   *
+   *   dayUnit 'shift'    (varsayılan) 1 gün = bir mesai, 1 ay = bir aylık mesai
+   *   dayUnit 'calendar' 1 gün = 24 saat, 1 ay = 30 gün, 1 yıl = 365 gün
+   *
+   * Yalnızca **yazımı** değiştirir; saatlik kazanç her iki durumda da mesai
+   * saatinden hesaplanır (hourlyRate shiftLengths kullanır). Takvim modunda
+   * "2 gün", 48 saat kesintisiz çalışma demek.
+   */
+  function unitLengths(settings) {
+    const shift = shiftLengths(settings);
+    if (!shift || !settings || settings.dayUnit !== 'calendar') return shift;
+    return { hoursPerDay: 24, hoursPerMonth: 24 * 30, hoursPerYear: 24 * 365 };
   }
 
   /** 10'un altında bir ondalık, üstünde tam sayı. Türkçe virgül. */
@@ -244,13 +313,21 @@
     disabledHosts: [],
     // Sistem karanlık olsa bile aydınlık açılır; karanlık bilinçli bir tercih.
     theme: 'light',
+    // 'salary': maaşın tamamına göre · 'leftover': sabit giderler düşüldükten sonra
+    basis: 'salary',
+    // 'time': fiyat yerine süre · 'both': "1,8 saat (500 TL)"
+    display: 'time',
+    // 'shift': 1 gün = bir mesai · 'calendar': 1 gün = 24 saat (bkz. unitLengths)
+    dayUnit: 'shift',
   };
 
   root.IVD = {
     CURRENCIES,
     DEFAULT_SETTINGS,
-    FALLBACK_RATES,
     shiftLengths,
+    unitLengths,
+    expenseMonthly,
+    effectiveRate,
     attachThousandSeparator,
     createPriceRegex,
     readMatch,

@@ -77,15 +77,20 @@
         olmadığı için, istesek de toplayamayız.
       </p>
 
-      <h2>Dışarıya yapılan tek istek</h2>
+      <h2>Dışarıya yapılan istekler</h2>
 
       <p>
-        Eklenti günde en fazla iki kez
+        Eklenti günde bir kez
         <a href="https://frankfurter.dev" rel="noopener">frankfurter.dev</a>
         adresinden döviz kurlarını çeker (Avrupa Merkez Bankası verisi). Bu
-        istek yalnızca kur tablosunu ister; içinde maaşın, gezdiğin site ya da
-        seni tanımlayan hiçbir bilgi yoktur. İstek başarısız olursa eklenti
-        yaklaşık sabit kurlara düşer ve panelde bunu belirtir.
+        adrese ulaşılamazsa aynı tabloyu sırayla iki yedek kaynaktan ister:
+        <a href="https://www.exchangerate-api.com/docs/free" rel="noopener">open.er-api.com</a>
+        ve
+        <a href="https://github.com/fawazahmed0/exchange-api" rel="noopener">currency-api</a>
+        (cdn.jsdelivr.net üzerinden). Bu istekler yalnızca kur tablosunu
+        ister; içinde maaşın, gezdiğin site ya da seni tanımlayan hiçbir bilgi
+        yoktur. Hiçbiri yanıt vermezse eklenti son başarıyla çektiği kurları
+        kullanır ve panelde bunu belirtir.
       </p>
 
       <h2>Sayfalara ne yapıyoruz</h2>

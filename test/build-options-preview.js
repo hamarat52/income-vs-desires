@@ -22,21 +22,32 @@ const store = {
   expenses: [
     { id: 'a', name: 'Kira', amount: 18000, period: 'monthly', category: 'kira' },
     { id: 'b', name: 'Aidat', amount: 2500, period: 'monthly', category: 'kira' },
+    // Para birimi olmayanlar eski kayıtları temsil ediyor (maaşın biriminde sayılır).
     { id: 'c', name: 'Netflix', amount: 230, period: 'monthly', category: 'abonelik' },
-    { id: 'd', name: 'Spotify', amount: 190, period: 'monthly', category: 'abonelik' },
-    { id: 'e', name: 'iCloud', amount: 100, period: 'monthly', category: 'abonelik' },
-    { id: 'f', name: 'Alan adı', amount: 1200, period: 'yearly', category: 'abonelik' },
+    { id: 'd', name: 'Spotify', amount: 190, period: 'monthly', category: 'abonelik', currency: 'TRY' },
+    { id: 'e', name: 'ChatGPT', amount: 20, period: 'monthly', category: 'abonelik', currency: 'USD' },
+    { id: 'f', name: 'Alan adı', amount: 12, period: 'yearly', category: 'abonelik', currency: 'EUR' },
     { id: 'g', name: 'Ulaşım', amount: 3000, period: 'monthly', category: 'diger' },
     { id: 'h', name: 'Telefon taksiti', amount: 4200, period: 'monthly', category: 'taksit' },
   ],
 };
 window.chrome = {
   runtime: { getManifest: () => ({ version: '0.1.0' }) },
-  storage: { sync: {
-    get: (defaults) => Promise.resolve({ ...defaults, ...store }),
-    set: (patch) => { Object.assign(store, patch); return Promise.resolve(); },
-  } },
+  storage: {
+    sync: {
+      get: (defaults) => Promise.resolve({ ...defaults, ...store }),
+      set: (patch) => { Object.assign(store, patch); return Promise.resolve(); },
+    },
+    local: {
+      get: () => Promise.resolve({ rates: { rates: { EUR: 1, USD: 1.12, GBP: 0.84, TRY: 55.7 } } }),
+    },
+    // Testler panelden gelen değişikliği window.__onChanged(changes, 'sync') ile taklit eder.
+    onChanged: { addListener: (fn) => { window.__onChanged = fn; } },
+  },
 };
+// Testler sayfa yüklenmeden önce window.__preset ile ayar verebilir.
+Object.assign(store, window.__preset);
+window.__store = store;
 `;
 
 // Kaynak kodda geçen `$'` gibi diziler String.replace'in özel değişkenleri

@@ -7,11 +7,21 @@ gerek"e cevirir. Cati yok, derleme adimi yok, TypeScript yok — duz JavaScript.
 
 - `manifest.json` — **repo kokunde**, `src/` icinde degil. Manifest V3.
   - `permissions`: `storage`, `alarms`, `activeTab`
-  - `host_permissions`: tek dis istek — `https://api.frankfurter.dev/*`
-    (eski `api.frankfurter.app` 2026-10'da 301 ile `.dev/v1`'e tasindi)
+  - `host_permissions`: yalniz kur kaynaklari — `https://api.frankfurter.dev/*`
+    (ana; eski `api.frankfurter.app` 2026-10'da 301 ile `.dev/v1`'e tasindi),
+    yedekler `https://open.er-api.com/*` ve `https://cdn.jsdelivr.net/*`
+    (fawazahmed0 currency-api). Hepsi anahtarsiz, `ACAO: *` (curl, 2026-10-24).
   - `content_scripts`: `<all_urls>`, `document_idle`; mail/docs/drive/calendar,
     Slack, Notion, Figma, GitHub ve 4 banka `exclude_matches` ile disarida.
-- `src/background.js` — service worker; `chrome.alarms` + `fetch`, `storage.local` onbellegi.
+- `src/background.js` — service worker; `chrome.alarms` (24 saat) + `fetch`, `storage.local`
+  onbellegi. `SOURCES` sirayla denenir (frankfurter -> er-api -> currency-api, her biri
+  8 sn zaman asimi); hepsi duserse bayat onbellek `stale: true` ile, o da yoksa
+  `source: "none"` doner. Koda gomulu yedek kur tablosu YOK (2026-10-24'te
+  `FALLBACK_RATES` kaldirildi): yedek = son basarili cekim; hic cekim yoksa doviz
+  cevrilmez (`IVD.convert` null), ayni birim calisir.
+- Ayarlar (`IVD.DEFAULT_SETTINGS`): `basis` ('salary'|'leftover', `IVD.effectiveRate`),
+  `display` ('time'|'both'), `dayUnit` ('shift'|'calendar', yalniz sure yazimi,
+  `unitLengths`). Saatlik kazanc her zaman mesaiden (`shiftLengths`).
 - `src/content.js` — MutationObserver + adres izleyici, dinamik sayfa takibi.
 - `src/popup.*`, `src/options.*` — arayuz; `options_ui` tam sayfa acilir.
 - `src/lib/money.js` — para/kur donusumleri. Kurlar EUR bazli tutulur.
@@ -101,7 +111,7 @@ WebKit kaynak kodu (IDL) [W], Safari surum notlari [R].
 3. Kur fetch'i (`src/background.js`, `API_URL`): duzeltmeden sonra yonlendirme yok,
    hedef `.dev` `ACAO: *` donuyor. Safari `host_permissions`'i kullaniciya
    sorar; izin verilmese bile `ACAO: *` sayesinde istek gecmeli — Safari'de
-   DOGRULANMADI. Hata olursa yedek kurlar + panel uyarisi.
+   DOGRULANMADI. Hata olursa son basarili kurlar + panel uyarisi.
 4. `storage.sync` senkron olmuyor: `popup.js:37-39` yorumundaki "baska cihazda
    degistirilmisse" senaryosu Safari'de olusmaz. Fonksiyonel sorun degil.
 5. Ikon yok: Safari arac cubugu/ayarlarda genel ikon; app `AppIcon` bos. Kozmetik.
@@ -146,7 +156,10 @@ Kaynak linkleri:
 
 ## Dikkat
 
-- Tek dis bagimlilik Frankfurter (ECB verisi); baska servis eklemeden once sor.
+- Dis bagimliliklar yalniz kur kaynaklari: Frankfurter (ECB verisi, ana) + iki yedek
+  (open.er-api.com, jsDelivr currency-api; 2026-10-24'te kullanici istegiyle eklendi).
+  Baska servis eklemeden once sor; gizlilik sayfasi ve MAGAZA-LISTELEME.md izin
+  tablosu da guncellenmeli.
 - `exclude_matches` listesi bilincli bir gizlilik karari — daraltma veya genisletme
   talebini kullaniciya dogrula.
 - Magaza metinleri `MAGAZA-LISTELEME.md`, arama notlari `SEO.md`.

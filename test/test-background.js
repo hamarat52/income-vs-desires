@@ -38,7 +38,10 @@ function kur({ store = {}, fetchImpl }) {
     },
   };
 
-  const sandbox = { chrome, fetch: fetchImpl, console: { warn() {} }, Date, JSON };
+  const sandbox = {
+    chrome, fetch: fetchImpl, console: { warn() {} }, Date, JSON,
+    AbortController, setTimeout, clearTimeout,
+  };
   sandbox.self = sandbox;
   sandbox.globalThis = sandbox;
 
@@ -99,11 +102,13 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
     const a = kur({ store: { rates: bayat }, fetchImpl: async () => { throw new Error('ağ yok'); } });
     const pa = await vm.runInContext('refreshRates()', a.context);
     check('bayat önbellek döndü', pa.rates.TRY, 40);
+    check('bayat işaretli', pa.stale, true);
+    check('işaret storage\'a yazılmadı', a.store.rates.stale, undefined);
 
-    // 3b: önbellek yoksa fallback işareti döner, storage'a YAZILMAZ
+    // 3b: hiç başarılı çekim yoksa 'none' işareti döner, storage'a YAZILMAZ
     const b = kur({ fetchImpl: async () => { throw new Error('ağ yok'); } });
     const pb = await vm.runInContext('refreshRates()', b.context);
-    check('kaynak fallback', pb.source, 'fallback');
+    check('kaynak none', pb.source, 'none');
     check('rates null', pb.rates, null);
     check('storage kirletilmedi', b.store.rates, undefined);
   }
@@ -111,10 +116,16 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
   console.log('\n--- 4. HTTP hatası ve eksik veri ---');
   {
     const a = kur({ fetchImpl: async () => ({ ok: false, status: 503, json: async () => ({}) }) });
-    check('503 -> fallback', (await vm.runInContext('refreshRates()', a.context)).source, 'fallback');
+    check('503 -> none', (await vm.runInContext('refreshRates()', a.context)).source, 'none');
 
     const b = kur({ fetchImpl: async () => yanit({ rates: { GBP: 0.85 } }) });
-    check('TRY eksik -> fallback', (await vm.runInContext('refreshRates()', b.context)).source, 'fallback');
+    check('TRY eksik -> none', (await vm.runInContext('refreshRates()', b.context)).source, 'none');
+
+    // Başarısız deneme, son başarılı tabloyu silmez/ezmez.
+    const sonBasarili = { rates: { EUR: 1, USD: 1.1, GBP: 0.84, TRY: 55 }, fetchedAt: 0, source: 'er-api' };
+    const c = kur({ store: { rates: sonBasarili }, fetchImpl: async () => yanit({ rates: { GBP: 0.85 } }) });
+    await vm.runInContext('refreshRates()', c.context);
+    check('son başarılı tablo yerinde', c.store.rates, sonBasarili);
   }
 
   console.log('\n--- 5. kurulum kancaları ---');
@@ -122,7 +133,7 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
     const { kayitli } = kur({ fetchImpl: async () => yanit(API_BODY) });
     kayitli.onInstalled();
     check('alarm kuruldu', kayitli.alarms[0].name, 'ivd-refresh-rates');
-    check('alarm periyodu (dk)', kayitli.alarms[0].opts.periodInMinutes, 720);
+    check('alarm periyodu (dk) — günde bir', kayitli.alarms[0].opts.periodInMinutes, 1440);
     check('mesaj dinleyici var', typeof kayitli.mesajDinleyici, 'function');
     check('async yanıt için true', kayitli.mesajDinleyici({ type: 'ivd:refreshRates' }, null, () => {}), true);
     check('alakasız mesaja false', kayitli.mesajDinleyici({ type: 'baska' }, null, () => {}), false);
@@ -130,12 +141,12 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
 
   console.log('\n--- 6. tazeleme sıklığı: alarm ile önbellek ömrü aynı faza bağlı ---');
   {
-    // Alarm tetiklendiğinde önbellek "12 saat eksi ağ gecikmesi" yaşında olur.
-    // Eski kod bunu taze sayıp atlıyor ve tazeleme 18. saate kayıyordu.
+    // Alarm tetiklendiğinde önbellek "24 saat eksi ağ gecikmesi" yaşında olur.
+    // Eski kod bunu taze sayıp atlıyor ve tazeleme bir tur kayıyordu.
     let cagrildi = 0;
-    const neredeyse12 = { rates: { EUR: 1, TRY: 50 }, fetchedAt: Date.now() - (12 * 3600e3 - 250), source: 'frankfurter' };
+    const neredeyse24 = { rates: { EUR: 1, TRY: 50 }, fetchedAt: Date.now() - (24 * 3600e3 - 250), source: 'frankfurter' };
     const { kayitli } = kur({
-      store: { rates: neredeyse12 },
+      store: { rates: neredeyse24 },
       fetchImpl: async () => { cagrildi++; return yanit(API_BODY); },
     });
     kayitli.onAlarm({ name: 'ivd-refresh-rates' });
@@ -150,7 +161,7 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
     await new Promise((r) => setTimeout(r, 5));
     check('açılışta taze önbellek korunur', acilis, 0);
 
-    // Alarm da 1 saatlik önbelleği tekrar çekmez (günde en fazla ~2 istek).
+    // Alarm da 1 saatlik önbelleği tekrar çekmez (günde ~1 istek).
     b.kayitli.onAlarm({ name: 'ivd-refresh-rates' });
     await new Promise((r) => setTimeout(r, 5));
     check('alarm taze önbelleği yeniden çekmez', acilis, 0);
@@ -163,6 +174,42 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
     c.kayitli.onAlarm({ name: 'ivd-refresh-rates' });
     await new Promise((r) => setTimeout(r, 5));
     check('eşzamanlı açılış+alarm tek istek', cift, 1);
+  }
+
+  console.log('\n--- 7. yedek kaynaklar ---');
+  {
+    const manifest = JSON.parse(fs.readFileSync(require('path').join(__dirname, '..', 'manifest.json'), 'utf8'));
+    const { context } = kur({ fetchImpl: async () => yanit(API_BODY) });
+    const urls = vm.runInContext('SOURCES.map((s) => s.url)', context);
+    check('üç kaynak var', urls.length, 3);
+    check('hepsi manifest izninde', urls.every((u) => manifest.host_permissions.includes(`https://${new URL(u).host}/*`)), true);
+
+    // Birincisi çökerse ikinciye (open.er-api.com) geçer.
+    const istenen = [];
+    const a = kur({
+      fetchImpl: async (url) => {
+        istenen.push(new URL(url).host);
+        if (url.includes('frankfurter')) throw new Error('ağ yok');
+        return yanit({ result: 'success', rates: { USD: 1.12, GBP: 0.84, TRY: 55.1, JPY: 170 } });
+      },
+    });
+    const pa = await vm.runInContext('refreshRates()', a.context);
+    check('ikinci kaynak kullanıldı', pa.source, 'er-api');
+    check('TRY ikinci kaynaktan', pa.rates.TRY, 55.1);
+    check('fazla kurlar atıldı', Object.keys(pa.rates).sort(), ['EUR', 'GBP', 'TRY', 'USD']);
+    check('üçüncüye gidilmedi', istenen, ['api.frankfurter.dev', 'open.er-api.com']);
+
+    // İlk ikisi çökerse üçüncü (küçük harfli anahtarlar) çevrilir.
+    const b = kur({
+      fetchImpl: async (url) => {
+        if (!url.includes('jsdelivr')) return { ok: false, status: 503, json: async () => ({}) };
+        return yanit({ date: '2026-10-23', eur: { usd: 1.13, gbp: 0.85, try: 55.3 } });
+      },
+    });
+    const pb = await vm.runInContext('refreshRates()', b.context);
+    check('üçüncü kaynak kullanıldı', pb.source, 'currency-api');
+    check('küçük harfli anahtar çevrildi', pb.rates.TRY, 55.3);
+    check('storage yazıldı', b.store.rates.source, 'currency-api');
   }
 
   console.log(fail === 0 ? '\nHepsi geçti.' : `\n${fail} test başarısız.`);

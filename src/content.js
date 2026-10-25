@@ -35,6 +35,15 @@
   const MAX_TEXT_LENGTH = 200;
 
   /**
+   * Fiyatı etkileyen ayarlar. Tema değişince sayfa taranmaz; gider listesi
+   * yalnızca "giderlerden sonra kalan" hesabı seçiliyken tarama tetikler.
+   */
+  const PRICE_SETTINGS = new Set([
+    'enabled', 'salary', 'currency', 'hoursPerDay', 'daysPerMonth', 'disabledHosts',
+    'basis', 'display', 'dayUnit',
+  ]);
+
+  /**
    * Ekran okuyucuya özel, görsel olarak gizli metin. Amazon fiyatı iki kez
    * yazıyor: `<span class="a-offscreen">499,99 TL</span>` (gizli) + görünür
    * parçalar. İkisini birleştirirsek eşleşme yanlış aralığa denk geliyor ve
@@ -48,29 +57,46 @@
   const UNSAFE_ANCESTORS =
     '[data-ivd], pre, code, textarea, [contenteditable=""], [contenteditable="true"]';
 
-  /** Sayfaya eklediğimiz her chip — geri almak için tutuyoruz. */
+  /** Sayfaya eklediğimiz her chip, eklenme sırasıyla — geri almak için tutuyoruz. */
   const chips = [];
+
+  /**
+   * Her chip için geri alma kaydı: hangi metin düğümüne ne yazdık, öncesinde
+   * ne vardı, araya hangi düğümü ekledik. Geri alırken metni tek düğüme
+   * toplamak yerine her parçayı kendi yerine koyuyoruz; yoksa
+   * `2.144<span>,35 TL</span>` geri alınınca `2.144,35 TL<span></span>`
+   * oluyor ve kuruşun küçük yazısı kayboluyordu.
+   */
+  const undo = new WeakMap();
 
   /** Görünürlük sonuçları, tek bir tarama geçişi boyunca geçerli. */
   let visibility = new WeakMap();
 
   let settings = null;
   let rates = null;
+  /** IVD.effectiveRate sonucu; her apply()'da bir kez hesaplanır, fiyat başına değil. */
+  let rate = null;
   let observer = null;
   let scanTimer = null;
   let urlTimer = null;
+  let lastUrl = null;
 
   /** Gözlemciden gelip henüz taranmamış kökler. */
-  const pending = [];
+  const pending = new Set();
+
+  /** Sayfanın yerinde değiştirdiği metin düğümleri (`characterData`). */
+  const touched = new Set();
 
   init();
 
   async function init() {
-    const stored = await chrome.storage.sync.get(IVD.DEFAULT_SETTINGS);
+    const stored = await chrome.storage.sync.get({ ...IVD.DEFAULT_SETTINGS, expenses: [] });
     settings = { ...IVD.DEFAULT_SETTINGS, ...stored };
 
+    // Son başarılı çekimin tablosu. Hiç çekim olmadıysa null: döviz fiyatlar
+    // çevrilmez, aynı birimdekiler çevrilir.
     const local = await chrome.storage.local.get('rates');
-    rates = (local.rates && local.rates.rates) || IVD.FALLBACK_RATES;
+    rates = (local.rates && local.rates.rates) || null;
 
     chrome.storage.onChanged.addListener(onStorageChanged);
     chrome.runtime.onMessage.addListener(onMessage);
@@ -86,10 +112,14 @@
       return;
     }
     if (area !== 'sync') return;
+
+    let affectsPrices = false;
     for (const [key, change] of Object.entries(changes)) {
       settings[key] = change.newValue;
+      if (PRICE_SETTINGS.has(key)) affectsPrices = true;
     }
-    restart();
+    if ('expenses' in changes && settings.basis === 'leftover') affectsPrices = true;
+    if (affectsPrices) restart();
   }
 
   /** Panelden gelen "yeniden tara" isteği: geç yüklenen içerik kaçtıysa kurtarır. */
@@ -115,6 +145,7 @@
 
   function apply() {
     if (!isActive()) return;
+    rate = IVD.effectiveRate(settings, settings.expenses, rates);
     scan(document.body);
     startObserving();
   }
@@ -202,7 +233,7 @@
       }
     })(el);
 
-    return overflow ? null : { text, parts };
+    return overflow ? null : { root: el, text, parts };
   }
 
   /**
@@ -249,10 +280,9 @@
 
   /** Fiyatı kullanıcının para birimine çevirip süre metnini üretir. */
   function describe(price) {
-    const perHour = IVD.hourlyRate(settings);
     const converted = IVD.convert(price.amount, price.currency, settings.currency, rates);
-    if (converted === null) return null;
-    return IVD.formatDuration(converted / perHour, settings);
+    if (converted === null || !rate) return null;
+    return IVD.formatDuration(converted / rate.perHour, settings);
   }
 
   /** Bir eşleşmeyi, yayıldığı metin düğümlerinin yerine chip koyarak uygular. */
@@ -268,27 +298,40 @@
     const prefix = head.node.nodeValue.slice(0, match.start - head.start);
     const suffix = tail.node.nodeValue.slice(match.end - tail.start);
     const chip = createChip(match.price, match.duration);
+    const record = { root: box.root, edits: [], inserted: null };
 
-    head.node.nodeValue = prefix;
+    const write = (node, value) => {
+      record.edits.push({ node, before: node.nodeValue, after: value });
+      node.nodeValue = value;
+    };
+
+    write(head.node, prefix);
     head.node.after(chip);
 
     if (first === last) {
-      chip.after(document.createTextNode(suffix));
+      record.inserted = document.createTextNode(suffix);
+      chip.after(record.inserted);
     } else {
-      for (let i = first + 1; i < last; i++) box.parts[i].node.nodeValue = '';
-      tail.node.nodeValue = suffix;
+      for (let i = first + 1; i < last; i++) write(box.parts[i].node, '');
+      write(tail.node, suffix);
     }
 
+    undo.set(chip, record);
     chips.push(chip);
   }
 
+  /**
+   * `display: 'both'` seçiliyse ana birim yine süre, fiyat parantezde kalır:
+   * "1,8 saat (500 TL)". Tıklama yine sadece fiyata döndürür.
+   */
   function createChip(price, duration) {
+    const label = settings.display === 'both' ? `${duration} (${price.text})` : duration;
     const chip = document.createElement('span');
     chip.className = 'ivd-chip';
     chip.dataset.ivd = 'time';
     chip.dataset.ivdOriginal = price.text;
-    chip.dataset.ivdDuration = duration;
-    chip.textContent = duration;
+    chip.dataset.ivdDuration = label;
+    chip.textContent = label;
     chip.title = `${price.text} · tıkla, fiyata dön`;
     return chip;
   }
@@ -318,21 +361,32 @@
 
     observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
+        // Sayfa metni düğümü değiştirmeden güncelledi (React fiyatı yerinde
+        // yazıyor). Chip'e komşu düğümse chip artık bayat; flush'ta ele alınır.
+        if (mutation.type === 'characterData') {
+          const node = mutation.target;
+          // Yorum düğümleri de characterData verir (React işaretçileri); onlar fiyat taşımaz.
+          if (node.nodeType === Node.TEXT_NODE && !node.parentElement?.closest('[data-ivd]')) {
+            touched.add(node);
+          }
+          continue;
+        }
         for (const added of mutation.addedNodes) {
           if (added.nodeType === Node.ELEMENT_NODE && !added.closest?.('[data-ivd]')) {
-            pending.push(added);
-          } else if (added.nodeType === Node.TEXT_NODE && added.parentElement) {
-            pending.push(added.parentElement);
+            pending.add(added);
+          } else if (added.nodeType === Node.TEXT_NODE && added.parentElement &&
+              !added.parentElement.closest('[data-ivd]')) {
+            pending.add(boxRoot(added.parentElement));
           }
         }
       }
-      if (!pending.length) return;
+      if (!pending.size && !touched.size) return;
 
       clearTimeout(scanTimer);
       scanTimer = setTimeout(flushPending, 250);
     });
 
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     watchUrl();
   }
 
@@ -343,9 +397,51 @@
    * yazdıklarımızın kaydı atılıyor.
    */
   function flushPending() {
-    const roots = pending.splice(0, pending.length);
+    if (touched.size) {
+      // Sayfanın yeniden yazdığı düğümlere dokunmuş chip'leri geri al, kutuyu
+      // baştan tara. Geri alma, sayfanın yazdığı metni ezmez (bkz. revertChip).
+      const stale = chips.filter((chip) => {
+        const record = undo.get(chip);
+        return record && (touched.has(record.inserted) ||
+          record.edits.some((edit) => touched.has(edit.node)));
+      });
+      for (let i = stale.length - 1; i >= 0; i--) {
+        revertChip(stale[i]);
+        chips.splice(chips.indexOf(stale[i]), 1);
+        pending.add(undo.get(stale[i]).root);
+      }
+
+      // Chip'le ilgisi olmayan ama yeni bir fiyat taşıyabilecek düğümler.
+      for (const node of touched) {
+        if (node.isConnected && node.parentElement && /\d/.test(node.nodeValue)) {
+          pending.add(boxRoot(node.parentElement));
+        }
+      }
+      touched.clear();
+    }
+
+    const roots = [...pending];
+    pending.clear();
     roots.forEach(scan);
     observer?.takeRecords();
+  }
+
+  /**
+   * Tek bir metin düğümü değişince taramayı düğümün kendisinden değil, onu
+   * içeren fiyat kutusundan başlat. Yoksa `2.144<span>,35 TL</span>` içindeki
+   * `,35 TL` tek başına "35 TL" diye okunur.
+   */
+  function boxRoot(el) {
+    let box = el;
+    while (
+      box.parentElement &&
+      box.parentElement !== document.body &&
+      !SKIP_TAGS.has(box.parentElement.tagName) &&
+      box.parentElement.textContent.length <= MAX_TEXT_LENGTH
+    ) {
+      box = box.parentElement;
+    }
+    return box;
   }
 
   /**
@@ -357,41 +453,63 @@
    * dünyasında çalışır, sayfanın kendi çağrısını göremez. `webNavigation`
    * izni ise gezinme geçmişine erişim ister; "hiçbir şey toplamıyoruz"
    * sözünü bozardı. Kalan en dürüst yol, adresi saniyede bir okumak.
+   *
+   * Dinleyiciler `stopObserving`'de kaldırılıyor. Eskiden kalıyordu: her
+   * ayar değişikliğinde bir tane daha birikiyor ve eklenti kapatıldıktan
+   * sonra bile geri/ileri gezinmede sayfayı yeniden çeviriyordu.
    */
   function watchUrl() {
     if (urlTimer) return;
-    let last = location.href;
+    lastUrl = location.href;
+    urlTimer = setInterval(checkUrl, 800);
+    addEventListener('popstate', checkUrl);
+    addEventListener('pageshow', checkUrl);
+  }
 
-    const check = () => {
-      if (location.href === last) return;
-      last = location.href;
-      // Yeni içerik genelde adresten hemen sonra geliyor; gözlemci zaten
-      // yakalar, bu tarama da geç kalanlar için ikinci bir şans.
-      revertAll();
-      scan(document.body);
-    };
-
-    urlTimer = setInterval(check, 800);
-    addEventListener('popstate', check);
-    addEventListener('pageshow', check);
+  function checkUrl() {
+    if (location.href === lastUrl) return;
+    lastUrl = location.href;
+    if (!isActive()) return;
+    // Yeni içerik genelde adresten hemen sonra geliyor; gözlemci zaten
+    // yakalar, bu tarama da geç kalanlar için ikinci bir şans.
+    revertAll();
+    scan(document.body);
+    observer?.takeRecords();
   }
 
   function stopObserving() {
     clearTimeout(scanTimer);
     clearInterval(urlTimer);
     urlTimer = null;
-    pending.length = 0;
+    removeEventListener('popstate', checkUrl);
+    removeEventListener('pageshow', checkUrl);
+    pending.clear();
+    touched.clear();
     observer?.disconnect();
     observer = null;
   }
 
   function revertAll() {
-    for (const chip of chips) {
-      if (!chip.isConnected) continue;
-      const parent = chip.parentNode;
-      parent.replaceChild(document.createTextNode(chip.dataset.ivdOriginal), chip);
-      parent.normalize();
-    }
+    // Sondan başa: aynı metin düğümüne art arda yazan chip'ler ters sırada
+    // geri alınınca her biri tam kendinden önceki hali buluyor.
+    for (let i = chips.length - 1; i >= 0; i--) revertChip(chips[i]);
     chips.length = 0;
+  }
+
+  /**
+   * Chip'in yaptığı değişiklikleri geri alır. Bir düğümü sayfa sonradan
+   * kendisi yeniden yazdıysa (React yeni fiyatı yazdı) ona dokunmuyoruz;
+   * sayfanın metni bizimkinden daha doğru.
+   */
+  function revertChip(chip) {
+    const record = undo.get(chip);
+    if (record) {
+      for (let i = record.edits.length - 1; i >= 0; i--) {
+        const { node, before, after } = record.edits[i];
+        if (node.nodeValue === after) node.nodeValue = before;
+      }
+      record.inserted?.remove();
+    }
+    chip.remove();
   }
 })();

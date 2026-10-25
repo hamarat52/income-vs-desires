@@ -80,6 +80,7 @@
     addForm: el('addForm'),
     name: el('name'),
     amount: el('amount'),
+    amountCurrency: el('amountCurrency'),
     period: el('period'),
     category: el('category'),
     itemsBody: el('itemsBody'),
@@ -97,6 +98,7 @@
 
   for (const meta of Object.values(IVD.CURRENCIES)) {
     ui.currency.append(new Option(`${meta.symbol} ${meta.code}`, meta.code));
+    ui.amountCurrency.append(new Option(`${meta.symbol} ${meta.code}`, meta.code));
   }
   for (const cat of CATEGORIES) {
     ui.category.append(new Option(cat.label, cat.id));
@@ -106,18 +108,54 @@
   let settings = { ...IVD.DEFAULT_SETTINGS, ...stored };
   let expenses = Array.isArray(stored.expenses) ? stored.expenses : [];
 
+  // Kur tablosu: dövizli giderler (Netflix $, yıllık alan adı €) maaşın para
+  // birimine bununla çevrilir. Son başarılı çekimin tablosu; hiç çekim
+  // olmadıysa null ve dövizli giderler tabloda "kur yok" diye görünür.
+  let rates = (await chrome.storage.local.get('rates')).rates?.rates || null;
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === 'local' && changes.rates?.newValue?.rates) {
+      rates = changes.rates.newValue.rates;
+      render();
+      return;
+    }
+    // Panelden (popup) değişen ayarlar bu sayfa açıkken de yansısın; yoksa
+    // ör. "1 gün = 24 saat" açılınca sayfa yeniden yüklenene kadar eski kalıyor.
+    // Bu sayfanın kendi alanları (maaş, saat, gün) yazılırken ezilmesin diye
+    // yalnızca panelin sahip olduğu anahtarlar alınıyor.
+    if (area !== 'sync') return;
+    const fromPopup = ['basis', 'display', 'dayUnit', 'enabled', 'disabledHosts'];
+    const patch = {};
+    for (const key of fromPopup) if (key in changes) patch[key] = changes[key].newValue;
+    if (!Object.keys(patch).length) return;
+    settings = { ...settings, ...patch };
+    renderSettings();
+  });
+
+  // Para birimi eklenmeden önce kaydedilmiş giderler maaşın para birimindeydi.
+  // Bunu bir kez yazıya geçiriyoruz; yoksa maaşın para birimi değişince eski
+  // giderler sessizce yeni birimde okunurdu (500 TL kira → 500 €).
+  if (expenses.some((item) => !item.currency)) {
+    expenses = expenses.map((item) => ({ currency: settings.currency, ...item }));
+    chrome.storage.sync.set({ expenses });
+  }
+
   ui.salary.value = settings.salary ?? '';
   ui.currency.value = settings.currency;
+  ui.amountCurrency.value = settings.currency;
   ui.hoursPerDay.value = settings.hoursPerDay ?? '';
   ui.daysPerMonth.value = settings.daysPerMonth ?? '';
 
-  IVD.attachThousandSeparator(ui.salary, (value) => saveSettings({ salary: value }));
-  ui.currency.addEventListener('change', () => saveSettings({ currency: ui.currency.value }));
+  IVD.attachThousandSeparator(ui.salary, (value) => saveSettingsLater({ salary: value }));
+  ui.currency.addEventListener('change', () => {
+    // Yeni giderin varsayılan birimi maaşınkini izler.
+    ui.amountCurrency.value = ui.currency.value;
+    saveSettings({ currency: ui.currency.value });
+  });
   ui.hoursPerDay.addEventListener('input', () =>
-    saveSettings({ hoursPerDay: num(ui.hoursPerDay.value) })
+    saveSettingsLater({ hoursPerDay: num(ui.hoursPerDay.value) })
   );
   ui.daysPerMonth.addEventListener('input', () =>
-    saveSettings({ daysPerMonth: num(ui.daysPerMonth.value) })
+    saveSettingsLater({ daysPerMonth: num(ui.daysPerMonth.value) })
   );
   ui.addForm.addEventListener('submit', onAdd);
   ui.itemsBody.addEventListener('click', onRemove);
@@ -240,11 +278,44 @@
 
   async function saveSettings(patch) {
     settings = { ...settings, ...patch };
+    flushSettings();
     await chrome.storage.sync.set(patch);
+    renderSettings();
+  }
+
+  function renderSettings() {
     render();
     renderSites();
     renderReportPreview();
   }
+
+  /**
+   * Yazarken her tuşta storage'a yazmıyoruz: her yazma açık bütün sekmelerde
+   * sayfayı baştan taratıyor ve `storage.sync` dakikada 120 yazmayla sınırlı.
+   * Ekran anında güncellenir, kayıt durunca (ya da sayfa kapanınca) yapılır.
+   */
+  let pendingSettings = null;
+  let settingsTimer = null;
+
+  function saveSettingsLater(patch) {
+    settings = { ...settings, ...patch };
+    pendingSettings = { ...pendingSettings, ...patch };
+    renderSettings();
+    clearTimeout(settingsTimer);
+    settingsTimer = setTimeout(flushSettings, 500);
+  }
+
+  function flushSettings() {
+    clearTimeout(settingsTimer);
+    if (!pendingSettings) return;
+    chrome.storage.sync.set(pendingSettings);
+    pendingSettings = null;
+  }
+
+  addEventListener('pagehide', flushSettings);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') flushSettings();
+  });
 
   async function saveExpenses() {
     await chrome.storage.sync.set({ expenses });
@@ -261,10 +332,12 @@
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name,
       amount,
+      currency: ui.amountCurrency.value,
       period: ui.period.value,
       category: ui.category.value,
     });
     ui.addForm.reset();
+    ui.amountCurrency.value = settings.currency; // reset() ilk seçeneğe döndürüyor
     ui.name.focus();
     saveExpenses();
   }
@@ -276,10 +349,11 @@
     saveExpenses();
   }
 
-  /** Gideri her zaman aylık tutara indirger. (render() bundan önce çağrıldığı
-   *  için bildirim olarak yazıldı — ok fonksiyonu TDZ'ye takılıyor.) */
+  /** Gideri her zaman maaşın para biriminde aylık tutara indirger. (render()
+   *  bundan önce çağrıldığı için bildirim olarak yazıldı — ok fonksiyonu
+   *  TDZ'ye takılıyor.) */
   function monthlyAmount(item) {
-    return item.period === 'yearly' ? item.amount / 12 : item.amount;
+    return IVD.expenseMonthly(item, settings.currency, rates) ?? 0;
   }
 
   // --- Çizim -----------------------------------------------------------------
@@ -398,11 +472,15 @@
       })
     );
 
+    // Merkez de kutucuklarla aynı gün birimini kullanmalı. Eskiden hep mesai
+    // günü yazıyordu: "1 gün = 24 saat" seçiliyken merkez "22 gün", kalan
+    // kutucuğu ise 160 saati "6,7 gün" (takvim) diye yazıyor, ikisi çelişiyordu.
+    const dayHours = IVD.unitLengths(settings).hoursPerDay;
     if (neededHours) {
-      ui.donutValue.textContent = `${fmt(neededHours / shift.hoursPerDay)} gün`;
+      ui.donutValue.textContent = `${fmt(neededHours / dayHours)} gün`;
       ui.donutLabel.textContent = 'gerekiyor, ayın yetmiyor';
     } else {
-      ui.donutValue.textContent = `${fmt(settings.daysPerMonth)} gün`;
+      ui.donutValue.textContent = `${fmt(shift.hoursPerMonth / dayHours)} gün`;
       ui.donutLabel.textContent = 'aylık mesain';
     }
     ui.donutDesc.textContent = segments
@@ -458,14 +536,25 @@
         const cat =
           CATEGORIES.find((c) => c.id === item.category) ||
           CATEGORIES.find((c) => c.id === 'diger');
-        const monthly = monthlyAmount(item);
-        const hours = perHour ? monthly / perHour : null;
+        // Kur yoksa (dövizli gider, hiç çekim olmamış) tutar bilinmiyor; 0
+        // yazmak yanıltır, satır "kur yok" der ve toplamlara katılmaz.
+        const converted = IVD.expenseMonthly(item, settings.currency, rates);
+        const monthly = converted ?? 0;
+        const hours = perHour && converted !== null ? monthly / perHour : null;
+        // Döviz giderinde girilen tutar altta kalır; üstteki çevrilmiş tutar
+        // kurla oynar, kullanıcı neyi girdiğini görebilsin.
+        const foreign = item.currency && item.currency !== settings.currency
+          ? `<div class="tile-note">${IVD.formatMoney(item.amount, item.currency)}` +
+            `/${item.period === 'yearly' ? 'yıl' : 'ay'}</div>`
+          : '';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${escape(item.name)}${item.period === 'yearly' ? ' <span class="tile-note">(yıllık)</span>' : ''}</td>
           <td><span class="cat"><span class="swatch" style="background:${cat.color}"></span>${escape(cat.label)}</span></td>
-          <td class="num">${IVD.formatMoney(monthly, settings.currency)}</td>
+          <td class="num">${converted === null
+            ? `kur yok${foreign}`
+            : `${foreign ? '≈ ' : ''}${IVD.formatMoney(monthly, settings.currency)}${foreign}`}</td>
           <td class="num cost">${hours === null ? '·' : IVD.formatDuration(hours, settings)}</td>
           <td class="num">${hours === null ? '·' : percent(hours, shift.hoursPerMonth)}</td>
           <td class="num"><button type="button" class="remove" data-id="${item.id}" aria-label="${escape(item.name)} giderini sil">Sil</button></td>

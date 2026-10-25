@@ -38,7 +38,24 @@
       </div>
     </div>
 
+    <div class="field">
+      <span>Gösterim</span>
+      <label class="switch option">
+        <input type="checkbox" id="basisLeftover" role="switch" />
+        <span>Giderlerden sonra kalana göre hesapla</span>
+      </label>
+      <label class="switch option">
+        <input type="checkbox" id="showBoth" role="switch" />
+        <span>Fiyatı da göster: 1,8 saat (500 TL)</span>
+      </label>
+      <label class="switch option">
+        <input type="checkbox" id="calendarDays" role="switch" />
+        <span>1 gün = 24 saat (kapalıyken 1 gün = 1 mesai)</span>
+      </label>
+    </div>
+
     <p class="rate" id="rate"></p>
+    <p class="note" id="basisNote" hidden></p>
 
     <div class="actions">
       <button type="button" id="openOptions" class="primary">Giderlerin ve grafik →</button>

@@ -11,12 +11,19 @@ const SRC = path.join(__dirname, '..', 'src');
 const read = (p) => fs.readFileSync(path.join(SRC, p), 'utf8');
 
 const shim = `
-const saved = {};
+// Testler sayfa yüklenmeden önce window.__preset ile kayıtlı ayar verebilir.
+const saved = { ...window.__preset };
+window.__saved = saved;
 window.chrome = {
-  storage: { sync: {
-    get: (defaults) => Promise.resolve({ ...defaults, ...saved }),
-    set: (patch) => { Object.assign(saved, patch); return Promise.resolve(); },
-  } },
+  storage: {
+    sync: {
+      get: (defaults) => Promise.resolve({ ...defaults, ...saved }),
+      set: (patch) => { Object.assign(saved, patch); return Promise.resolve(); },
+    },
+    local: {
+      get: () => Promise.resolve({ rates: { rates: { EUR: 1, USD: 1.12, GBP: 0.84, TRY: 55.7 } } }),
+    },
+  },
   tabs: {
     query: () => Promise.resolve([{ id: 1, url: 'https://trendyol.com/x' }]),
     sendMessage: (_id, _msg, cb) => cb({ count: 156, active: true }),
@@ -82,7 +89,7 @@ const stage = `<!DOCTYPE html>
       .stage { transform-origin: top center; }
       iframe {
         width: 300px;
-        height: 545px;
+        height: 680px;
         border: 0;
         display: block;
         box-shadow: 0 10px 40px rgb(0 0 0 / 0.45);
@@ -111,7 +118,7 @@ const stage = `<!DOCTYPE html>
       function setZoom(z) {
         stage.style.transform = 'scale(' + z + ')';
         // scale düzen akışını değiştirmediği için yeri elle ayırıyoruz.
-        holder.style.height = 545 * z + 'px';
+        holder.style.height = 680 * z + 'px';
         holder.style.width = 300 * z + 'px';
         buttons.forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.zoom === z)));
       }

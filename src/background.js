@@ -4,30 +4,62 @@
  *
  * Bilerek **hiçbir şey import etmiyor**. Önceden `importScripts('lib/money.js')`
  * vardı ve Chrome bunu yükleyemeyip worker'ı hiç başlatmıyordu; dosya yerinde
- * ve yol doğru olmasına rağmen NetworkError veriyordu. Kütüphaneden tek
- * ihtiyaç yedek kur tablosuydu, ona da gerek yok: kur çekilemezse buradan
- * hiçbir şey yazmıyoruz, content script kendi FALLBACK_RATES'ine düşüyor.
- * Böylece yedek kurların tek sahibi money.js olarak kalıyor.
+ * ve yol doğru olmasına rağmen NetworkError veriyordu.
+ *
+ * Koda gömülü yedek kur tablosu yok. Yedek, **son başarılı çekimin** kendisi:
+ * storage'daki tablo yalnızca yeni bir başarılı çekimle değişir, başarısız
+ * denemeler ona dokunmaz. Hiç çekim olmadıysa döviz fiyatlar çevrilmez.
  */
 
 const RATES_KEY = 'rates';
 // Tazeleme sıklığının TEK kaynağı. Alarm periyodu ve önbellek ömrü buradan
-// türer; README ve MAGAZA-LISTELEME.md de bu değeri ("12 saatte bir") yazar.
+// türer; README, MAGAZA-LISTELEME.md ve gizlilik sayfası da bu değeri
+// ("günde bir") yazar. Kurlar zaten günde bir yayımlanıyor (ECB iş günü
+// sonunda), daha sık çekmek yeni bilgi getirmiyor.
 // Önceden alarm 6 saat, ömür 12 saatti; fetchedAt çekim bittikten sonra
-// yazıldığı için 12. saatteki alarm "henüz taze" deyip atlıyor ve gerçek
-// tazeleme 18. saate kayıyordu.
-const REFRESH_HOURS = 12;
+// yazıldığı için alarm "henüz taze" deyip atlıyor ve tazeleme bir tur kayıyordu.
+const REFRESH_HOURS = 24;
 const MAX_AGE_MS = REFRESH_HOURS * 60 * 60 * 1000;
-// Alarm, önbellek tam 12 saatlik olmadan birkaç ms/dk önce çalışabilir; bu pay
+// Alarm, önbellek tam 24 saatlik olmadan birkaç ms/dk önce çalışabilir; bu pay
 // sayesinde o turu atlamaz. Açılışta kaçırılmış alarm + onStartup aynı anda
 // gelirse ikincisi taze önbelleği görür, çift istek olmaz.
 const ALARM_SLACK_MS = 30 * 60 * 1000;
 const ALARM_NAME = 'ivd-refresh-rates';
-// api.frankfurter.app artık 301 ile buraya yönlendiriyor; yönlendirme yanıtında
-// CORS başlığı yok, bu yüzden doğrudan yeni adrese gidiyoruz.
-const API_URL = 'https://api.frankfurter.dev/v1/latest?from=EUR&to=USD,GBP,TRY';
+// Bir kaynak yanıt vermezse sıradakine geçmeden önce beklenen süre.
+const FETCH_TIMEOUT_MS = 8000;
+
+/**
+ * Sırayla denenen kur kaynakları. İlki başarılı olursa diğerlerine hiç
+ * gidilmez; yedekler yalnızca öncekiler başarısız olunca çağrılır.
+ * Hepsi anahtarsız, ücretsiz ve `Access-Control-Allow-Origin: *` döner.
+ * Her adres manifest'teki `host_permissions`'ta olmalı.
+ *
+ * `parse` EUR bazlı { USD, GBP, TRY } döner; biçim tanınmazsa null.
+ */
+const SOURCES = [
+  {
+    // api.frankfurter.app artık 301 ile buraya yönlendiriyor; yönlendirme
+    // yanıtında CORS başlığı yok, bu yüzden doğrudan yeni adrese gidiyoruz.
+    name: 'frankfurter',
+    url: 'https://api.frankfurter.dev/v1/latest?from=EUR&to=USD,GBP,TRY',
+    parse: (data) => data && data.rates,
+  },
+  {
+    name: 'er-api',
+    url: 'https://open.er-api.com/v6/latest/EUR',
+    parse: (data) => (data && data.result === 'success' ? data.rates : null),
+  },
+  {
+    name: 'currency-api',
+    url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.min.json',
+    parse: (data) =>
+      data && data.eur ? { USD: data.eur.usd, GBP: data.eur.gbp, TRY: data.eur.try } : null,
+  },
+];
 
 chrome.runtime.onInstalled.addListener(() => {
+  // Aynı adla create eskisinin yerine geçer; güncellemede 12 saatlik eski
+  // alarm da böylece günlüğe döner.
   chrome.alarms.create(ALARM_NAME, { periodInMinutes: REFRESH_HOURS * 60 });
   refreshRates();
 });
@@ -61,24 +93,43 @@ async function doRefresh(force, maxAge) {
     return cached;
   }
 
+  for (const source of SOURCES) {
+    try {
+      const rates = await fetchFrom(source);
+      const payload = { rates, fetchedAt: Date.now(), source: source.name };
+      await chrome.storage.local.set({ [RATES_KEY]: payload });
+      return payload;
+    } catch (error) {
+      console.warn(`[IncomeVsDesires] kur çekilemedi (${source.name}):`, error.message);
+    }
+  }
+
+  // Bayat ama yok'tan iyidir. `stale` işareti panelde "güncellenemedi" uyarısı
+  // için; storage'a yazılmaz, bir sonraki başarılı çekimde kendiliğinden düşer.
+  if (cached) return { ...cached, stale: true };
+
+  // Hiç başarılı çekim olmadı (kurulum anında çevrimdışı). Storage'a bir şey
+  // yazmıyoruz; panel bu işareti görüp "dövizli fiyatlar çevrilmiyor" der.
+  return { rates: null, fetchedAt: Date.now(), source: 'none' };
+}
+
+/** Tek bir kaynaktan EUR bazlı tablo çeker; eksik ya da bozuksa fırlatır. */
+async function fetchFrom(source) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(source.url, { signal: controller.signal });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
+    const parsed = source.parse(await response.json());
 
-    const rates = { EUR: 1, ...data.rates };
-    if (!rates.TRY || !rates.USD) throw new Error('eksik kur verisi');
-
-    const payload = { rates, fetchedAt: Date.now(), source: 'frankfurter' };
-    await chrome.storage.local.set({ [RATES_KEY]: payload });
-    return payload;
-  } catch (error) {
-    console.warn('[IncomeVsDesires] kur çekilemedi:', error.message);
-    if (cached) return cached; // bayat ama yok'tan iyidir
-
-    // Storage'a yazmıyoruz: yazsak yedek kurların ikinci bir kopyası olurdu ve
-    // biri güncellenip diğeri unutulurdu. Boş bırakınca content script kendi
-    // tablosunu kullanıyor; panel de bu işareti görüp uyarıyı gösteriyor.
-    return { rates: null, fetchedAt: Date.now(), source: 'fallback' };
+    const rates = { EUR: 1 };
+    for (const code of ['USD', 'GBP', 'TRY']) {
+      const value = Number(parsed && parsed[code]);
+      if (!Number.isFinite(value) || value <= 0) throw new Error(`eksik kur verisi: ${code}`);
+      rates[code] = value;
+    }
+    return rates;
+  } finally {
+    clearTimeout(timer);
   }
 }

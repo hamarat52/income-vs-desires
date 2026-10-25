@@ -11,7 +11,7 @@ Süreye tıklarsan orijinal fiyat geri gelir.
 
 1. Chrome'da `chrome://extensions` aç
 2. Sağ üstten **Geliştirici modu**nu aç
-3. **Paketlenmemiş öğe yükle** → bu klasörü (`incomevsdesires`) seç
+3. **Paketlenmemiş öğe yükle** → repo kökünü (`manifest.json`'un olduğu klasör) seç
 4. Araç çubuğundaki ikona tıkla; **aylık net maaşını**, **günde kaç saat** ve
    **ayda kaç gün** çalıştığını gir
 
@@ -23,6 +23,13 @@ Panelden **Giderlerin ve grafik →** ile açılır (`chrome://extensions` → A
 Kira, dijital abonelik ve diğer sabit giderleri gir; her biri için ayda ne kadar
 çalıştığını gösterir. Yıllık ödemeler (alan adı, yıllık abonelik) otomatik
 aylığa bölünür.
+
+Her gider kendi para birimiyle girilebilir (TRY / USD / EUR / GBP; varsayılan
+maaşın birimi). Döviz giderleri güncel kurla maaşın birimine çevrilir; tabloda
+çevrilmiş tutar "≈" ile, girilen tutar altında küçük yazıyla görünür
+(`≈ ₺994,64` / `$20/ay`). Para birimi özelliğinden önce kaydedilmiş giderler
+ilk açılışta maaşın o anki birimiyle işaretlenir, böylece maaş birimi
+sonradan değişse de tutarları kaymaz.
 
 Halka grafik ayın mesaisini parça-bütün gösterir: kira / abonelik / diğer /
 sana kalan. Giderler maaşı aşarsa merkez, gideri karşılamak için kaç günlük
@@ -52,22 +59,51 @@ Sayfanın altında iki bölüm daha var:
   işi yapar, sekmeyi yenilemeye gerek yok.)
 - **`<site>` için kapat** — o alan adında eklentiyi devre dışı bırakır.
 
+### Gösterim seçenekleri
+
+Üçü de varsayılan olarak kapalı; açınca açık sekmeler anında güncellenir.
+
+| Seçenek | Kapalı (varsayılan) | Açık |
+|---|---|---|
+| **Giderlerden sonra kalana göre hesapla** | Saatlik = maaş ÷ aylık mesai | Saatlik = (maaş − sabit giderler) ÷ aylık mesai. 50.000 TL maaş, 20.100 TL gider → 500 TL **1,8 → 2,9 saat** |
+| **Fiyatı da göster** | `1,8 saat` | `1,8 saat (500 TL)`; tıklayınca yalnız fiyat |
+| **1 gün = 24 saat** | 1 gün = bir mesai, 1 ay = bir aylık mesai | 1 gün = 24 saat, 1 ay = 30 gün, 1 yıl = 365 gün. Araba: **3,1 yıl → 9 ay** |
+
+"Kalana göre" hesapta giderler Giderler sayfasından gelir, dövizliler güncel
+kurla çevrilir. Gider girilmemişse ya da giderler maaşı aşıyorsa (kalan ≤ 0,
+süre sonsuz olurdu) maaşın tamamına dönülür ve panel nedenini yazar.
+
+"1 gün = 24 saat" yalnızca **yazımı** değiştirir; saatlik kazanç her durumda
+mesai saatinden hesaplanır. Takvim modunda "2 gün", 48 saat kesintisiz
+çalışma demek.
+
 ## Nasıl çalışıyor
 
 - **Saatlik kazanç** = aylık maaş ÷ (günlük saat × aylık gün)
 - Sayfadaki fiyat farklı bir para birimindeyse (`$`, `€`, `£`) önce senin para
-  birimine çevrilir. Kurlar [Frankfurter](https://frankfurter.dev) (ECB verisi)
-  üzerinden 12 saatte bir tazelenir; API'ye ulaşılamazsa yaklaşık sabit kurlar
-  kullanılır ve panelde uyarı çıkar.
-- Birim otomatik seçilir: **dk → saat → gün → ay → yıl**, ve sınırlar senin
-  düzeninden gelir:
+  birimine çevrilir. Kurlar **günde bir kez** tazelenir (kaynaklar zaten
+  günde bir yayımlıyor). Sırayla denenen üç kaynak var; ilki başarılıysa
+  diğerlerine hiç gidilmez:
+  1. [Frankfurter](https://frankfurter.dev) (ECB verisi)
+  2. [open.er-api.com](https://www.exchangerate-api.com/docs/free) (ExchangeRate-API)
+  3. [currency-api](https://github.com/fawazahmed0/exchange-api) (jsDelivr CDN üzerinden)
+
+  Koda gömülü sabit kur tablosu **yok**; yedek, son başarılı çekimin
+  kendisi. Başarısız denemeler o tabloya dokunmaz. Üçü de çökerse son tablo
+  kullanılır ve panel "güncellenemedi, şu tarihli değerler" der. Hiç başarılı
+  çekim olmadıysa (kurulum anında çevrimdışı) yalnızca dövizli fiyatlar
+  çevrilmez, panel bunu yazar; kendi para birimindeki fiyatlar her zaman
+  çalışır.
+- Birim otomatik seçilir: **dk → saat → gün → ay → yıl**, ve sınırlar
+  (varsayılan olarak) senin düzeninden gelir:
   - `1 gün` = **bir günlük mesai** (ör. 8 saat)
   - `1 ay` = **bir aylık mesai** (ör. 8 × 22 = 176 saat)
   - `1 yıl` = **12 aylık mesai**
 
   Yani "1 ay" gördüğün şey tam olarak bir maaşın demek. Yıl olmadan pahalı
   şeyler okunmuyordu: bir araba "133 ay" diye yazınca kimse kafasında bölmüyor,
-  "3,1 yıl" ise anında oturuyor.
+  "3,1 yıl" ise anında oturuyor. Takvim günü istersen panelden
+  **1 gün = 24 saat** seçilebilir (yukarıya bak).
 
 ## Yeniden tarama
 
@@ -77,6 +113,14 @@ gerekmez:
 - **MutationObserver** eklenen düğümleri izler (sonsuz kaydırma, geç yüklenen
   kartlar). Tarama sırasında gözlemci **kapatılmaz**; eskiden kapatılıyordu ve
   kapalı kaldığı 30-130 ms'te gelen içerik kalıcı olarak kaçıyordu.
+- Sayfa fiyat metnini **yerinde** güncellerse (`characterData`; React yeni
+  fiyatı aynı metin düğümüne yazar) o düğüme dokunan chip geri alınır ve
+  kutu yeniden taranır. Sayfanın yazdığı yeni metin ezilmez.
+- Geri alma, her metin parçasını kendi yerine koyar:
+  `2.144<span>,35 TL</span>` geri alındığında yapı aynen döner.
+- Ayar değişiklikleri yazarken değil, yazma bitince (500 ms) kaydedilir.
+  Her kayıt açık bütün sekmeleri yeniden taratıyor; tema ve gider listesi
+  değişikliği ise taramayı hiç tetiklemez.
 - **Adres izleyici** saniyede bir `location.href` okur. Tek sayfa
   uygulamalarında (Sahibinden'de kategori değiştirmek gibi) adres değişir ama
   belge aynı kalır; içerik bazen gözlemcinin göremeyeceği şekilde yerinde
@@ -116,15 +160,14 @@ kartı": kağıt yüzey, cetvel çizgileri, monospace rakamlar, tek mühür aksa
 Eklentideki noktalı alt çizgi motifi siteye de taşındı.
 
 ```bash
-node incomevsdesires/site/build.js
+node site/build.js
 ```
 
 `posts.json`'dan `blog/index.html`, `sitemap.xml` ve `robots.txt` üretir.
 Yazıların kendisi elle yazılıyor; derleyici sadece listeyi ve SEO dosyalarını
 tek kaynaktan tutuyor, birbirinden kaymasınlar diye.
 
-Önizleme: kök `.claude/launch.json` içindeki **`incomevsdesires (site)`**
-yapılandırması (`npx serve`, port 4321).
+Önizleme: `npx serve site -l 4321` → `http://localhost:4321`.
 
 Ana sayfada çalışan bir saatlik ücret hesaplayıcısı var. Hem ürünü gösteriyor
 hem de SEO'nun ana kancası; ayrıntı için [SEO.md](SEO.md).
@@ -138,7 +181,7 @@ Mağaza listeleme metni, izin gerekçeleri ve eksik görseller:
 |---|---|
 | `src/lib/money.js` | Fiyat regex'i, sayı ayrıştırma, kur çevrimi, süre biçimlendirme. Üç bağlamda da paylaşılır. |
 | `src/content.js` | DOM taraması, fiyat → süre değişimi, tıklama, `MutationObserver` |
-| `src/background.js` | Kur tablosunu çeker ve `storage.local`'da önbelleğe alır |
+| `src/background.js` | Kur tablosunu günde bir çeker (Frankfurter, yoksa iki yedek kaynak) ve `storage.local`'da önbelleğe alır |
 | `src/popup.*` | Ayar paneli |
 | `src/options.*` | Giderler sayfası: gider listesi, stat tile'lar, halka grafik |
 | `test/demo.html` | Eklenti yüklemeden test etmek için sahte `chrome.*` API'li sayfa — tarayıcıda direkt aç |
@@ -181,10 +224,17 @@ Testte çıkıp düzeltilen hatalar:
 ## Bilinen sınırlar
 
 - Şu an TRY / USD / EUR / GBP destekleniyor.
-- Fiyatın **sayısı** bir element sınırıyla bölünmüşse (ör.
-  `<span>1.299</span><sup>,90</sup>`) yakalanmaz. Aynı elementin ardışık metin
-  düğümlerine bölünmesi (React'in `350<!-- --> <!-- -->TL` yapısı) sorun değil.
-- Sayfa fiyat metnini düğümü değiştirmeden yerinde güncellerse (`characterData`)
-  fark edilmez; yeni düğüm eklendiğinde sorun yok.
-- Google alan adları hariç tutuldu (arama sonuçlarında gürültü yapıyordu).
+- Para kodları yalnızca **büyük harfle** tanınır (`TL`, `TRY`, `USD`, `EUR`,
+  `GBP`). Küçük harfli "500 tl" yakalanmaz; karşılığında İngilizce "try 3
+  times" gibi metinler fiyat sanılmaz.
+- Fiyat kutusu bilerek 200 karakterle sınırlı: eklenti ürün kartlarındaki
+  fiyatları hedefliyor, düz yazıyı değil. Çocuğu olmayan uzun bir paragraftaki
+  "… 500 TL …" çevrilmez.
+- Eklenti sayfanın metin düğümlerine yazar ve araya chip ekler; sayfanın
+  kendi düğümlerini hiç silmez. React gibi çatıların fiyatı yerinde
+  güncellemesi izleniyor (yukarıya bak), ama bu davranış saha testindeki
+  siteler dışında gerçek tarayıcıda doğrulanmadı.
+- Gmail, Docs, Drive, Calendar, Slack, Notion, Figma, GitHub ve 4 banka
+  `exclude_matches` ile hariç tutuldu. Google Alışveriş dahil diğer Google
+  sayfalarında eklenti çalışır.
 - İkon dosyası yok; Chrome varsayılan ikonu gösterir.

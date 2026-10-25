@@ -97,7 +97,8 @@ GİZLİLİK
 
 Sunucumuz yok. Hesap yok. Analitik yok. Maaşın ve giderlerin yalnızca senin
 tarayıcında durur. Gezdiğin siteler, gördüğün fiyatlar hiçbir yere gitmez.
-Dışarıya çıkan tek istek, döviz kuru tablosunu çeken günlük çağrıdır.
+Dışarıya çıkan tek istek, döviz kuru tablosunu çeken günlük çağrıdır (ana
+kaynağa ulaşılamazsa aynı tablo iki yedek kaynaktan istenir).
 
 E-posta, doküman ve bankacılık sitelerinde eklenti hiç çalışmaz. İstediğin
 siteyi de panelden tek tıkla kapatabilirsin.
@@ -132,8 +133,9 @@ Google inceleme sırasında bunu ister:
 |---|---|
 | `storage` | Kullanıcının maaşını, çalışma düzenini ve gider listesini cihazda saklamak için. |
 | `activeTab` | Panelden "sayfayı yeniden tara" denince yalnızca aktif sekmeye mesaj göndermek için. |
-| `alarms` | Döviz kurlarını 12 saatte bir tazelemek için. |
-| `host_permissions: api.frankfurter.dev` | Döviz kuru tablosunu çekmek için. Tek dış istek budur. |
+| `alarms` | Döviz kurlarını günde bir kez tazelemek için. |
+| `host_permissions: api.frankfurter.dev` | Döviz kuru tablosunu çekmek için (ana kaynak, ECB verisi). |
+| `host_permissions: open.er-api.com`, `cdn.jsdelivr.net` | Ana kaynağa ulaşılamazsa sırayla denenen iki yedek kur kaynağı. İstekler yalnızca kur tablosunu ister; kullanıcıya ait hiçbir veri içermez. Eklentinin yaptığı dış istekler yalnızca bunlardır. |
 | `content_scripts: <all_urls>` | Fiyat hangi sitede olursa olsun çevrilebilsin diye. Eklenti site listesi tutmaz. |
 
 ---

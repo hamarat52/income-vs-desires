@@ -51,6 +51,11 @@ const samples = [
   ['850 TL900 TL', [[850, 'TRY'], [900, 'TRY']]],
   // harf komşuluğu hâlâ yasak
   ['500 TLsize özel', []],
+  // küçük harfli kodlar para birimi değil — "try 3 times" TRY 3 sanılmamalı
+  ['try 3 times', []],
+  ['please try 2 more', []],
+  ['5 tl kaldı', []],
+  ['eur 20 metre', []],
 ];
 for (const [text, expected] of samples) {
   const re = IVD.createPriceRegex();
@@ -94,6 +99,47 @@ console.log('\n--- kur çevrimi ---');
 const rates = { EUR: 1, USD: 1.08, GBP: 0.85, TRY: 45 };
 check('100 USD → TRY', Math.round(IVD.convert(100, 'USD', 'TRY', rates)), 4167);
 check('100 TRY → TRY', IVD.convert(100, 'TRY', 'TRY', rates), 100);
+// Koda gömülü yedek tablo yok: kur hiç çekilmediyse döviz çevrilmez.
+check('kur yok: döviz → null', IVD.convert(100, 'USD', 'TRY', null), null);
+check('kur yok: aynı birim çalışır', IVD.convert(100, 'TRY', 'TRY', null), 100);
+check('FALLBACK_RATES kaldırıldı', IVD.FALLBACK_RATES, undefined);
+
+console.log('\n--- gider ---');
+check('aylık TL', IVD.expenseMonthly({ amount: 600, period: 'monthly', currency: 'TRY' }, 'TRY', rates), 600);
+check('yıllık TL → aylık', IVD.expenseMonthly({ amount: 1200, period: 'yearly', currency: 'TRY' }, 'TRY', rates), 100);
+check('20 USD → TL', Math.round(IVD.expenseMonthly({ amount: 20, period: 'monthly', currency: 'USD' }, 'TRY', rates)), 833);
+check('birimsiz eski kayıt maaş biriminde', IVD.expenseMonthly({ amount: 500, period: 'monthly' }, 'TRY', null), 500);
+check('kur yoksa döviz gider null', IVD.expenseMonthly({ amount: 20, period: 'monthly', currency: 'USD' }, 'TRY', null), null);
+
+console.log('\n--- giderlerden sonra kalana göre ---');
+const leftover = { ...fullTime, basis: 'leftover' };
+const giderler = [
+  { amount: 20000, period: 'monthly', currency: 'TRY' }, // kira
+  { amount: 1200, period: 'yearly', currency: 'TRY' },   // ayda 100
+];
+const r1 = IVD.effectiveRate(leftover, giderler, rates);
+// (50.000 - 20.100) / 176 = 169,89
+check('kalan saatlik', Math.round(r1.perHour * 100) / 100, 169.89);
+check('kalan: basis', r1.basis, 'leftover');
+check('kalan: 500 TL', IVD.formatDuration(500 / r1.perHour, leftover), '2,9 saat');
+check('seçili değilse maaş', IVD.effectiveRate(fullTime, giderler, rates).perHour, perHour);
+check('gider yoksa maaşa döner', IVD.effectiveRate(leftover, [], rates).fallback, 'no-expenses');
+const asim = IVD.effectiveRate(leftover, [{ amount: 60000, period: 'monthly', currency: 'TRY' }], rates);
+check('giderler maaşı aşarsa maaşa döner', [asim.basis, asim.fallback, asim.perHour === perHour], ['salary', 'overspent', true]);
+const kursuz = IVD.effectiveRate(leftover, [...giderler, { amount: 20, period: 'monthly', currency: 'USD' }], null);
+check('kursuz döviz gider atlanır', [kursuz.skipped, Math.round(kursuz.perHour * 100) / 100], [1, 169.89]);
+check('maaş yoksa null', IVD.effectiveRate({ ...leftover, salary: null }, giderler, rates), null);
+
+console.log('\n--- gün birimi: 24 saat ---');
+const takvim = { ...fullTime, dayUnit: 'calendar' };
+check('saatlik değişmez', IVD.hourlyRate(takvim), perHour);
+check('16 saat → mesai: 2 gün', IVD.formatDuration(16, fullTime), '2 gün');
+check('16 saat → takvim: 16 saat', IVD.formatDuration(16, takvim), '16 saat');
+check('48 saat → takvim: 2 gün', IVD.formatDuration(48, takvim), '2 gün');
+check('720 saat → takvim: 1 ay', IVD.formatDuration(720, takvim), '1 ay');
+check('8760 saat → takvim: 1 yıl', IVD.formatDuration(8760, takvim), '1 yıl');
+// 6.512 saat / 720 = 9,04 ay (mesai biriminde aynı fiyat "3,1 yıl")
+check('araba 1.850.000 TL → takvim', IVD.formatDuration(1850000 / perHour, takvim), '9 ay');
 
 console.log(fail === 0 ? '\nHepsi geçti.' : `\n${fail} test başarısız.`);
 process.exit(fail ? 1 : 0);
