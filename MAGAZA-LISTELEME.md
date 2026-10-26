@@ -142,11 +142,12 @@ Google inceleme sırasında bunu ister:
 
 ## Görseller
 
-Hâlâ eksik, mağazaya yüklemeden önce hazırlanmalı:
-
-- **İkon**: 128x128 (zorunlu), ayrıca 48x48 ve 16x16. Şu an hiç yok, Chrome
-  varsayılan yapboz parçasını gösteriyor.
-- **Ekran görüntüsü**: 1280x800, en fazla 5 tane. Önerilen sıra:
+- **İkon**: hazır. `src/icons/icon-{16,32,48,128}.png`, hamaratlabs-web'deki
+  resmi AppIcon.jsx tasarımından (yeşil terazi glyph'i, #43e08c/#0c9a6c,
+  liquid-glass efekti) üretildi; `manifest.json`'daki `icons` ve
+  `action.default_icon` alanlarına bağlandı.
+- **Ekran görüntüsü**: Hâlâ eksik, mağazaya yüklemeden önce hazırlanmalı.
+  1280x800, en fazla 5 tane. Önerilen sıra:
   1. Gerçek bir ürün sayfası, fiyatların yerinde süreler (en güçlü kare, ilk sırada olmalı)
   2. Ayar paneli (üç alan, ne kadar basit olduğu görünsün)
   3. Giderler sayfası, halka grafik

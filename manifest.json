@@ -3,6 +3,12 @@
   "name": "IncomeVsDesires",
   "version": "0.1.0",
   "description": "İnternetteki fiyatları, senin maaşına göre çalışma süresine çevirir. 500 TL yerine \"1 saat\".",
+  "icons": {
+    "16": "src/icons/icon-16.png",
+    "32": "src/icons/icon-32.png",
+    "48": "src/icons/icon-48.png",
+    "128": "src/icons/icon-128.png"
+  },
   "permissions": ["storage", "alarms", "activeTab"],
   "host_permissions": [
     "https://api.frankfurter.dev/*",
@@ -14,7 +20,11 @@
   },
   "action": {
     "default_popup": "src/popup.html",
-    "default_title": "IncomeVsDesires"
+    "default_title": "IncomeVsDesires",
+    "default_icon": {
+      "16": "src/icons/icon-16.png",
+      "32": "src/icons/icon-32.png"
+    }
   },
   "options_ui": {
     "page": "src/options.html",
