@@ -238,3 +238,8 @@ Testte çıkıp düzeltilen hatalar:
   `exclude_matches` ile hariç tutuldu. Google Alışveriş dahil diğer Google
   sayfalarında eklenti çalışır.
 - İkon dosyası yok; Chrome varsayılan ikonu gösterir.
+
+## Lisans
+
+[MIT](LICENSE) © 2026 hamarat52. Kodu kullanabilir, değiştirebilir ve
+dağıtabilirsin; lisans metni ve telif notu korunmalı.
