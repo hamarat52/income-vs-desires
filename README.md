@@ -241,5 +241,5 @@ Testte çıkıp düzeltilen hatalar:
 
 ## Lisans
 
-[MIT](LICENSE) © 2026 hamarat52. Kodu kullanabilir, değiştirebilir ve
+[MIT](LICENSE) © 2026 Muhammed Yusuf Hamarat - Founder of Hamaratlabs. Kodu kullanabilir, değiştirebilir ve
 dağıtabilirsin; lisans metni ve telif notu korunmalı.
