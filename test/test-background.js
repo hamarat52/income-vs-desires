@@ -210,6 +210,24 @@ const API_BODY = { amount: 1, base: 'EUR', date: '2026-07-31', rates: { GBP: 0.8
     check('üçüncü kaynak kullanıldı', pb.source, 'currency-api');
     check('küçük harfli anahtar çevrildi', pb.rates.TRY, 55.3);
     check('storage yazıldı', b.store.rates.source, 'currency-api');
+
+    // Üçü de düşerse: sırayla hepsi denenir, son başarılı tablo "bayat"
+    // işaretiyle döner (panel "güncellenemedi" der) ve storage'a dokunulmaz.
+    const sira = [];
+    const onceki = { rates: { EUR: 1, USD: 1.1, GBP: 0.84, TRY: 52 }, fetchedAt: 0, source: 'frankfurter' };
+    const c = kur({
+      store: { rates: onceki },
+      fetchImpl: async (url) => {
+        sira.push(new URL(url).host);
+        if (url.includes('frankfurter')) throw new Error('ağ yok');
+        if (url.includes('er-api')) return yanit({ result: 'error' });
+        return { ok: true, status: 200, json: async () => { throw new SyntaxError('bozuk JSON'); } };
+      },
+    });
+    const pc = await vm.runInContext('refreshRates()', c.context);
+    check('hepsi düşünce sırayla üçü denendi', sira, ['api.frankfurter.dev', 'open.er-api.com', 'cdn.jsdelivr.net']);
+    check('son tablo bayat işaretli döndü', [pc.stale, pc.rates.TRY], [true, 52]);
+    check('storage değişmedi', c.store.rates, onceki);
   }
 
   console.log(fail === 0 ? '\nHepsi geçti.' : `\n${fail} test başarısız.`);
