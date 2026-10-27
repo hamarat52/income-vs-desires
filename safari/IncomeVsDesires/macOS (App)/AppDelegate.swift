@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  IncomeVsDesires
+//  macOS (App)
 //
-//  Created by Hamarat Bey on 10/23/26.
+//  Created by Hamarat Bey on 10/27/26.
 //
 
 import Cocoa

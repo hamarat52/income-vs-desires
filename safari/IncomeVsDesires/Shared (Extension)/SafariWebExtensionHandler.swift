@@ -1,8 +1,8 @@
 //
 //  SafariWebExtensionHandler.swift
-//  IncomeVsDesires Extension
+//  Shared (Extension)
 //
-//  Created by Hamarat Bey on 10/23/26.
+//  Created by Hamarat Bey on 10/27/26.
 //
 
 import SafariServices

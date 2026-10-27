@@ -7,67 +7,142 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EDDC3A16308B6DE700FAFEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDC3A15308B6DE700FAFEF1 /* AppDelegate.swift */; };
-		EDDC3A1A308B6DE700FAFEF1 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = EDDC3A18308B6DE700FAFEF1 /* Main.html */; };
-		EDDC3A1C308B6DE700FAFEF1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDC3A1B308B6DE700FAFEF1 /* Icon.png */; };
-		EDDC3A1E308B6DE700FAFEF1 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = EDDC3A1D308B6DE700FAFEF1 /* Style.css */; };
-		EDDC3A20308B6DE700FAFEF1 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = EDDC3A1F308B6DE700FAFEF1 /* Script.js */; };
-		EDDC3A22308B6DE700FAFEF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDC3A21308B6DE700FAFEF1 /* ViewController.swift */; };
-		EDDC3A25308B6DE700FAFEF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDDC3A23308B6DE700FAFEF1 /* Main.storyboard */; };
-		EDDC3A27308B6DE800FAFEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDDC3A26308B6DE800FAFEF1 /* Assets.xcassets */; };
-		EDDC3A2E308B6DE800FAFEF1 /* IncomeVsDesires Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EDDC3A2D308B6DE800FAFEF1 /* IncomeVsDesires Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		EDDC3A33308B6DE800FAFEF1 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDC3A32308B6DE800FAFEF1 /* SafariWebExtensionHandler.swift */; };
-		EDDC3A4F308B6DE800FAFEF1 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = EDDC3A45308B6DE800FAFEF1 /* manifest.json */; };
-		EDDC3A52308B6DE800FAFEF1 /* src in Resources */ = {isa = PBXBuildFile; fileRef = EDDC3A48308B6DE800FAFEF1 /* src */; };
+		ED38A88930905DA500693561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A88830905DA500693561 /* AppDelegate.swift */; };
+		ED38A88B30905DA500693561 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A88A30905DA500693561 /* SceneDelegate.swift */; };
+		ED38A88E30905DA500693561 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED38A88C30905DA500693561 /* LaunchScreen.storyboard */; };
+		ED38A89130905DA500693561 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED38A88F30905DA500693561 /* Main.storyboard */; };
+		ED38A89A30905DA500693561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A89930905DA500693561 /* AppDelegate.swift */; };
+		ED38A89D30905DA500693561 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED38A89B30905DA500693561 /* Main.storyboard */; };
+		ED38A8A430905DA500693561 /* IncomeVsDesires Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED38A8A330905DA500693561 /* IncomeVsDesires Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ED38A8AE30905DA500693561 /* IncomeVsDesires Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED38A8AD30905DA500693561 /* IncomeVsDesires Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ED38A8B330905DA500693561 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87830905DA400693561 /* Main.html */; };
+		ED38A8B430905DA500693561 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87830905DA400693561 /* Main.html */; };
+		ED38A8B530905DA500693561 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87A30905DA400693561 /* Icon.png */; };
+		ED38A8B630905DA500693561 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87A30905DA400693561 /* Icon.png */; };
+		ED38A8B730905DA500693561 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87B30905DA400693561 /* Style.css */; };
+		ED38A8B830905DA500693561 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87B30905DA400693561 /* Style.css */; };
+		ED38A8B930905DA500693561 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87C30905DA400693561 /* Script.js */; };
+		ED38A8BA30905DA500693561 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87C30905DA400693561 /* Script.js */; };
+		ED38A8BB30905DA500693561 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A87D30905DA400693561 /* ViewController.swift */; };
+		ED38A8BC30905DA500693561 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A87D30905DA400693561 /* ViewController.swift */; };
+		ED38A8BD30905DA500693561 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87E30905DA500693561 /* Assets.xcassets */; };
+		ED38A8BE30905DA500693561 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87E30905DA500693561 /* Assets.xcassets */; };
+		ED38A8BF30905DA500693561 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A88030905DA500693561 /* SafariWebExtensionHandler.swift */; };
+		ED38A8C030905DA500693561 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A88030905DA500693561 /* SafariWebExtensionHandler.swift */; };
+		ED38A8DD30905DA500693561 /* ARCHITECTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D230905DA500693561 /* ARCHITECTURE.md */; };
+		ED38A8DE30905DA500693561 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D330905DA500693561 /* LICENSE */; };
+		ED38A8DF30905DA500693561 /* test in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D430905DA500693561 /* test */; };
+		ED38A8E030905DA500693561 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D530905DA500693561 /* docs */; };
+		ED38A8E130905DA500693561 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D630905DA500693561 /* README.md */; };
+		ED38A8E230905DA500693561 /* SEO.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D730905DA500693561 /* SEO.md */; };
+		ED38A8E330905DA500693561 /* safari in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D830905DA500693561 /* safari */; };
+		ED38A8E430905DA500693561 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D930905DA500693561 /* manifest.json */; };
+		ED38A8E530905DA500693561 /* site in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DA30905DA500693561 /* site */; };
+		ED38A8E630905DA500693561 /* MAGAZA-LISTELEME.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DB30905DA500693561 /* MAGAZA-LISTELEME.md */; };
+		ED38A8E730905DA500693561 /* src in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DC30905DA500693561 /* src */; };
+		ED38A8E830905DA500693561 /* ARCHITECTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D230905DA500693561 /* ARCHITECTURE.md */; };
+		ED38A8E930905DA500693561 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D330905DA500693561 /* LICENSE */; };
+		ED38A8EA30905DA500693561 /* test in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D430905DA500693561 /* test */; };
+		ED38A8EB30905DA500693561 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D530905DA500693561 /* docs */; };
+		ED38A8EC30905DA500693561 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D630905DA500693561 /* README.md */; };
+		ED38A8ED30905DA500693561 /* SEO.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D730905DA500693561 /* SEO.md */; };
+		ED38A8EE30905DA500693561 /* safari in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D830905DA500693561 /* safari */; };
+		ED38A8EF30905DA500693561 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D930905DA500693561 /* manifest.json */; };
+		ED38A8F030905DA500693561 /* site in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DA30905DA500693561 /* site */; };
+		ED38A8F130905DA500693561 /* MAGAZA-LISTELEME.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DB30905DA500693561 /* MAGAZA-LISTELEME.md */; };
+		ED38A8F230905DA500693561 /* src in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DC30905DA500693561 /* src */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EDDC3A2F308B6DE800FAFEF1 /* PBXContainerItemProxy */ = {
+		ED38A8A530905DA500693561 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = EDDC3A0A308B6DE700FAFEF1 /* Project object */;
+			containerPortal = ED38A87230905DA400693561 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = EDDC3A2C308B6DE800FAFEF1;
-			remoteInfo = "IncomeVsDesires Extension";
+			remoteGlobalIDString = ED38A8A230905DA500693561;
+			remoteInfo = "IncomeVsDesires Extension (iOS)";
+		};
+		ED38A8AF30905DA500693561 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED38A87230905DA400693561 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED38A8AC30905DA500693561;
+			remoteInfo = "IncomeVsDesires Extension (macOS)";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		EDDC3A3A308B6DE800FAFEF1 /* Embed Foundation Extensions */ = {
+		ED38A8C630905DA500693561 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			dstPath = "";
 			dstSubfolder = PlugIns;
 			files = (
-				EDDC3A2E308B6DE800FAFEF1 /* IncomeVsDesires Extension.appex in Embed Foundation Extensions */,
+				ED38A8A430905DA500693561 /* IncomeVsDesires Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+		ED38A8CD30905DA500693561 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				ED38A8AE30905DA500693561 /* IncomeVsDesires Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		EDDC3A12308B6DE700FAFEF1 /* IncomeVsDesires.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IncomeVsDesires.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDDC3A15308B6DE700FAFEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EDDC3A19308B6DE700FAFEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
-		EDDC3A1B308B6DE700FAFEF1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		EDDC3A1D308B6DE700FAFEF1 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		EDDC3A1F308B6DE700FAFEF1 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
-		EDDC3A21308B6DE700FAFEF1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EDDC3A24308B6DE700FAFEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		EDDC3A26308B6DE800FAFEF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EDDC3A28308B6DE800FAFEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDDC3A2D308B6DE800FAFEF1 /* IncomeVsDesires Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "IncomeVsDesires Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDDC3A32308B6DE800FAFEF1 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		EDDC3A34308B6DE800FAFEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDDC3A45308B6DE800FAFEF1 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../manifest.json; sourceTree = "<group>"; };
-		EDDC3A48308B6DE800FAFEF1 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../src; sourceTree = "<group>"; };
+		ED38A87930905DA400693561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		ED38A87A30905DA400693561 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		ED38A87B30905DA400693561 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		ED38A87C30905DA400693561 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		ED38A87D30905DA400693561 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ED38A87E30905DA500693561 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ED38A88030905DA500693561 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		ED38A88530905DA500693561 /* IncomeVsDesires.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IncomeVsDesires.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED38A88830905DA500693561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ED38A88A30905DA500693561 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		ED38A88D30905DA500693561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ED38A89030905DA500693561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ED38A89230905DA500693561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED38A89730905DA500693561 /* IncomeVsDesires.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IncomeVsDesires.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED38A89930905DA500693561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ED38A89C30905DA500693561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ED38A89E30905DA500693561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED38A8A330905DA500693561 /* IncomeVsDesires Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "IncomeVsDesires Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED38A8A830905DA500693561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED38A8AD30905DA500693561 /* IncomeVsDesires Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "IncomeVsDesires Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED38A8B230905DA500693561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED38A8D230905DA500693561 /* ARCHITECTURE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ARCHITECTURE.md; path = ../../../ARCHITECTURE.md; sourceTree = "<group>"; };
+		ED38A8D330905DA500693561 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../../LICENSE; sourceTree = "<group>"; };
+		ED38A8D430905DA500693561 /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; name = test; path = ../../../test; sourceTree = "<group>"; };
+		ED38A8D530905DA500693561 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = docs; path = ../../../docs; sourceTree = "<group>"; };
+		ED38A8D630905DA500693561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../README.md; sourceTree = "<group>"; };
+		ED38A8D730905DA500693561 /* SEO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = SEO.md; path = ../../../SEO.md; sourceTree = "<group>"; };
+		ED38A8D830905DA500693561 /* safari */ = {isa = PBXFileReference; lastKnownFileType = folder; name = safari; path = ../..; sourceTree = "<group>"; };
+		ED38A8D930905DA500693561 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../manifest.json; sourceTree = "<group>"; };
+		ED38A8DA30905DA500693561 /* site */ = {isa = PBXFileReference; lastKnownFileType = folder; name = site; path = ../../../site; sourceTree = "<group>"; };
+		ED38A8DB30905DA500693561 /* MAGAZA-LISTELEME.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "MAGAZA-LISTELEME.md"; path = "../../../MAGAZA-LISTELEME.md"; sourceTree = "<group>"; };
+		ED38A8DC30905DA500693561 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../src; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		EDDC3A0F308B6DE700FAFEF1 /* Frameworks */ = {
+		ED38A88230905DA500693561 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
 		};
-		EDDC3A2A308B6DE800FAFEF1 /* Frameworks */ = {
+		ED38A89430905DA500693561 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		ED38A8A030905DA500693561 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		ED38A8AA30905DA500693561 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
@@ -75,201 +150,364 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EDDC3A09308B6DE700FAFEF1 = {
+		ED38A87130905DA400693561 = {
 			isa = PBXGroup;
 			children = (
-				EDDC3A14308B6DE700FAFEF1 /* IncomeVsDesires */,
-				EDDC3A31308B6DE800FAFEF1 /* IncomeVsDesires Extension */,
-				EDDC3A13308B6DE700FAFEF1 /* Products */,
+				ED38A87630905DA400693561 /* Shared (App) */,
+				ED38A87F30905DA500693561 /* Shared (Extension) */,
+				ED38A88730905DA500693561 /* iOS (App) */,
+				ED38A89830905DA500693561 /* macOS (App) */,
+				ED38A8A730905DA500693561 /* iOS (Extension) */,
+				ED38A8B130905DA500693561 /* macOS (Extension) */,
+				ED38A88630905DA500693561 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		EDDC3A13308B6DE700FAFEF1 /* Products */ = {
+		ED38A87630905DA400693561 /* Shared (App) */ = {
 			isa = PBXGroup;
 			children = (
-				EDDC3A12308B6DE700FAFEF1 /* IncomeVsDesires.app */,
-				EDDC3A2D308B6DE800FAFEF1 /* IncomeVsDesires Extension.appex */,
+				ED38A87D30905DA400693561 /* ViewController.swift */,
+				ED38A87E30905DA500693561 /* Assets.xcassets */,
+				ED38A87730905DA400693561 /* Resources */,
 			);
-			name = Products;
+			path = "Shared (App)";
 			sourceTree = "<group>";
 		};
-		EDDC3A14308B6DE700FAFEF1 /* IncomeVsDesires */ = {
+		ED38A87730905DA400693561 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EDDC3A15308B6DE700FAFEF1 /* AppDelegate.swift */,
-				EDDC3A21308B6DE700FAFEF1 /* ViewController.swift */,
-				EDDC3A23308B6DE700FAFEF1 /* Main.storyboard */,
-				EDDC3A26308B6DE800FAFEF1 /* Assets.xcassets */,
-				EDDC3A28308B6DE800FAFEF1 /* Info.plist */,
-				EDDC3A17308B6DE700FAFEF1 /* Resources */,
-			);
-			path = IncomeVsDesires;
-			sourceTree = "<group>";
-		};
-		EDDC3A17308B6DE700FAFEF1 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				EDDC3A18308B6DE700FAFEF1 /* Main.html */,
-				EDDC3A1B308B6DE700FAFEF1 /* Icon.png */,
-				EDDC3A1D308B6DE700FAFEF1 /* Style.css */,
-				EDDC3A1F308B6DE700FAFEF1 /* Script.js */,
+				ED38A87830905DA400693561 /* Main.html */,
+				ED38A87A30905DA400693561 /* Icon.png */,
+				ED38A87B30905DA400693561 /* Style.css */,
+				ED38A87C30905DA400693561 /* Script.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		EDDC3A31308B6DE800FAFEF1 /* IncomeVsDesires Extension */ = {
+		ED38A87F30905DA500693561 /* Shared (Extension) */ = {
 			isa = PBXGroup;
 			children = (
-				EDDC3A3E308B6DE800FAFEF1 /* Resources */,
-				EDDC3A32308B6DE800FAFEF1 /* SafariWebExtensionHandler.swift */,
-				EDDC3A34308B6DE800FAFEF1 /* Info.plist */,
+				ED38A8D130905DA500693561 /* Resources */,
+				ED38A88030905DA500693561 /* SafariWebExtensionHandler.swift */,
 			);
-			path = "IncomeVsDesires Extension";
+			path = "Shared (Extension)";
 			sourceTree = "<group>";
 		};
-		EDDC3A3E308B6DE800FAFEF1 /* Resources */ = {
+		ED38A88630905DA500693561 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EDDC3A45308B6DE800FAFEF1 /* manifest.json */,
-				EDDC3A48308B6DE800FAFEF1 /* src */,
+				ED38A88530905DA500693561 /* IncomeVsDesires.app */,
+				ED38A89730905DA500693561 /* IncomeVsDesires.app */,
+				ED38A8A330905DA500693561 /* IncomeVsDesires Extension.appex */,
+				ED38A8AD30905DA500693561 /* IncomeVsDesires Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ED38A88730905DA500693561 /* iOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				ED38A88830905DA500693561 /* AppDelegate.swift */,
+				ED38A88A30905DA500693561 /* SceneDelegate.swift */,
+				ED38A88C30905DA500693561 /* LaunchScreen.storyboard */,
+				ED38A88F30905DA500693561 /* Main.storyboard */,
+				ED38A89230905DA500693561 /* Info.plist */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		ED38A89830905DA500693561 /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				ED38A89930905DA500693561 /* AppDelegate.swift */,
+				ED38A89B30905DA500693561 /* Main.storyboard */,
+				ED38A89E30905DA500693561 /* Info.plist */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		ED38A8A730905DA500693561 /* iOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				ED38A8A830905DA500693561 /* Info.plist */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		ED38A8B130905DA500693561 /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				ED38A8B230905DA500693561 /* Info.plist */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+		ED38A8D130905DA500693561 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ED38A8D230905DA500693561 /* ARCHITECTURE.md */,
+				ED38A8D330905DA500693561 /* LICENSE */,
+				ED38A8D430905DA500693561 /* test */,
+				ED38A8D530905DA500693561 /* docs */,
+				ED38A8D630905DA500693561 /* README.md */,
+				ED38A8D730905DA500693561 /* SEO.md */,
+				ED38A8D830905DA500693561 /* safari */,
+				ED38A8D930905DA500693561 /* manifest.json */,
+				ED38A8DA30905DA500693561 /* site */,
+				ED38A8DB30905DA500693561 /* MAGAZA-LISTELEME.md */,
+				ED38A8DC30905DA500693561 /* src */,
 			);
 			name = Resources;
-			path = "IncomeVsDesires Extension";
+			path = "Shared (Extension)";
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EDDC3A11308B6DE700FAFEF1 /* IncomeVsDesires */ = {
+		ED38A88430905DA500693561 /* IncomeVsDesires (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EDDC3A3B308B6DE800FAFEF1 /* Build configuration list for PBXNativeTarget "IncomeVsDesires" */;
+			buildConfigurationList = ED38A8C730905DA500693561 /* Build configuration list for PBXNativeTarget "IncomeVsDesires (iOS)" */;
 			buildPhases = (
-				EDDC3A0E308B6DE700FAFEF1 /* Sources */,
-				EDDC3A0F308B6DE700FAFEF1 /* Frameworks */,
-				EDDC3A10308B6DE700FAFEF1 /* Resources */,
-				EDDC3A3A308B6DE800FAFEF1 /* Embed Foundation Extensions */,
+				ED38A88130905DA500693561 /* Sources */,
+				ED38A88230905DA500693561 /* Frameworks */,
+				ED38A88330905DA500693561 /* Resources */,
+				ED38A8C630905DA500693561 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EDDC3A30308B6DE800FAFEF1 /* PBXTargetDependency */,
+				ED38A8A630905DA500693561 /* PBXTargetDependency */,
 			);
-			name = IncomeVsDesires;
-			productName = IncomeVsDesires;
-			productReference = EDDC3A12308B6DE700FAFEF1 /* IncomeVsDesires.app */;
+			name = "IncomeVsDesires (iOS)";
+			productName = "IncomeVsDesires (iOS)";
+			productReference = ED38A88530905DA500693561 /* IncomeVsDesires.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EDDC3A2C308B6DE800FAFEF1 /* IncomeVsDesires Extension */ = {
+		ED38A89630905DA500693561 /* IncomeVsDesires (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EDDC3A37308B6DE800FAFEF1 /* Build configuration list for PBXNativeTarget "IncomeVsDesires Extension" */;
+			buildConfigurationList = ED38A8CE30905DA500693561 /* Build configuration list for PBXNativeTarget "IncomeVsDesires (macOS)" */;
 			buildPhases = (
-				EDDC3A29308B6DE800FAFEF1 /* Sources */,
-				EDDC3A2A308B6DE800FAFEF1 /* Frameworks */,
-				EDDC3A2B308B6DE800FAFEF1 /* Resources */,
+				ED38A89330905DA500693561 /* Sources */,
+				ED38A89430905DA500693561 /* Frameworks */,
+				ED38A89530905DA500693561 /* Resources */,
+				ED38A8CD30905DA500693561 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
-			name = "IncomeVsDesires Extension";
-			productName = "IncomeVsDesires Extension";
-			productReference = EDDC3A2D308B6DE800FAFEF1 /* IncomeVsDesires Extension.appex */;
+			dependencies = (
+				ED38A8B030905DA500693561 /* PBXTargetDependency */,
+			);
+			name = "IncomeVsDesires (macOS)";
+			productName = "IncomeVsDesires (macOS)";
+			productReference = ED38A89730905DA500693561 /* IncomeVsDesires.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ED38A8A230905DA500693561 /* IncomeVsDesires Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED38A8C330905DA500693561 /* Build configuration list for PBXNativeTarget "IncomeVsDesires Extension (iOS)" */;
+			buildPhases = (
+				ED38A89F30905DA500693561 /* Sources */,
+				ED38A8A030905DA500693561 /* Frameworks */,
+				ED38A8A130905DA500693561 /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "IncomeVsDesires Extension (iOS)";
+			productName = "IncomeVsDesires Extension (iOS)";
+			productReference = ED38A8A330905DA500693561 /* IncomeVsDesires Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		ED38A8AC30905DA500693561 /* IncomeVsDesires Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED38A8CA30905DA500693561 /* Build configuration list for PBXNativeTarget "IncomeVsDesires Extension (macOS)" */;
+			buildPhases = (
+				ED38A8A930905DA500693561 /* Sources */,
+				ED38A8AA30905DA500693561 /* Frameworks */,
+				ED38A8AB30905DA500693561 /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "IncomeVsDesires Extension (macOS)";
+			productName = "IncomeVsDesires Extension (macOS)";
+			productReference = ED38A8AD30905DA500693561 /* IncomeVsDesires Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		EDDC3A0A308B6DE700FAFEF1 /* Project object */ = {
+		ED38A87230905DA400693561 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
-					EDDC3A11308B6DE700FAFEF1 = {
+					ED38A88430905DA500693561 = {
 						CreatedOnToolsVersion = 27.0;
 					};
-					EDDC3A2C308B6DE800FAFEF1 = {
+					ED38A89630905DA500693561 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					ED38A8A230905DA500693561 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					ED38A8AC30905DA500693561 = {
 						CreatedOnToolsVersion = 27.0;
 					};
 				};
 			};
-			buildConfigurationList = EDDC3A0D308B6DE700FAFEF1 /* Build configuration list for PBXProject "IncomeVsDesires" */;
+			buildConfigurationList = ED38A87530905DA400693561 /* Build configuration list for PBXProject "IncomeVsDesires" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = EDDC3A09308B6DE700FAFEF1;
+			mainGroup = ED38A87130905DA400693561;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = EDDC3A13308B6DE700FAFEF1 /* Products */;
+			productRefGroup = ED38A88630905DA500693561 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EDDC3A11308B6DE700FAFEF1 /* IncomeVsDesires */,
-				EDDC3A2C308B6DE800FAFEF1 /* IncomeVsDesires Extension */,
+				ED38A88430905DA500693561 /* IncomeVsDesires (iOS) */,
+				ED38A89630905DA500693561 /* IncomeVsDesires (macOS) */,
+				ED38A8A230905DA500693561 /* IncomeVsDesires Extension (iOS) */,
+				ED38A8AC30905DA500693561 /* IncomeVsDesires Extension (macOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		EDDC3A10308B6DE700FAFEF1 /* Resources */ = {
+		ED38A88330905DA500693561 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				EDDC3A1C308B6DE700FAFEF1 /* Icon.png in Resources */,
-				EDDC3A25308B6DE700FAFEF1 /* Main.storyboard in Resources */,
-				EDDC3A20308B6DE700FAFEF1 /* Script.js in Resources */,
-				EDDC3A1A308B6DE700FAFEF1 /* Main.html in Resources */,
-				EDDC3A27308B6DE800FAFEF1 /* Assets.xcassets in Resources */,
-				EDDC3A1E308B6DE700FAFEF1 /* Style.css in Resources */,
+				ED38A8B530905DA500693561 /* Icon.png in Resources */,
+				ED38A88E30905DA500693561 /* LaunchScreen.storyboard in Resources */,
+				ED38A8B330905DA500693561 /* Main.html in Resources */,
+				ED38A8B930905DA500693561 /* Script.js in Resources */,
+				ED38A8BD30905DA500693561 /* Assets.xcassets in Resources */,
+				ED38A89130905DA500693561 /* Main.storyboard in Resources */,
+				ED38A8B730905DA500693561 /* Style.css in Resources */,
 			);
 		};
-		EDDC3A2B308B6DE800FAFEF1 /* Resources */ = {
+		ED38A89530905DA500693561 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				EDDC3A4F308B6DE800FAFEF1 /* manifest.json in Resources */,
-				EDDC3A52308B6DE800FAFEF1 /* src in Resources */,
+				ED38A8B630905DA500693561 /* Icon.png in Resources */,
+				ED38A8B830905DA500693561 /* Style.css in Resources */,
+				ED38A89D30905DA500693561 /* Main.storyboard in Resources */,
+				ED38A8BA30905DA500693561 /* Script.js in Resources */,
+				ED38A8BE30905DA500693561 /* Assets.xcassets in Resources */,
+				ED38A8B430905DA500693561 /* Main.html in Resources */,
+			);
+		};
+		ED38A8A130905DA500693561 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				ED38A8E930905DA500693561 /* LICENSE in Resources */,
+				ED38A8EB30905DA500693561 /* docs in Resources */,
+				ED38A8F130905DA500693561 /* MAGAZA-LISTELEME.md in Resources */,
+				ED38A8ED30905DA500693561 /* SEO.md in Resources */,
+				ED38A8EC30905DA500693561 /* README.md in Resources */,
+				ED38A8F030905DA500693561 /* site in Resources */,
+				ED38A8EF30905DA500693561 /* manifest.json in Resources */,
+				ED38A8F230905DA500693561 /* src in Resources */,
+				ED38A8E830905DA500693561 /* ARCHITECTURE.md in Resources */,
+				ED38A8EA30905DA500693561 /* test in Resources */,
+				ED38A8EE30905DA500693561 /* safari in Resources */,
+			);
+		};
+		ED38A8AB30905DA500693561 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				ED38A8DE30905DA500693561 /* LICENSE in Resources */,
+				ED38A8E030905DA500693561 /* docs in Resources */,
+				ED38A8E630905DA500693561 /* MAGAZA-LISTELEME.md in Resources */,
+				ED38A8E230905DA500693561 /* SEO.md in Resources */,
+				ED38A8E130905DA500693561 /* README.md in Resources */,
+				ED38A8E530905DA500693561 /* site in Resources */,
+				ED38A8E430905DA500693561 /* manifest.json in Resources */,
+				ED38A8E730905DA500693561 /* src in Resources */,
+				ED38A8DD30905DA500693561 /* ARCHITECTURE.md in Resources */,
+				ED38A8DF30905DA500693561 /* test in Resources */,
+				ED38A8E330905DA500693561 /* safari in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		EDDC3A0E308B6DE700FAFEF1 /* Sources */ = {
+		ED38A88130905DA500693561 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				EDDC3A22308B6DE700FAFEF1 /* ViewController.swift in Sources */,
-				EDDC3A16308B6DE700FAFEF1 /* AppDelegate.swift in Sources */,
+				ED38A8BB30905DA500693561 /* ViewController.swift in Sources */,
+				ED38A88930905DA500693561 /* AppDelegate.swift in Sources */,
+				ED38A88B30905DA500693561 /* SceneDelegate.swift in Sources */,
 			);
 		};
-		EDDC3A29308B6DE800FAFEF1 /* Sources */ = {
+		ED38A89330905DA500693561 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				EDDC3A33308B6DE800FAFEF1 /* SafariWebExtensionHandler.swift in Sources */,
+				ED38A8BC30905DA500693561 /* ViewController.swift in Sources */,
+				ED38A89A30905DA500693561 /* AppDelegate.swift in Sources */,
+			);
+		};
+		ED38A89F30905DA500693561 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				ED38A8BF30905DA500693561 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+		ED38A8A930905DA500693561 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				ED38A8C030905DA500693561 /* SafariWebExtensionHandler.swift in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EDDC3A30308B6DE800FAFEF1 /* PBXTargetDependency */ = {
+		ED38A8A630905DA500693561 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EDDC3A2C308B6DE800FAFEF1 /* IncomeVsDesires Extension */;
-			targetProxy = EDDC3A2F308B6DE800FAFEF1 /* PBXContainerItemProxy */;
+			target = ED38A8A230905DA500693561 /* IncomeVsDesires Extension (iOS) */;
+			targetProxy = ED38A8A530905DA500693561 /* PBXContainerItemProxy */;
+		};
+		ED38A8B030905DA500693561 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED38A8AC30905DA500693561 /* IncomeVsDesires Extension (macOS) */;
+			targetProxy = ED38A8AF30905DA500693561 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EDDC3A18308B6DE700FAFEF1 /* Main.html */ = {
+		ED38A87830905DA400693561 /* Main.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EDDC3A19308B6DE700FAFEF1 /* Base */,
+				ED38A87930905DA400693561 /* Base */,
 			);
 			name = Main.html;
 			sourceTree = "<group>";
 		};
-		EDDC3A23308B6DE700FAFEF1 /* Main.storyboard */ = {
+		ED38A88C30905DA500693561 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EDDC3A24308B6DE700FAFEF1 /* Base */,
+				ED38A88D30905DA500693561 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		ED38A88F30905DA500693561 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED38A89030905DA500693561 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		ED38A89B30905DA500693561 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED38A89C30905DA500693561 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -277,7 +515,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		EDDC3A35308B6DE800FAFEF1 /* Debug configuration for PBXProject "IncomeVsDesires" */ = {
+		ED38A8C130905DA500693561 /* Debug configuration for PBXProject "IncomeVsDesires" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -330,17 +568,15 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		EDDC3A36308B6DE800FAFEF1 /* Release configuration for PBXProject "IncomeVsDesires" */ = {
+		ED38A8C230905DA500693561 /* Release configuration for PBXProject "IncomeVsDesires" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -387,107 +623,101 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
-		EDDC3A38308B6DE800FAFEF1 /* Debug configuration for PBXNativeTarget "IncomeVsDesires Extension" */ = {
+		ED38A8C430905DA500693561 /* Debug configuration for PBXNativeTarget "IncomeVsDesires Extension (iOS)" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 28TVDBBT3G;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "IncomeVsDesires Extension/Info.plist";
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "IncomeVsDesires Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamarat52.IncomeVsDesires.Extension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "IncomeVsDesires Extension";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		EDDC3A39308B6DE800FAFEF1 /* Release configuration for PBXNativeTarget "IncomeVsDesires Extension" */ = {
+		ED38A8C530905DA500693561 /* Release configuration for PBXNativeTarget "IncomeVsDesires Extension (iOS)" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 28TVDBBT3G;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "IncomeVsDesires Extension/Info.plist";
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "IncomeVsDesires Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamarat52.IncomeVsDesires.Extension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "IncomeVsDesires Extension";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		EDDC3A3C308B6DE800FAFEF1 /* Debug configuration for PBXNativeTarget "IncomeVsDesires" */ = {
+		ED38A8C830905DA500693561 /* Debug configuration for PBXNativeTarget "IncomeVsDesires (iOS)" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 28TVDBBT3G;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = IncomeVsDesires/Info.plist;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = IncomeVsDesires;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
+					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
@@ -497,8 +727,165 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamarat52.IncomeVsDesires;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = IncomeVsDesires;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ED38A8C930905DA500693561 /* Release configuration for PBXNativeTarget "IncomeVsDesires (iOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 28TVDBBT3G;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = IncomeVsDesires;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamarat52.IncomeVsDesires;
+				PRODUCT_NAME = IncomeVsDesires;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ED38A8CB30905DA500693561 /* Debug configuration for PBXNativeTarget "IncomeVsDesires Extension (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 28TVDBBT3G;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "IncomeVsDesires Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamarat52.IncomeVsDesires.Extension;
+				PRODUCT_NAME = "IncomeVsDesires Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		ED38A8CC30905DA500693561 /* Release configuration for PBXNativeTarget "IncomeVsDesires Extension (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 28TVDBBT3G;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "IncomeVsDesires Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamarat52.IncomeVsDesires.Extension;
+				PRODUCT_NAME = "IncomeVsDesires Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		ED38A8CF30905DA500693561 /* Debug configuration for PBXNativeTarget "IncomeVsDesires (macOS)" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 28TVDBBT3G;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = IncomeVsDesires;
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamarat52.IncomeVsDesires;
+				PRODUCT_NAME = IncomeVsDesires;
 				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -508,30 +895,28 @@
 			};
 			name = Debug;
 		};
-		EDDC3A3D308B6DE800FAFEF1 /* Release configuration for PBXNativeTarget "IncomeVsDesires" */ = {
+		ED38A8D030905DA500693561 /* Release configuration for PBXNativeTarget "IncomeVsDesires (macOS)" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 28TVDBBT3G;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = IncomeVsDesires/Info.plist;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = IncomeVsDesires;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -540,8 +925,9 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamarat52.IncomeVsDesires;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = IncomeVsDesires;
 				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -554,32 +940,48 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EDDC3A0D308B6DE700FAFEF1 /* Build configuration list for PBXProject "IncomeVsDesires" */ = {
+		ED38A87530905DA400693561 /* Build configuration list for PBXProject "IncomeVsDesires" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EDDC3A35308B6DE800FAFEF1 /* Debug configuration for PBXProject "IncomeVsDesires" */,
-				EDDC3A36308B6DE800FAFEF1 /* Release configuration for PBXProject "IncomeVsDesires" */,
+				ED38A8C130905DA500693561 /* Debug configuration for PBXProject "IncomeVsDesires" */,
+				ED38A8C230905DA500693561 /* Release configuration for PBXProject "IncomeVsDesires" */,
 			);
 			defaultConfigurationName = Release;
 		};
-		EDDC3A37308B6DE800FAFEF1 /* Build configuration list for PBXNativeTarget "IncomeVsDesires Extension" */ = {
+		ED38A8C330905DA500693561 /* Build configuration list for PBXNativeTarget "IncomeVsDesires Extension (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EDDC3A38308B6DE800FAFEF1 /* Debug configuration for PBXNativeTarget "IncomeVsDesires Extension" */,
-				EDDC3A39308B6DE800FAFEF1 /* Release configuration for PBXNativeTarget "IncomeVsDesires Extension" */,
+				ED38A8C430905DA500693561 /* Debug configuration for PBXNativeTarget "IncomeVsDesires Extension (iOS)" */,
+				ED38A8C530905DA500693561 /* Release configuration for PBXNativeTarget "IncomeVsDesires Extension (iOS)" */,
 			);
 			defaultConfigurationName = Release;
 		};
-		EDDC3A3B308B6DE800FAFEF1 /* Build configuration list for PBXNativeTarget "IncomeVsDesires" */ = {
+		ED38A8C730905DA500693561 /* Build configuration list for PBXNativeTarget "IncomeVsDesires (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EDDC3A3C308B6DE800FAFEF1 /* Debug configuration for PBXNativeTarget "IncomeVsDesires" */,
-				EDDC3A3D308B6DE800FAFEF1 /* Release configuration for PBXNativeTarget "IncomeVsDesires" */,
+				ED38A8C830905DA500693561 /* Debug configuration for PBXNativeTarget "IncomeVsDesires (iOS)" */,
+				ED38A8C930905DA500693561 /* Release configuration for PBXNativeTarget "IncomeVsDesires (iOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		ED38A8CA30905DA500693561 /* Build configuration list for PBXNativeTarget "IncomeVsDesires Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED38A8CB30905DA500693561 /* Debug configuration for PBXNativeTarget "IncomeVsDesires Extension (macOS)" */,
+				ED38A8CC30905DA500693561 /* Release configuration for PBXNativeTarget "IncomeVsDesires Extension (macOS)" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		ED38A8CE30905DA500693561 /* Build configuration list for PBXNativeTarget "IncomeVsDesires (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED38A8CF30905DA500693561 /* Debug configuration for PBXNativeTarget "IncomeVsDesires (macOS)" */,
+				ED38A8D030905DA500693561 /* Release configuration for PBXNativeTarget "IncomeVsDesires (macOS)" */,
 			);
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = EDDC3A0A308B6DE700FAFEF1 /* Project object */;
+	rootObject = ED38A87230905DA400693561 /* Project object */;
 	validationLevel = 1;
 }
