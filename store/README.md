@@ -103,9 +103,24 @@ tüm boyutları üretir. Önizleme: [`shared/ikon-onizleme.png`](shared/ikon-oni
 | Safari ham kare alfa | simctl PNG'leri `hasAlpha: yes` (opak) — mağaza karelerinde düzleştirildi (`flatten.py`, `hasAlpha: no`); ham kareler olduğu gibi |
 | Eski kareler | `arsiv/chrome-tr-eski-2026-10-28/` (eski CWS TR), `arsiv/apple-hostapp-acilis/` (host app açılışı), `arsiv/apple-chrome-kaynakli-2026-10-28/` (Chrome kaynaklı eski iPhone/iPad) |
 
-## 4. Tanıtım videosu — eksik
+## 4. Tanıtım videosu — hazır (YouTube yüklemesi Yusuf'ta; Mac preview taslak)
 
-Bu turun kapsamında değil (VideoGen). App preview ve YouTube videosu yok.
+VideoGen, 29.10.2026. Dosyalar: `~/Desktop/Projeler/Video Projeleri/income-vs-desires-magaza/output/`
+(her MP4'ün yanında .srt). QA ayrıntısı o klasörün `RAPOR.md`'sinde. Yükleme yapılmadı.
+
+| Öğe | Dosya | vd | Durum |
+|---|---|---|---|
+| CWS TR promo (YouTube, 16:9, 64 sn) | `incomevsdesires_tanitim_16x9_tr.mp4` | `vid_20261028T201202Z_c3f63a` | hazır — YouTube bağlantısı Yusuf'ta |
+| CWS EN promo (YouTube, 16:9, 99 sn) | `incomevsdesires_promo_16x9_en_v2.mp4` | `vid_20261028T122934Z_b71e44` (yeni sürüm) | hazır — YouTube bağlantısı Yusuf'ta |
+| App preview iPhone TR / EN (886×1920) | `incomevsdesires_app-preview_iphone_{tr,en}.mp4` | `…223650Z_4dad76` v2 / `…224649Z_6f7743` v2 | **hazır** — gerçek iOS Safari, 24,6 / 25,1 sn |
+| App preview iPad TR / EN (1200×1600) | `incomevsdesires_app-preview_ipad_{tr,en}.mp4` | `…224033Z_7ecb2d` v2 / `…222049Z_4dbb6f` v3 | **hazır** — gerçek iPadOS Safari, 24,6 / 25,1 sn |
+| App preview Mac TR / EN (1920×1080) | `incomevsdesires_app-preview_mac_{tr,en}.mp4` | `…225108Z_66dece` v2 / `…222517Z_c22d02` v2 | **taslak — gönderilmemeli**; Chrome kaynaklı, macOS Safari kaydıyla yenilenecek |
+
+App preview'ların hepsinde:
+- H.264 High 4.0, 30 fps, ~11,2 Mbps CBR; AAC 256 kbps 48 kHz stereo.
+- Her karede gerçek ekran kaydı/karesi var; metin yalnız bindirme olarak (Rehber 2.3.4). Ayrı kart ya da logo ekranı yok.
+- 5. saniye karesi: eklentili ürün listesi.
+- Altyazı ve Whisper metninde "Chrome", "free", "ücretsiz" geçmiyor.
 
 ## 5. Listeleme metinleri — hazır
 
