@@ -1,3 +1,7 @@
+// Arayüz dili: Chrome'un getMessage'ı yerine gerçek _locales dosyalarını okuyan sahte.
+const i18nStub = require('./i18n-stub.js');
+i18nStub.install('tr');
+require('../src/lib/i18n.js');
 require('../src/lib/money.js');
 const IVD = globalThis.IVD;
 
@@ -140,6 +144,59 @@ check('720 saat → takvim: 1 ay', IVD.formatDuration(720, takvim), '1 ay');
 check('8760 saat → takvim: 1 yıl', IVD.formatDuration(8760, takvim), '1 yıl');
 // 6.512 saat / 720 = 9,04 ay (mesai biriminde aynı fiyat "3,1 yıl")
 check('araba 1.850.000 TL → takvim', IVD.formatDuration(1850000 / perHour, takvim), '9 ay');
+
+console.log('\n--- TR biçim: virgül ondalık, nokta binlik ---');
+check('formatNumber 1234,5', IVD.formatNumber(1234.5), '1.234,5');
+check('formatMoney saatlik', IVD.formatMoney(perHour, 'TRY'), '₺284,09');
+check('yok', IVD.formatDuration(0, fullTime), 'yok');
+check('<1 dk', IVD.formatDuration(0.001, fullTime), '<1 dk');
+
+// --- İngilizce arayüz ---------------------------------------------------------
+// Aynı modül, dil anahtarı değişince EN metin ve nokta ondalık üretmeli.
+// Fiyat AYRIŞTIRMA sayfanın yazımına bağlı; arayüz dili onu değiştirmemeli.
+i18nStub.install('en');
+
+console.log('\n--- EN süre: 5.000 USD/ay, 8 saat × 22 gün (mağaza örneği) ---');
+const en = { salary: 5000, currency: 'USD', hoursPerDay: 8, daysPerMonth: 22 };
+const enPerHour = IVD.hourlyRate(en);
+check('EN saatlik', Math.round(enPerHour * 100) / 100, 28.41);
+const enShow = (usd) => IVD.formatDuration(usd / enPerHour, en);
+check('EN $50 (mağaza özeti)', enShow(50), '1.8 hours');
+check('EN $10', enShow(10), '21 min');
+check('EN tam 1 saat', IVD.formatDuration(1, en), '1 hour');
+check('EN $500', enShow(500), '2.2 days');
+check('EN tam 1 mesai', enShow(enPerHour * 8), '1 day');
+check('EN tam 1 maaş', enShow(5000), '1 month');
+check('EN $35.000 araba', enShow(35000), '7 months');
+check('EN $60.000', enShow(60000), '1 year');
+check('EN $150.000', enShow(150000), '2.5 years');
+check('EN <1 min', IVD.formatDuration(0.001, en), '<1 min');
+check('EN none', IVD.formatDuration(0, en), 'none');
+check('EN takvim 16 saat', IVD.formatDuration(16, { ...en, dayUnit: 'calendar' }), '16 hours');
+check('EN formatNumber 1234.5', IVD.formatNumber(1234.5), '1,234.5');
+check('EN formatMoney saatlik', IVD.formatMoney(enPerHour, 'USD'), '$28.41');
+check('EN formatMoney TRY', IVD.formatMoney(1299.9, 'TRY').replace(/\s/g, ' '), 'TRY 1,299.90');
+
+console.log('\n--- EN arayüzde ayrıştırma değişmez ---');
+check('EN: 1.299,90', IVD.parseAmount('1.299,90'), 1299.9);
+check('EN: 1,299.90', IVD.parseAmount('1,299.90'), 1299.9);
+check('EN: 1.500', IVD.parseAmount('1.500'), 1500);
+check('EN: 19,99', IVD.parseAmount('19,99'), 19.99);
+{
+  const re = IVD.createPriceRegex();
+  const found = [];
+  let m;
+  const text = 'Sneakers $1,299.90 · Ceket 1.299,90 TL · £45';
+  while ((m = re.exec(text)) !== null) {
+    const p = IVD.readMatch(m);
+    if (p) found.push([p.amount, p.currency]);
+  }
+  check('EN: karışık sayfa', JSON.stringify(found), JSON.stringify([[1299.9, 'USD'], [1299.9, 'TRY'], [45, 'GBP']]));
+}
+
+// Dile geri dön: TR ve EN aynı süreçte birbirini bozmamalı.
+i18nStub.install('tr');
+check('TR’ye dönüş: 500 TL', show(500), '1,8 saat');
 
 console.log(fail === 0 ? '\nHepsi geçti.' : `\n${fail} test başarısız.`);
 process.exit(fail ? 1 : 0);

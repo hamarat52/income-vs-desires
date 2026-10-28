@@ -5,54 +5,69 @@
 (async function () {
   'use strict';
 
+  const { t } = IVDi18n;
+  IVDi18n.localizePage(document);
+
   /** Kategoriler sabit sırada — renk varlığa bağlı, sıralamaya değil. */
   const CATEGORIES = [
-    { id: 'kira', label: 'Kira', color: 'var(--series-kira)' },
-    { id: 'abonelik', label: 'Dijital abonelik', color: 'var(--series-abonelik)' },
-    { id: 'taksit', label: 'Taksit', color: 'var(--series-taksit)' },
-    { id: 'diger', label: 'Diğer', color: 'var(--series-diger)' },
+    { id: 'kira', label: t('catRent'), color: 'var(--series-kira)' },
+    { id: 'abonelik', label: t('catSubscription'), color: 'var(--series-abonelik)' },
+    { id: 'taksit', label: t('catInstallment'), color: 'var(--series-taksit)' },
+    { id: 'diger', label: t('catOther'), color: 'var(--series-diger)' },
   ];
-  const LEFTOVER = { id: 'kalan', label: 'Sana kalan', color: 'var(--series-kalan)' };
+  const LEFTOVER = { id: 'kalan', label: t('catLeftover'), color: 'var(--series-kalan)' };
 
   /** Geri bildirimlerin gideceği adres. Boşsa gönder butonu gizlenir. */
   const FEEDBACK_EMAIL = 'yusuf.hamarat@ozu.edu.tr';
 
   /**
    * 28.10.2026'da gerçek sayfalarda ölçüldü; ham veri ve yöntem
-   * docs/qa/saha-testi-2026-10-28.json. README, MAGAZA-LISTELEME.md ve
+   * docs/qa/saha-testi-2026-10-28.json. README, mağaza metinleri (store/) ve
    * site/index.html aynı rakamları gösterir. `ok` = fiyatlar doğru çevrildi,
    * `bilinmiyor` = test tarayıcısında doğrulanamadı (site engelledi ya da
    * ürünler hiç yüklenmedi), eklentinin çalışmadığı anlamına gelmez.
+   *
+   * `prices`/`ms` ölçümün kendisi; görünen not arayüz dilinde kurulur.
    */
   const TESTED_SITES = [
-    { host: 'lcw.com', name: 'LC Waikiki', status: 'ok', note: '145 fiyat · 34 ms' },
-    { host: 'trendyol.com', name: 'Trendyol', status: 'ok', note: '143 fiyat · 33 ms' },
-    { host: 'n11.com', name: 'n11', status: 'ok', note: '93 fiyat · 25 ms' },
-    { host: 'hepsiburada.com', name: 'Hepsiburada', status: 'ok', note: '90 fiyat · 50 ms' },
-    { host: 'amazon.com.tr', name: 'Amazon', status: 'ok', note: '79 fiyat · 124 ms' },
-    { host: 'google.com', name: 'Google Alışveriş', status: 'ok', note: '62 fiyat · 41 ms' },
-    { host: 'migros.com.tr', name: 'Migros', status: 'ok', note: '51 fiyat · 31 ms' },
-    { host: 'teknosa.com', name: 'Teknosa', status: 'ok', note: '49 fiyat · 35 ms' },
-    { host: 'ciceksepeti.com', name: 'Çiçeksepeti', status: 'ok', note: '45 fiyat · 12 ms' },
-    { host: 'sahibinden.com', name: 'Sahibinden', status: 'ok', note: '20 fiyat · 38 ms' },
+    { host: 'lcw.com', name: 'LC Waikiki', status: 'ok', prices: 145, ms: 34 },
+    { host: 'trendyol.com', name: 'Trendyol', status: 'ok', prices: 143, ms: 33 },
+    { host: 'n11.com', name: 'n11', status: 'ok', prices: 93, ms: 25 },
+    { host: 'hepsiburada.com', name: 'Hepsiburada', status: 'ok', prices: 90, ms: 50 },
+    { host: 'amazon.com.tr', name: 'Amazon', status: 'ok', prices: 79, ms: 124 },
+    { host: 'google.com', name: t('siteGoogleShopping'), status: 'ok', prices: 62, ms: 41 },
+    { host: 'migros.com.tr', name: 'Migros', status: 'ok', prices: 51, ms: 31 },
+    { host: 'teknosa.com', name: 'Teknosa', status: 'ok', prices: 49, ms: 35 },
+    { host: 'ciceksepeti.com', name: 'Çiçeksepeti', status: 'ok', prices: 45, ms: 12 },
+    { host: 'sahibinden.com', name: 'Sahibinden', status: 'ok', prices: 20, ms: 38 },
     {
       host: 'mediamarkt.com.tr',
       name: 'MediaMarkt',
       status: 'ok',
-      note: '8 fiyat (ilk ekran) · 29 ms',
+      prices: 8,
+      ms: 29,
+      firstScreen: true,
     },
     {
       host: 'boyner.com.tr',
       name: 'Boyner',
       status: 'bilinmiyor',
-      note: 'ürünler test tarayıcısında yüklenmedi',
+      noteKey: 'siteNoteNotLoaded',
     },
   ];
 
   const STATUS = {
-    ok: { icon: '✓', label: 'Test edildi', className: 'ok' },
-    bilinmiyor: { icon: '?', label: 'Doğrulanamadı', className: 'unknown' },
+    ok: { icon: '✓', label: t('statusOk'), className: 'ok' },
+    bilinmiyor: { icon: '?', label: t('statusUnknown'), className: 'unknown' },
   };
+
+  function siteNote(site) {
+    if (site.noteKey) return t(site.noteKey);
+    return t(site.firstScreen ? 'siteNotePricesFirstScreen' : 'siteNotePrices', [
+      IVD.formatNumber(site.prices),
+      IVD.formatNumber(site.ms),
+    ]);
+  }
 
   const RADIUS = 76;
   const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -219,8 +234,8 @@
           <span class="status ${state.className}" aria-hidden="true">${state.icon}</span>
           <span class="site-name">${escape(site.name)}</span>
           <span class="site-host">${escape(site.host)}</span>
-          <span class="site-note">${escape(state.label)} · ${escape(site.note)}</span>
-          ${kapali ? '<span class="tag">bu sitede kapalı</span>' : ''}
+          <span class="site-note">${escape(state.label)} · ${escape(siteNote(site))}</span>
+          ${kapali ? `<span class="tag">${escape(t('siteOffTag'))}</span>` : ''}
         `;
         return li;
       })
@@ -232,19 +247,19 @@
   /** Raporu kurar. Maaş ve gider listesi bilerek dışarıda bırakılır. */
   function buildReport() {
     const version = chrome.runtime?.getManifest?.().version ?? '?';
-    const tur = ui.fbType.value === 'hata' ? 'Hata bildirimi' : 'Özellik isteği';
+    const tur = t(ui.fbType.value === 'hata' ? 'fbTypeBug' : 'fbTypeFeature');
 
     return [
-      `Tür: ${tur}`,
-      ui.fbSite.value.trim() ? `Site: ${ui.fbSite.value.trim()}` : null,
+      t('reportType', tur),
+      ui.fbSite.value.trim() ? t('reportSite', ui.fbSite.value.trim()) : null,
       '',
-      ui.fbText.value.trim() || '(açıklama yazılmadı)',
+      ui.fbText.value.trim() || t('reportNoText'),
       '',
-      '--- teknik bilgi ---',
-      `Eklenti: IncomeVsDesires ${version}`,
-      `Tarayıcı: ${navigator.userAgent}`,
-      `Para birimi: ${settings.currency}`,
-      `Çalışma düzeni: ${settings.hoursPerDay ?? '?'} saat/gün × ${settings.daysPerMonth ?? '?'} gün/ay`,
+      t('reportTech'),
+      t('reportExtension', `IncomeVsDesires ${version}`),
+      t('reportBrowser', navigator.userAgent),
+      t('reportCurrency', settings.currency),
+      t('reportSchedule', [settings.hoursPerDay ?? '?', settings.daysPerMonth ?? '?']),
     ]
       .filter((line) => line !== null)
       .join('\n');
@@ -258,10 +273,11 @@
     event.preventDefault();
     if (!FEEDBACK_EMAIL) return;
 
+    const site = ui.fbSite.value.trim();
     const konu =
       ui.fbType.value === 'hata'
-        ? `IncomeVsDesires · hata${ui.fbSite.value.trim() ? `: ${ui.fbSite.value.trim()}` : ''}`
-        : 'IncomeVsDesires · özellik isteği';
+        ? `${t('mailSubjectBug')}${site ? `: ${site}` : ''}`
+        : t('mailSubjectFeature');
 
     const url =
       `mailto:${FEEDBACK_EMAIL}` +
@@ -360,16 +376,19 @@
     const shift = IVD.shiftLengths(settings);
 
     if (!perHour) {
-      ui.rate.textContent = 'Hesaplamak için maaşını ve çalışma düzenini gir.';
+      ui.rate.textContent = t('rateNeedInput');
       ui.summary.hidden = true;
       renderTable(null, null);
       return;
     }
 
-    ui.rate.innerHTML =
-      `Bir saatin <strong>${IVD.formatMoney(perHour, settings.currency)}</strong>` +
-      ` · bir mesain <strong>${IVD.formatMoney(perHour * shift.hoursPerDay, settings.currency)}</strong>` +
-      ` · ayda <strong>${fmt(shift.hoursPerMonth)} saat</strong> çalışıyorsun`;
+    // Yer tutuculara giden değerler bizim biçimlediğimiz sayılar; kullanıcı
+    // metni yok, innerHTML güvenli.
+    ui.rate.innerHTML = t('rateLine', [
+      `<strong>${IVD.formatMoney(perHour, settings.currency)}</strong>`,
+      `<strong>${IVD.formatMoney(perHour * shift.hoursPerDay, settings.currency)}</strong>`,
+      `<strong>${counted('hoursCount', shift.hoursPerMonth)}</strong>`,
+    ]);
 
     renderTable(perHour, shift);
 
@@ -414,7 +433,7 @@
         tile.innerHTML = `
           <div class="tile-label"><span class="swatch" style="background:${row.color}"></span>${escape(row.label)}</div>
           <div class="tile-value">${IVD.formatDuration(row.hours, settings)}</div>
-          <div class="tile-note">${percent(row.hours, shift.hoursPerMonth)} · ayda ${fmt(row.hours)} saat</div>
+          <div class="tile-note">${t('tileNote', [percent(row.hours, shift.hoursPerMonth), counted('hoursCount', row.hours)])}</div>
         `;
         return tile;
       })
@@ -425,8 +444,7 @@
     if (overspent) {
       const warn = document.createElement('p');
       warn.className = 'warn';
-      warn.textContent =
-        'Giderlerin maaşını aşıyor, grafikte "sana kalan" sıfır görünüyor.';
+      warn.textContent = t('overspentWarn');
       ui.tiles.after(warn);
     }
   }
@@ -454,8 +472,11 @@
         circle.setAttribute('role', 'listitem');
         circle.setAttribute(
           'aria-label',
-          `${segment.label}: ${IVD.formatDuration(segment.hours, settings)}, ` +
-            `mesainin ${percent(segment.hours, shift.hoursPerMonth)}`
+          t('donutAria', [
+            segment.label,
+            IVD.formatDuration(segment.hours, settings),
+            percent(segment.hours, shift.hoursPerMonth),
+          ])
         );
 
         const show = () => highlight(circle, segment, shift);
@@ -474,11 +495,11 @@
     // kutucuğu ise 160 saati "6,7 gün" (takvim) diye yazıyor, ikisi çelişiyordu.
     const dayHours = IVD.unitLengths(settings).hoursPerDay;
     if (neededHours) {
-      ui.donutValue.textContent = `${fmt(neededHours / dayHours)} gün`;
-      ui.donutLabel.textContent = 'gerekiyor, ayın yetmiyor';
+      ui.donutValue.textContent = counted('donutDays', neededHours / dayHours);
+      ui.donutLabel.textContent = t('donutNeeded');
     } else {
-      ui.donutValue.textContent = `${fmt(shift.hoursPerMonth / dayHours)} gün`;
-      ui.donutLabel.textContent = 'aylık mesain';
+      ui.donutValue.textContent = counted('donutDays', shift.hoursPerMonth / dayHours);
+      ui.donutLabel.textContent = t('donutMonthly');
     }
     ui.donutDesc.textContent = segments
       .map((s) => `${s.label}: ${IVD.formatDuration(s.hours, settings)}`)
@@ -541,20 +562,20 @@
         // Döviz giderinde girilen tutar altta kalır; üstteki çevrilmiş tutar
         // kurla oynar, kullanıcı neyi girdiğini görebilsin.
         const foreign = item.currency && item.currency !== settings.currency
-          ? `<div class="tile-note">${IVD.formatMoney(item.amount, item.currency)}` +
-            `/${item.period === 'yearly' ? 'yıl' : 'ay'}</div>`
+          ? `<div class="tile-note">${t(item.period === 'yearly' ? 'perYear' : 'perMonth',
+              IVD.formatMoney(item.amount, item.currency))}</div>`
           : '';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${escape(item.name)}${item.period === 'yearly' ? ' <span class="tile-note">(yıllık)</span>' : ''}</td>
+          <td>${escape(item.name)}${item.period === 'yearly' ? ` <span class="tile-note">${escape(t('yearlyTag'))}</span>` : ''}</td>
           <td><span class="cat"><span class="swatch" style="background:${cat.color}"></span>${escape(cat.label)}</span></td>
           <td class="num">${converted === null
-            ? `kur yok${foreign}`
+            ? `${escape(t('noRate'))}${foreign}`
             : `${foreign ? '≈ ' : ''}${IVD.formatMoney(monthly, settings.currency)}${foreign}`}</td>
           <td class="num cost">${hours === null ? '·' : IVD.formatDuration(hours, settings)}</td>
           <td class="num">${hours === null ? '·' : percent(hours, shift.hoursPerMonth)}</td>
-          <td class="num"><button type="button" class="remove" data-id="${item.id}" aria-label="${escape(item.name)} giderini sil">Sil</button></td>
+          <td class="num"><button type="button" class="remove" data-id="${item.id}" aria-label="${escape(t('removeAria', item.name))}">${escape(t('removeButton'))}</button></td>
         `;
         return tr;
       })
@@ -569,12 +590,18 @@
   }
 
   function fmt(value) {
-    return Number(value).toLocaleString('tr-TR', { maximumFractionDigits: 1 });
+    return IVD.formatNumber(value);
+  }
+
+  /** "1 hour" / "2.5 hours": biçimlenmiş değer "1" ise tekil anahtar (`<key>One`). */
+  function counted(key, value) {
+    const text = fmt(value);
+    return t(text === fmt(1) ? `${key}One` : key, text);
   }
 
   function percent(part, whole) {
     if (!whole) return '·';
-    return `%${(part / whole * 100).toLocaleString('tr-TR', { maximumFractionDigits: 1 })}`;
+    return t('percent', IVD.formatNumber(part / whole * 100));
   }
 
   function escape(text) {

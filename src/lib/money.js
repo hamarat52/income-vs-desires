@@ -210,13 +210,32 @@
     const shift = unitLengths(settings);
     if (!shift) return null;
 
-    if (hours === 0) return 'yok';
-    if (hours * 60 < 1) return '<1 dk';
-    if (hours < 1) return `${Math.round(hours * 60)} dk`;
-    if (hours < shift.hoursPerDay) return `${round(hours)} saat`;
-    if (hours < shift.hoursPerMonth) return `${round(hours / shift.hoursPerDay)} gün`;
-    if (hours < shift.hoursPerYear) return `${round(hours / shift.hoursPerMonth)} ay`;
-    return `${round(hours / shift.hoursPerYear)} yıl`;
+    if (hours === 0) return msg('durNone');
+    if (hours * 60 < 1) return msg('durUnderMinute');
+    if (hours < 1) return msg('durMinutes', String(Math.round(hours * 60)));
+    if (hours < shift.hoursPerDay) return unit('Hours', hours);
+    if (hours < shift.hoursPerMonth) return unit('Days', hours / shift.hoursPerDay);
+    if (hours < shift.hoursPerYear) return unit('Months', hours / shift.hoursPerMonth);
+    return unit('Years', hours / shift.hoursPerYear);
+  }
+
+  /**
+   * "1,8 saat" / "1.8 hours". Tekil biçim yalnızca yuvarlanmış değer tam 1
+   * olduğunda: "1 day", "1.2 days". Türkçede iki biçim aynı metin.
+   */
+  function unit(name, value) {
+    const rounded = roundValue(value);
+    return msg(`dur${name}${rounded === 1 ? 'One' : 'Many'}`, formatNumber(rounded));
+  }
+
+  /** Arayüz diline göre metin (i18n.js → _locales). */
+  function msg(key, substitutions) {
+    return root.IVDi18n ? root.IVDi18n.t(key, substitutions) : key;
+  }
+
+  /** Arayüz dilinin sayı biçimi: tr-TR "1,8" / en-US "1.8". */
+  function numberLocale() {
+    return root.IVDi18n ? root.IVDi18n.numberLocale() : 'en-US';
   }
 
   /**
@@ -235,14 +254,19 @@
     return { hoursPerDay: 24, hoursPerMonth: 24 * 30, hoursPerYear: 24 * 365 };
   }
 
-  /** 10'un altında bir ondalık, üstünde tam sayı. Türkçe virgül. */
-  function round(value) {
-    const rounded = value < 10 ? Math.round(value * 10) / 10 : Math.round(value);
-    return rounded.toLocaleString('tr-TR', { maximumFractionDigits: 1 });
+  /** 10'un altında bir ondalık, üstünde tam sayı. */
+  function roundValue(value) {
+    return value < 10 ? Math.round(value * 10) / 10 : Math.round(value);
+  }
+
+  /** Ondalık ayracı arayüz dilinden: Türkçe virgül, İngilizce nokta. */
+  function formatNumber(value, maximumFractionDigits = 1) {
+    return Number(value).toLocaleString(numberLocale(), { maximumFractionDigits });
   }
 
   /**
-   * Maaş alanını yazarken okunur tutar: "1000" → "1.000".
+   * Maaş alanını yazarken okunur tutar: "1000" → "1.000" (tr) / "1,000" (en).
+   * Okurken parseAmount iki yazımı da binlik ayracı sayar.
    *
    * `type="number"` ile yapılamıyor (tarayıcı ayraçlı değeri geçersiz sayar),
    * o yüzden alanlar `type="text" inputmode="numeric"`. İmleç, solundaki
@@ -254,7 +278,7 @@
     const format = (raw) => {
       const digits = String(raw).replace(/\D/g, '').replace(/^0+(?=\d)/, '');
       if (!digits) return '';
-      return Number(digits).toLocaleString('tr-TR');
+      return Number(digits).toLocaleString(numberLocale());
     };
 
     const apply = () => {
@@ -297,7 +321,7 @@
   function formatMoney(amount, currency) {
     const meta = CURRENCIES[currency];
     if (!meta) return String(amount);
-    return amount.toLocaleString('tr-TR', {
+    return amount.toLocaleString(numberLocale(), {
       style: 'currency',
       currency,
       maximumFractionDigits: amount % 1 === 0 ? 0 : 2,
@@ -334,6 +358,7 @@
     parseAmount,
     convert,
     formatDuration,
+    formatNumber,
     formatMoney,
     hourlyRate,
   };

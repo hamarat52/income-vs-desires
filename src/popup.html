@@ -1,56 +1,57 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <script src="theme.js"></script>
     <link rel="stylesheet" href="tokens.css" />
     <link rel="stylesheet" href="popup.css" />
-    <title>IncomeVsDesires</title>
+    <title data-i18n="extName">IncomeVsDesires</title>
   </head>
   <body>
+    <!-- Metinler _locales/<dil>/messages.json'dan gelir (lib/i18n.js localizePage). -->
     <header>
-      <h1>IncomeVsDesires</h1>
+      <h1 data-i18n="extName">IncomeVsDesires</h1>
       <label class="switch">
         <input type="checkbox" id="enabled" role="switch" />
-        <span id="enabledLabel">Açık</span>
+        <span id="enabledLabel"></span>
       </label>
     </header>
 
     <label class="field">
-      <span>Aylık net maaşın</span>
+      <span data-i18n="popupSalaryLabel"></span>
       <div class="row">
-        <input type="text" id="salary" inputmode="numeric" autocomplete="off" placeholder="örn. 50000" />
+        <input type="text" id="salary" inputmode="numeric" autocomplete="off" data-i18n-placeholder="salaryPlaceholder" />
         <select id="currency"></select>
       </div>
     </label>
 
     <div class="field">
-      <span>Çalışma düzenin</span>
+      <span data-i18n="popupScheduleLabel"></span>
       <div class="row">
         <label class="sub">
           <input type="number" id="hoursPerDay" min="1" max="24" step="any" placeholder="8" />
-          <small>saat / gün</small>
+          <small data-i18n="hoursPerDayShort"></small>
         </label>
         <label class="sub">
           <input type="number" id="daysPerMonth" min="1" max="31" step="any" placeholder="22" />
-          <small>gün / ay</small>
+          <small data-i18n="daysPerMonthShort"></small>
         </label>
       </div>
     </div>
 
     <div class="field">
-      <span>Gösterim</span>
+      <span data-i18n="popupDisplayLabel"></span>
       <label class="switch option">
         <input type="checkbox" id="basisLeftover" role="switch" />
-        <span>Giderlerden sonra kalana göre hesapla</span>
+        <span data-i18n="basisLeftoverLabel"></span>
       </label>
       <label class="switch option">
         <input type="checkbox" id="showBoth" role="switch" />
-        <span>Fiyatı da göster: 1,8 saat (500 TL)</span>
+        <span data-i18n="showBothLabel"></span>
       </label>
       <label class="switch option">
         <input type="checkbox" id="calendarDays" role="switch" />
-        <span>1 gün = 24 saat (kapalıyken 1 gün = 1 mesai)</span>
+        <span data-i18n="calendarDaysLabel"></span>
       </label>
     </div>
 
@@ -58,13 +59,14 @@
     <p class="note" id="basisNote" hidden></p>
 
     <div class="actions">
-      <button type="button" id="openOptions" class="primary">Giderlerin ve grafik →</button>
-      <button type="button" id="rescan" class="ghost">Sayfayı yeniden tara</button>
+      <button type="button" id="openOptions" class="primary" data-i18n="openOptions"></button>
+      <button type="button" id="rescan" class="ghost" data-i18n="rescan"></button>
       <button type="button" id="toggleHost" class="ghost"></button>
     </div>
 
     <footer id="rateInfo"></footer>
 
+    <script src="lib/i18n.js"></script>
     <script src="lib/money.js"></script>
     <script src="popup.js"></script>
   </body>

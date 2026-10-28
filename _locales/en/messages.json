@@ -1,0 +1,618 @@
+{
+  "locale": {
+    "message": "en",
+    "description": "Dil kodu; kod sayı biçimi ve <html lang> için okur. Çevirmeyin."
+  },
+  "numberLocale": {
+    "message": "en-US",
+    "description": "Sayı/para biçimi için BCP 47 etiketi. Çevirmeyin."
+  },
+  "extName": {
+    "message": "IncomeVsDesires",
+    "description": "Eklenti adı (mağaza adı da buradan gelir)."
+  },
+  "extDescription": {
+    "message": "Enter your pay and see prices as hours of your work. 50 dollars becomes 1.8 hours. No data collection, no sign-up, free.",
+    "description": "Manifest description = mağaza özeti, en fazla 132 karakter. \"$\" YAZMAYIN: manifest yerelleştirmesi \"$$\" kaçışını çözmüyor (Chrome 156, chrome://extensions \"$$50\" gösterdi)."
+  },
+  "actionTitle": {
+    "message": "IncomeVsDesires",
+    "description": "Araç çubuğu düğmesinin ipucu."
+  },
+  "durNone": {
+    "message": "none"
+  },
+  "durUnderMinute": {
+    "message": "<1 min"
+  },
+  "durMinutes": {
+    "message": "$ARG1$ min",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durHoursOne": {
+    "message": "$ARG1$ hour",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durHoursMany": {
+    "message": "$ARG1$ hours",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durDaysOne": {
+    "message": "$ARG1$ day",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durDaysMany": {
+    "message": "$ARG1$ days",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durMonthsOne": {
+    "message": "$ARG1$ month",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durMonthsMany": {
+    "message": "$ARG1$ months",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durYearsOne": {
+    "message": "$ARG1$ year",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durYearsMany": {
+    "message": "$ARG1$ years",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "chipTitleToPrice": {
+    "message": "$ARG1$ · click to show the price",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "chipTitleToTime": {
+    "message": "$ARG1$ · click to show the time",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "switchOn": {
+    "message": "On"
+  },
+  "switchOff": {
+    "message": "Off"
+  },
+  "popupSalaryLabel": {
+    "message": "Your monthly take-home pay"
+  },
+  "salaryPlaceholder": {
+    "message": "e.g. 5000"
+  },
+  "popupScheduleLabel": {
+    "message": "Your work schedule"
+  },
+  "hoursPerDayShort": {
+    "message": "hrs / day",
+    "description": "Panelde 300 px genişlik: TR ile aynı uzunlukta tutun (uzun EN metin \"22\"yi kırpıyordu)."
+  },
+  "daysPerMonthShort": {
+    "message": "days / mo",
+    "description": "Panelde 300 px genişlik: kısa tutun."
+  },
+  "popupDisplayLabel": {
+    "message": "Display"
+  },
+  "basisLeftoverLabel": {
+    "message": "Calculate from what’s left after expenses"
+  },
+  "showBothLabel": {
+    "message": "Show the price too: 1.8 hours ($$50)"
+  },
+  "calendarDaysLabel": {
+    "message": "1 day = 24 hours (when off, 1 day = 1 workday)"
+  },
+  "openOptions": {
+    "message": "Your expenses and chart →"
+  },
+  "rescan": {
+    "message": "Rescan this page"
+  },
+  "rateSalary": {
+    "message": "One hour of your work ≈ $ARG1$ · one workday ≈ $ARG2$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "rateLeftover": {
+    "message": "After expenses, one hour of your work ≈ $ARG1$ · one workday ≈ $ARG2$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "rateEmpty": {
+    "message": "Enter your pay to start. (The grey text is only an example.)"
+  },
+  "noteNoExpenses": {
+    "message": "You haven’t entered any expenses yet, so your full pay is used."
+  },
+  "noteOverspent": {
+    "message": "Your expenses exceed your pay, so your full pay is used."
+  },
+  "noteSkipped": {
+    "message": "$ARG1$ foreign-currency expense(s) not deducted because exchange rates couldn’t be fetched.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hostTurnOn": {
+    "message": "Turn on for $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hostTurnOff": {
+    "message": "Turn off for $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "flashNoTab": {
+    "message": "No tab found"
+  },
+  "flashNotHere": {
+    "message": "Doesn’t run on this page"
+  },
+  "flashInactive": {
+    "message": "Off — enter your pay first"
+  },
+  "flashCount": {
+    "message": "$ARG1$ prices converted",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ratesNone": {
+    "message": "Exchange rates not fetched yet; foreign-currency prices aren’t converted."
+  },
+  "ratesStale": {
+    "message": "Couldn’t update exchange rates; using rates from $ARG1$.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ratesFresh": {
+    "message": "Exchange rates up to date ($ARG1$).",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "IncomeVsDesires · Your expenses"
+  },
+  "optHeading": {
+    "message": "Your expenses"
+  },
+  "optLede": {
+    "message": "Enter your fixed expenses and see how many days of your month you work for them."
+  },
+  "themeGroup": {
+    "message": "Appearance"
+  },
+  "themeLight": {
+    "message": "Light"
+  },
+  "themeDark": {
+    "message": "Dark"
+  },
+  "earningsHeading": {
+    "message": "Your earnings"
+  },
+  "salaryLabel": {
+    "message": "Monthly take-home pay"
+  },
+  "hoursPerDayLabel": {
+    "message": "Hours / day"
+  },
+  "daysPerMonthLabel": {
+    "message": "Days / month"
+  },
+  "rateNeedInput": {
+    "message": "Enter your pay and work schedule to calculate."
+  },
+  "rateLine": {
+    "message": "One hour of your work: $ARG1$ · one workday: $ARG2$ · you work $ARG3$ a month",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "hoursCount": {
+    "message": "$ARG1$ hours",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hoursCountOne": {
+    "message": "$ARG1$ hour",
+    "description": "Değer tam 1 olduğunda.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "summaryHeading": {
+    "message": "Where your month goes"
+  },
+  "donutTitle": {
+    "message": "How your monthly work time is split"
+  },
+  "donutDays": {
+    "message": "$ARG1$ days",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "donutDaysOne": {
+    "message": "$ARG1$ day",
+    "description": "Değer tam 1 olduğunda.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "donutNeeded": {
+    "message": "needed — more than a month"
+  },
+  "donutMonthly": {
+    "message": "your work month"
+  },
+  "donutAria": {
+    "message": "$ARG1$: $ARG2$, $ARG3$ of your work time",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "tileNote": {
+    "message": "$ARG1$ · $ARG2$ a month",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "overspentWarn": {
+    "message": "Your expenses exceed your pay, so “left for you” shows as zero in the chart."
+  },
+  "percent": {
+    "message": "$ARG1$%",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "expensesHeading": {
+    "message": "Your fixed expenses"
+  },
+  "fieldName": {
+    "message": "What for?"
+  },
+  "namePlaceholder": {
+    "message": "Rent, Netflix, Spotify…"
+  },
+  "fieldAmount": {
+    "message": "Amount"
+  },
+  "amountCurrencyAria": {
+    "message": "Expense currency"
+  },
+  "fieldPeriod": {
+    "message": "Period"
+  },
+  "periodMonthly": {
+    "message": "Monthly"
+  },
+  "periodYearly": {
+    "message": "Yearly"
+  },
+  "fieldCategory": {
+    "message": "Type"
+  },
+  "addButton": {
+    "message": "Add"
+  },
+  "tableCaption": {
+    "message": "Expense list and the monthly work time each one costs"
+  },
+  "colName": {
+    "message": "What for"
+  },
+  "colType": {
+    "message": "Type"
+  },
+  "colMonthly": {
+    "message": "Monthly amount"
+  },
+  "colWork": {
+    "message": "Work time"
+  },
+  "colPercent": {
+    "message": "% of pay"
+  },
+  "removeButton": {
+    "message": "Remove"
+  },
+  "removeAria": {
+    "message": "Remove $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "yearlyTag": {
+    "message": "(yearly)"
+  },
+  "perMonth": {
+    "message": "$ARG1$/mo",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "perYear": {
+    "message": "$ARG1$/yr",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noRate": {
+    "message": "no rate"
+  },
+  "emptyExpenses": {
+    "message": "You haven’t added any expenses yet."
+  },
+  "catRent": {
+    "message": "Rent"
+  },
+  "catSubscription": {
+    "message": "Digital subscription"
+  },
+  "catInstallment": {
+    "message": "Installment"
+  },
+  "catOther": {
+    "message": "Other"
+  },
+  "catLeftover": {
+    "message": "Left for you"
+  },
+  "sitesHeading": {
+    "message": "Tested sites"
+  },
+  "sitesLede": {
+    "message": "Each of these sites was tried on real pages. Sites not on the list most likely work too: the extension doesn’t look for specific sites, it recognises how prices are written on the page."
+  },
+  "statusOk": {
+    "message": "Tested"
+  },
+  "statusUnknown": {
+    "message": "Couldn’t verify"
+  },
+  "siteNotePrices": {
+    "message": "$ARG1$ prices · $ARG2$ ms",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "siteNotePricesFirstScreen": {
+    "message": "$ARG1$ prices (first screen) · $ARG2$ ms",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "siteNoteNotLoaded": {
+    "message": "products didn’t load in the test browser"
+  },
+  "siteGoogleShopping": {
+    "message": "Google Shopping"
+  },
+  "siteOffTag": {
+    "message": "off on this site"
+  },
+  "feedbackHeading": {
+    "message": "Report a bug / request a feature"
+  },
+  "fbTypeLabel": {
+    "message": "What would you like to send?"
+  },
+  "fbTypeBug": {
+    "message": "Bug report"
+  },
+  "fbTypeFeature": {
+    "message": "Feature request"
+  },
+  "fbSiteLabel": {
+    "message": "Which site? (for bugs)"
+  },
+  "fbSitePlaceholder": {
+    "message": "example.com"
+  },
+  "fbTextLabel": {
+    "message": "What happened / what would you like?"
+  },
+  "fbTextPlaceholder": {
+    "message": "Prices didn’t convert: the product card says $$1,299 but no time appeared…"
+  },
+  "fbPrivacy": {
+    "message": "Technical info added to the report: extension version, browser, your currency and work schedule."
+  },
+  "fbPrivacyStrong": {
+    "message": "Your pay and expenses are never included."
+  },
+  "fbSend": {
+    "message": "Send by email"
+  },
+  "fbPreviewToggle": {
+    "message": "Show the report that will be sent"
+  },
+  "reportType": {
+    "message": "Type: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportSite": {
+    "message": "Site: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportNoText": {
+    "message": "(no description)"
+  },
+  "reportTech": {
+    "message": "--- technical info ---"
+  },
+  "reportExtension": {
+    "message": "Extension: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportBrowser": {
+    "message": "Browser: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportCurrency": {
+    "message": "Currency: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportSchedule": {
+    "message": "Work schedule: $ARG1$ h/day × $ARG2$ days/month",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "mailSubjectBug": {
+    "message": "IncomeVsDesires · bug"
+  },
+  "mailSubjectFeature": {
+    "message": "IncomeVsDesires · feature request"
+  }
+}

@@ -24,7 +24,9 @@
     <h1>Test sayfası</h1>
     <p class="note">
       Ayarlar sabit: ayda 50.000, günde 8 saat, ayda 22 gün. Süreye tıkla, fiyata
-      döner.
+      döner. Arayüz dili: <code>?lang=tr</code> (varsayılan) ya da
+      <code>?lang=en</code> — http üzerinden aç
+      (<code>python3 -m http.server</code>), dil dosyası <code>../_locales</code>'tan okunur.
     </p>
 
     <div class="card" id="c1">Spor ayakkabı — <b>500 TL</b></div>
@@ -112,6 +114,8 @@
         runtime: { onMessage: { addListener() {} } },
       };
     </script>
+    <script src="i18n-stub.js"></script>
+    <script src="../src/lib/i18n.js"></script>
     <script src="../src/lib/money.js"></script>
     <script src="../src/content.js"></script>
     <script>

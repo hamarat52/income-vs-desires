@@ -1,0 +1,618 @@
+{
+  "locale": {
+    "message": "tr",
+    "description": "Dil kodu; kod sayı biçimi ve <html lang> için okur. Çevirmeyin."
+  },
+  "numberLocale": {
+    "message": "tr-TR",
+    "description": "Sayı/para biçimi için BCP 47 etiketi. Çevirmeyin."
+  },
+  "extName": {
+    "message": "IncomeVsDesires",
+    "description": "Eklenti adı (mağaza adı da buradan gelir)."
+  },
+  "extDescription": {
+    "message": "Maaşını gir, fiyatlar kaç saat çalıştığına dönüşsün. 500 TL yerine 1,8 saat. Veri toplamaz, kayıt istemez, ücretsiz.",
+    "description": "Manifest description = mağaza özeti, en fazla 132 karakter. \"$\" YAZMAYIN: manifest yerelleştirmesi \"$$\" kaçışını çözmüyor (Chrome 156, chrome://extensions \"$$50\" gösterdi)."
+  },
+  "actionTitle": {
+    "message": "IncomeVsDesires",
+    "description": "Araç çubuğu düğmesinin ipucu."
+  },
+  "durNone": {
+    "message": "yok"
+  },
+  "durUnderMinute": {
+    "message": "<1 dk"
+  },
+  "durMinutes": {
+    "message": "$ARG1$ dk",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durHoursOne": {
+    "message": "$ARG1$ saat",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durHoursMany": {
+    "message": "$ARG1$ saat",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durDaysOne": {
+    "message": "$ARG1$ gün",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durDaysMany": {
+    "message": "$ARG1$ gün",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durMonthsOne": {
+    "message": "$ARG1$ ay",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durMonthsMany": {
+    "message": "$ARG1$ ay",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durYearsOne": {
+    "message": "$ARG1$ yıl",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "durYearsMany": {
+    "message": "$ARG1$ yıl",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "chipTitleToPrice": {
+    "message": "$ARG1$ · tıkla, fiyata dön",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "chipTitleToTime": {
+    "message": "$ARG1$ · tıkla, süreye dön",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "switchOn": {
+    "message": "Açık"
+  },
+  "switchOff": {
+    "message": "Kapalı"
+  },
+  "popupSalaryLabel": {
+    "message": "Aylık net maaşın"
+  },
+  "salaryPlaceholder": {
+    "message": "örn. 50000"
+  },
+  "popupScheduleLabel": {
+    "message": "Çalışma düzenin"
+  },
+  "hoursPerDayShort": {
+    "message": "saat / gün",
+    "description": "Panelde 300 px genişlik: TR ile aynı uzunlukta tutun (uzun EN metin \"22\"yi kırpıyordu)."
+  },
+  "daysPerMonthShort": {
+    "message": "gün / ay",
+    "description": "Panelde 300 px genişlik: kısa tutun."
+  },
+  "popupDisplayLabel": {
+    "message": "Gösterim"
+  },
+  "basisLeftoverLabel": {
+    "message": "Giderlerden sonra kalana göre hesapla"
+  },
+  "showBothLabel": {
+    "message": "Fiyatı da göster: 1,8 saat (500 TL)"
+  },
+  "calendarDaysLabel": {
+    "message": "1 gün = 24 saat (kapalıyken 1 gün = 1 mesai)"
+  },
+  "openOptions": {
+    "message": "Giderlerin ve grafik →"
+  },
+  "rescan": {
+    "message": "Sayfayı yeniden tara"
+  },
+  "rateSalary": {
+    "message": "Bir saatin ≈ $ARG1$ · bir mesai ≈ $ARG2$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "rateLeftover": {
+    "message": "Giderlerden sonra bir saatin ≈ $ARG1$ · bir mesai ≈ $ARG2$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "rateEmpty": {
+    "message": "Başlamak için maaşını yaz. (Gri yazı sadece örnek.)"
+  },
+  "noteNoExpenses": {
+    "message": "Henüz gider girmedin, maaşın tamamına göre hesaplanıyor."
+  },
+  "noteOverspent": {
+    "message": "Giderlerin maaşını aşıyor, maaşın tamamına göre hesaplanıyor."
+  },
+  "noteSkipped": {
+    "message": "$ARG1$ dövizli gider, kur çekilemediği için düşülmedi.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hostTurnOn": {
+    "message": "$ARG1$ için aç",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hostTurnOff": {
+    "message": "$ARG1$ için kapat",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "flashNoTab": {
+    "message": "Sekme bulunamadı"
+  },
+  "flashNotHere": {
+    "message": "Bu sayfada çalışmıyor"
+  },
+  "flashInactive": {
+    "message": "Kapalı, önce maaşını gir"
+  },
+  "flashCount": {
+    "message": "$ARG1$ fiyat çevrildi",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ratesNone": {
+    "message": "Kurlar henüz çekilemedi, dövizli fiyatlar çevrilmiyor."
+  },
+  "ratesStale": {
+    "message": "Kurlar güncellenemedi, $ARG1$ tarihli değerler kullanılıyor.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ratesFresh": {
+    "message": "Kurlar güncel ($ARG1$).",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "optionsTitle": {
+    "message": "IncomeVsDesires · Giderlerin"
+  },
+  "optHeading": {
+    "message": "Giderlerin"
+  },
+  "optLede": {
+    "message": "Sabit giderlerini gir, ayın kaç gününü onlara çalıştığını gör."
+  },
+  "themeGroup": {
+    "message": "Görünüm seçimi"
+  },
+  "themeLight": {
+    "message": "Aydınlık"
+  },
+  "themeDark": {
+    "message": "Karanlık"
+  },
+  "earningsHeading": {
+    "message": "Kazancın"
+  },
+  "salaryLabel": {
+    "message": "Aylık net maaş"
+  },
+  "hoursPerDayLabel": {
+    "message": "Saat / gün"
+  },
+  "daysPerMonthLabel": {
+    "message": "Gün / ay"
+  },
+  "rateNeedInput": {
+    "message": "Hesaplamak için maaşını ve çalışma düzenini gir."
+  },
+  "rateLine": {
+    "message": "Bir saatin $ARG1$ · bir mesain $ARG2$ · ayda $ARG3$ çalışıyorsun",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "hoursCount": {
+    "message": "$ARG1$ saat",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "hoursCountOne": {
+    "message": "$ARG1$ saat",
+    "description": "Değer tam 1 olduğunda.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "summaryHeading": {
+    "message": "Ayın nereye gidiyor"
+  },
+  "donutTitle": {
+    "message": "Aylık mesainin dağılımı"
+  },
+  "donutDays": {
+    "message": "$ARG1$ gün",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "donutDaysOne": {
+    "message": "$ARG1$ gün",
+    "description": "Değer tam 1 olduğunda.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "donutNeeded": {
+    "message": "gerekiyor, ayın yetmiyor"
+  },
+  "donutMonthly": {
+    "message": "aylık mesain"
+  },
+  "donutAria": {
+    "message": "$ARG1$: $ARG2$, mesainin $ARG3$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "tileNote": {
+    "message": "$ARG1$ · ayda $ARG2$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "overspentWarn": {
+    "message": "Giderlerin maaşını aşıyor, grafikte \"sana kalan\" sıfır görünüyor."
+  },
+  "percent": {
+    "message": "%$ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "expensesHeading": {
+    "message": "Sabit giderlerin"
+  },
+  "fieldName": {
+    "message": "Ne için?"
+  },
+  "namePlaceholder": {
+    "message": "Kira, Netflix, Spotify…"
+  },
+  "fieldAmount": {
+    "message": "Tutar"
+  },
+  "amountCurrencyAria": {
+    "message": "Giderin para birimi"
+  },
+  "fieldPeriod": {
+    "message": "Dönem"
+  },
+  "periodMonthly": {
+    "message": "Aylık"
+  },
+  "periodYearly": {
+    "message": "Yıllık"
+  },
+  "fieldCategory": {
+    "message": "Tür"
+  },
+  "addButton": {
+    "message": "Ekle"
+  },
+  "tableCaption": {
+    "message": "Gider listesi ve her birinin aylık çalışma karşılığı"
+  },
+  "colName": {
+    "message": "Ne için"
+  },
+  "colType": {
+    "message": "Tür"
+  },
+  "colMonthly": {
+    "message": "Aylık tutar"
+  },
+  "colWork": {
+    "message": "Ne kadar çalışma"
+  },
+  "colPercent": {
+    "message": "Maaşın %"
+  },
+  "removeButton": {
+    "message": "Sil"
+  },
+  "removeAria": {
+    "message": "$ARG1$ giderini sil",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "yearlyTag": {
+    "message": "(yıllık)"
+  },
+  "perMonth": {
+    "message": "$ARG1$/ay",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "perYear": {
+    "message": "$ARG1$/yıl",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noRate": {
+    "message": "kur yok"
+  },
+  "emptyExpenses": {
+    "message": "Henüz gider eklemedin."
+  },
+  "catRent": {
+    "message": "Kira"
+  },
+  "catSubscription": {
+    "message": "Dijital abonelik"
+  },
+  "catInstallment": {
+    "message": "Taksit"
+  },
+  "catOther": {
+    "message": "Diğer"
+  },
+  "catLeftover": {
+    "message": "Sana kalan"
+  },
+  "sitesHeading": {
+    "message": "Test edilmiş siteler"
+  },
+  "sitesLede": {
+    "message": "Bu siteler gerçek sayfalarda tek tek denendi. Listede olmayan siteler de büyük ihtimalle çalışır; eklenti site tanımaz, sayfadaki fiyat yazımını tanır."
+  },
+  "statusOk": {
+    "message": "Test edildi"
+  },
+  "statusUnknown": {
+    "message": "Doğrulanamadı"
+  },
+  "siteNotePrices": {
+    "message": "$ARG1$ fiyat · $ARG2$ ms",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "siteNotePricesFirstScreen": {
+    "message": "$ARG1$ fiyat (ilk ekran) · $ARG2$ ms",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "siteNoteNotLoaded": {
+    "message": "ürünler test tarayıcısında yüklenmedi"
+  },
+  "siteGoogleShopping": {
+    "message": "Google Alışveriş"
+  },
+  "siteOffTag": {
+    "message": "bu sitede kapalı"
+  },
+  "feedbackHeading": {
+    "message": "Hata bildir / özellik iste"
+  },
+  "fbTypeLabel": {
+    "message": "Ne göndermek istiyorsun?"
+  },
+  "fbTypeBug": {
+    "message": "Hata bildirimi"
+  },
+  "fbTypeFeature": {
+    "message": "Özellik isteği"
+  },
+  "fbSiteLabel": {
+    "message": "Hangi site? (hata ise)"
+  },
+  "fbSitePlaceholder": {
+    "message": "ornek.com"
+  },
+  "fbTextLabel": {
+    "message": "Ne oldu / ne olsun istiyorsun?"
+  },
+  "fbTextPlaceholder": {
+    "message": "Fiyatlar dönüşmedi, ürün kartında 1.299 TL yazıyor ama süre çıkmadı…"
+  },
+  "fbPrivacy": {
+    "message": "Rapora eklenen teknik bilgi: eklenti sürümü, tarayıcı, para birimin ve çalışma düzenin."
+  },
+  "fbPrivacyStrong": {
+    "message": "Maaşın ve giderlerin gönderilmez."
+  },
+  "fbSend": {
+    "message": "E-posta ile gönder"
+  },
+  "fbPreviewToggle": {
+    "message": "Gönderilecek raporu göster"
+  },
+  "reportType": {
+    "message": "Tür: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportSite": {
+    "message": "Site: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportNoText": {
+    "message": "(açıklama yazılmadı)"
+  },
+  "reportTech": {
+    "message": "--- teknik bilgi ---"
+  },
+  "reportExtension": {
+    "message": "Eklenti: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportBrowser": {
+    "message": "Tarayıcı: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportCurrency": {
+    "message": "Para birimi: $ARG1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "reportSchedule": {
+    "message": "Çalışma düzeni: $ARG1$ saat/gün × $ARG2$ gün/ay",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "mailSubjectBug": {
+    "message": "IncomeVsDesires · hata"
+  },
+  "mailSubjectFeature": {
+    "message": "IncomeVsDesires · özellik isteği"
+  }
+}

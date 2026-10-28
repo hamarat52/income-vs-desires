@@ -1,48 +1,43 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <script src="theme.js"></script>
     <link rel="stylesheet" href="tokens.css" />
     <link rel="stylesheet" href="options.css" />
-    <title>IncomeVsDesires · Giderlerin</title>
+    <title data-i18n="optionsTitle">IncomeVsDesires</title>
   </head>
   <body>
+    <!-- Metinler _locales/<dil>/messages.json'dan gelir (lib/i18n.js localizePage). -->
     <div class="page">
       <header class="head">
         <div>
-          <h1>Giderlerin</h1>
-          <p class="lede">
-            Sabit giderlerini gir, ayın kaç gününü onlara çalıştığını gör.
-          </p>
+          <h1 data-i18n="optHeading"></h1>
+          <p class="lede" data-i18n="optLede"></p>
         </div>
 
-        <div class="theme" id="theme" role="group" aria-label="Görünüm seçimi">
-          <button type="button" data-theme-value="light" aria-pressed="true">
-            Aydınlık
-          </button>
-          <button type="button" data-theme-value="dark" aria-pressed="false">
-            Karanlık
-          </button>
+        <div class="theme" id="theme" role="group" data-i18n-aria-label="themeGroup">
+          <button type="button" data-theme-value="light" aria-pressed="true" data-i18n="themeLight"></button>
+          <button type="button" data-theme-value="dark" aria-pressed="false" data-i18n="themeDark"></button>
         </div>
       </header>
 
       <section class="panel">
-        <h2>Kazancın</h2>
+        <h2 data-i18n="earningsHeading"></h2>
         <div class="setup">
           <label class="field">
-            <span>Aylık net maaş</span>
+            <span data-i18n="salaryLabel"></span>
             <div class="row">
-              <input type="text" id="salary" inputmode="numeric" autocomplete="off" placeholder="örn. 50000" />
+              <input type="text" id="salary" inputmode="numeric" autocomplete="off" data-i18n-placeholder="salaryPlaceholder" />
               <select id="currency"></select>
             </div>
           </label>
           <label class="field">
-            <span>Saat / gün</span>
+            <span data-i18n="hoursPerDayLabel"></span>
             <input type="number" id="hoursPerDay" min="1" max="24" step="any" placeholder="8" />
           </label>
           <label class="field">
-            <span>Gün / ay</span>
+            <span data-i18n="daysPerMonthLabel"></span>
             <input type="number" id="daysPerMonth" min="1" max="31" step="any" placeholder="22" />
           </label>
         </div>
@@ -50,7 +45,7 @@
       </section>
 
       <section class="panel" id="summary" hidden>
-        <h2>Ayın nereye gidiyor</h2>
+        <h2 data-i18n="summaryHeading"></h2>
 
         <div class="tiles" id="tiles"></div>
 
@@ -62,7 +57,7 @@
               role="img"
               aria-labelledby="donutTitle donutDesc"
             >
-              <title id="donutTitle">Aylık mesainin dağılımı</title>
+              <title id="donutTitle" data-i18n="donutTitle"></title>
               <desc id="donutDesc"></desc>
               <g id="donutArcs" transform="rotate(-90 100 100)"></g>
               <text id="donutValue" class="donut-value" x="100" y="97"></text>
@@ -76,113 +71,105 @@
       </section>
 
       <section class="panel">
-        <h2>Sabit giderlerin</h2>
+        <h2 data-i18n="expensesHeading"></h2>
 
         <form class="add" id="addForm">
           <label class="field grow">
-            <span>Ne için?</span>
-            <input type="text" id="name" placeholder="Kira, Netflix, Spotify…" required />
+            <span data-i18n="fieldName"></span>
+            <input type="text" id="name" data-i18n-placeholder="namePlaceholder" required />
           </label>
           <label class="field">
-            <span>Tutar</span>
+            <span data-i18n="fieldAmount"></span>
             <div class="row">
               <input type="number" id="amount" min="0" step="any" placeholder="0" required />
-              <select id="amountCurrency" aria-label="Giderin para birimi"></select>
+              <select id="amountCurrency" data-i18n-aria-label="amountCurrencyAria"></select>
             </div>
           </label>
           <label class="field">
-            <span>Dönem</span>
+            <span data-i18n="fieldPeriod"></span>
             <select id="period">
-              <option value="monthly">Aylık</option>
-              <option value="yearly">Yıllık</option>
+              <option value="monthly" data-i18n="periodMonthly"></option>
+              <option value="yearly" data-i18n="periodYearly"></option>
             </select>
           </label>
           <label class="field">
-            <span>Tür</span>
+            <span data-i18n="fieldCategory"></span>
             <select id="category"></select>
           </label>
-          <button type="submit" class="primary">Ekle</button>
+          <button type="submit" class="primary" data-i18n="addButton"></button>
         </form>
 
         <table class="items" id="items">
-          <caption class="sr-only">
-            Gider listesi ve her birinin aylık çalışma karşılığı
-          </caption>
+          <caption class="sr-only" data-i18n="tableCaption"></caption>
           <thead>
             <tr>
-              <th scope="col">Ne için</th>
-              <th scope="col">Tür</th>
-              <th scope="col" class="num">Aylık tutar</th>
-              <th scope="col" class="num">Ne kadar çalışma</th>
-              <th scope="col" class="num">Maaşın %</th>
-              <th scope="col"><span class="sr-only">Sil</span></th>
+              <th scope="col" data-i18n="colName"></th>
+              <th scope="col" data-i18n="colType"></th>
+              <th scope="col" class="num" data-i18n="colMonthly"></th>
+              <th scope="col" class="num" data-i18n="colWork"></th>
+              <th scope="col" class="num" data-i18n="colPercent"></th>
+              <th scope="col"><span class="sr-only" data-i18n="removeButton"></span></th>
             </tr>
           </thead>
           <tbody id="itemsBody"></tbody>
         </table>
 
-        <p class="empty" id="empty">Henüz gider eklemedin.</p>
+        <p class="empty" id="empty" data-i18n="emptyExpenses"></p>
       </section>
 
       <section class="panel">
         <details class="fold">
-          <summary><h2>Test edilmiş siteler</h2></summary>
-          <p class="lede small">
-            Bu siteler gerçek sayfalarda tek tek denendi. Listede olmayan siteler
-            de büyük ihtimalle çalışır; eklenti site tanımaz, sayfadaki fiyat
-            yazımını tanır.
-          </p>
+          <summary><h2 data-i18n="sitesHeading"></h2></summary>
+          <p class="lede small" data-i18n="sitesLede"></p>
           <ul class="sites" id="sites"></ul>
         </details>
       </section>
 
       <section class="panel">
-        <h2>Hata bildir / özellik iste</h2>
+        <h2 data-i18n="feedbackHeading"></h2>
 
         <form class="feedback" id="feedbackForm">
           <div class="setup">
             <label class="field">
-              <span>Ne göndermek istiyorsun?</span>
+              <span data-i18n="fbTypeLabel"></span>
               <select id="fbType">
-                <option value="hata">Hata bildirimi</option>
-                <option value="ozellik">Özellik isteği</option>
+                <option value="hata" data-i18n="fbTypeBug"></option>
+                <option value="ozellik" data-i18n="fbTypeFeature"></option>
               </select>
             </label>
             <label class="field grow">
-              <span>Hangi site? (hata ise)</span>
-              <input type="text" id="fbSite" placeholder="ornek.com" />
+              <span data-i18n="fbSiteLabel"></span>
+              <input type="text" id="fbSite" data-i18n-placeholder="fbSitePlaceholder" />
             </label>
           </div>
 
           <label class="field block">
-            <span>Ne oldu / ne olsun istiyorsun?</span>
+            <span data-i18n="fbTextLabel"></span>
             <textarea
               id="fbText"
               rows="4"
               required
-              placeholder="Fiyatlar dönüşmedi, ürün kartında 1.299 TL yazıyor ama süre çıkmadı…"
+              data-i18n-placeholder="fbTextPlaceholder"
             ></textarea>
           </label>
 
           <p class="privacy">
-            Rapora eklenen teknik bilgi: eklenti sürümü, tarayıcı, para birimin ve
-            çalışma düzenin. <strong>Maaşın ve giderlerin gönderilmez.</strong>
+            <span data-i18n="fbPrivacy"></span> <strong data-i18n="fbPrivacyStrong"></strong>
           </p>
 
           <div class="fb-actions">
-            <button type="submit" class="primary" id="fbSend">
-              E-posta ile gönder
-            </button>
+            <button type="submit" class="primary" id="fbSend" data-i18n="fbSend"></button>
           </div>
         </form>
 
         <details class="preview">
-          <summary>Gönderilecek raporu göster</summary>
+          <summary data-i18n="fbPreviewToggle"></summary>
           <pre id="fbPreview"></pre>
         </details>
       </section>
     </div>
 
+    <script src="lib/i18n.js"></script>
     <script src="lib/money.js"></script>
     <script src="options.js"></script>
   </body>

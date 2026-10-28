@@ -6,6 +6,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { i18nShim } = require('./preview-i18n.js');
 
 const SRC = path.join(__dirname, '..', 'src');
 const read = (p) => fs.readFileSync(path.join(SRC, p), 'utf8');
@@ -44,7 +45,8 @@ let html = read('popup.html');
 html = inject(html, '<script src="theme.js"></script>', `<script>${read('theme.js')}</script>`);
 html = inject(html, '<link rel="stylesheet" href="tokens.css" />', `<style>${read('tokens.css')}</style>`);
 html = inject(html, '<link rel="stylesheet" href="popup.css" />', `<style>${read('popup.css')}</style>`);
-html = inject(html, '<script src="lib/money.js"></script>', `<script>${shim}</script>\n<script>${read('lib/money.js')}</script>`);
+html = inject(html, '<script src="lib/i18n.js"></script>', `<script>${shim}</script>\n<script>${i18nShim()}</script>\n<script>${read('lib/i18n.js')}</script>`);
+html = inject(html, '<script src="lib/money.js"></script>', `<script>${read('lib/money.js')}</script>`);
 html = inject(html, '<script src="popup.js"></script>', `<script>${read('popup.js')}</script>`);
 
 fs.writeFileSync(path.join(__dirname, 'popup-preview.html'), html, 'utf8');
@@ -115,6 +117,8 @@ const stage = `<!DOCTYPE html>
       const stage = document.getElementById('stage');
       const holder = document.getElementById('holder');
       const buttons = [...document.querySelectorAll('[data-zoom]')];
+      // ?lang=en panele aktarılır.
+      document.querySelector('iframe').src = 'popup-preview.html' + location.search;
 
       function setZoom(z) {
         stage.style.transform = 'scale(' + z + ')';

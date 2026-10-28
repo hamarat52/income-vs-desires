@@ -145,6 +145,11 @@ select {
   gap: 6px;
 }
 
+/* "22" her dilde sığsın; etiket uzarsa alan değil etiket daralmalı. */
+.sub input {
+  min-width: 44px;
+}
+
 .sub small {
   font-family: var(--mono);
   font-size: 10px;

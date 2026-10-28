@@ -2,6 +2,9 @@
 (async function () {
   'use strict';
 
+  const { t } = IVDi18n;
+  IVDi18n.localizePage(document);
+
   const el = {
     enabled: document.getElementById('enabled'),
     salary: document.getElementById('salary'),
@@ -125,15 +128,16 @@
 
   function render() {
     // Anahtarın yanındaki yazı durumu söyler, sabit "Açık" kalmaz.
-    el.enabledLabel.textContent = settings.enabled ? 'Açık' : 'Kapalı';
+    el.enabledLabel.textContent = settings.enabled ? t('switchOn') : t('switchOff');
 
     const rate = IVD.effectiveRate(settings, settings.expenses, rates);
     const shift = IVD.shiftLengths(settings);
     el.rate.textContent = rate
-      ? `${rate.basis === 'leftover' ? 'Giderlerden sonra bir saatin' : 'Bir saatin'}` +
-        ` ≈ ${IVD.formatMoney(rate.perHour, settings.currency)}` +
-        ` · bir mesai ≈ ${IVD.formatMoney(rate.perHour * shift.hoursPerDay, settings.currency)}`
-      : 'Başlamak için maaşını yaz. (Gri yazı sadece örnek.)';
+      ? t(rate.basis === 'leftover' ? 'rateLeftover' : 'rateSalary', [
+          IVD.formatMoney(rate.perHour, settings.currency),
+          IVD.formatMoney(rate.perHour * shift.hoursPerDay, settings.currency),
+        ])
+      : t('rateEmpty');
     el.rate.classList.toggle('muted', !rate);
     renderBasisNote(rate);
     // Eksik olan alanı işaretle — boş bir input'taki placeholder dolu sanılıyor.
@@ -145,19 +149,19 @@
     }
     const off = (settings.disabledHosts || []).includes(host);
     el.toggleHost.hidden = false;
-    el.toggleHost.textContent = off ? `${host} için aç` : `${host} için kapat`;
+    el.toggleHost.textContent = t(off ? 'hostTurnOn' : 'hostTurnOff', host);
   }
 
   /** "Kalana göre" seçili ama uygulanamıyorsa nedenini söyler. */
   function renderBasisNote(rate) {
     const notes = [];
     if (rate && rate.fallback === 'no-expenses') {
-      notes.push('Henüz gider girmedin, maaşın tamamına göre hesaplanıyor.');
+      notes.push(t('noteNoExpenses'));
     } else if (rate && rate.fallback === 'overspent') {
-      notes.push('Giderlerin maaşını aşıyor, maaşın tamamına göre hesaplanıyor.');
+      notes.push(t('noteOverspent'));
     }
     if (rate && rate.skipped) {
-      notes.push(`${rate.skipped} dövizli gider, kur çekilemediği için düşülmedi.`);
+      notes.push(t('noteSkipped', rate.skipped));
     }
     el.basisNote.textContent = notes.join(' ');
     el.basisNote.hidden = notes.length === 0;
@@ -172,15 +176,15 @@
   /** Açık sekmeye "baştan tara" dedirtir — geç yüklenen fiyatlar için. */
   async function rescan() {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (!tab?.id) return flash('Sekme bulunamadı');
+    if (!tab?.id) return flash(t('flashNoTab'));
 
     chrome.tabs.sendMessage(tab.id, { type: 'ivd:rescan' }, (reply) => {
       if (chrome.runtime.lastError || !reply) {
-        flash('Bu sayfada çalışmıyor');
+        flash(t('flashNotHere'));
       } else if (!reply.active) {
-        flash('Kapalı, önce maaşını gir');
+        flash(t('flashInactive'));
       } else {
-        flash(`${reply.count} fiyat çevrildi`);
+        flash(t('flashCount', reply.count));
       }
     });
   }
@@ -190,7 +194,7 @@
     el.rescan.textContent = text;
     el.rescan.disabled = true;
     setTimeout(() => {
-      el.rescan.textContent = 'Sayfayı yeniden tara';
+      el.rescan.textContent = t('rescan');
       el.rescan.disabled = false;
     }, 1800);
   }
@@ -212,18 +216,18 @@
   // Kur bilgisi — bayatsa arka planda tazele.
   chrome.runtime.sendMessage({ type: 'ivd:refreshRates' }, (payload) => {
     if (chrome.runtime.lastError || !payload) return;
-    const when = new Date(payload.fetchedAt).toLocaleDateString('tr-TR');
+    const when = new Date(payload.fetchedAt).toLocaleDateString(IVDi18n.numberLocale());
     if (payload.rates && payload.rates !== rates) {
       rates = payload.rates;
       render();
     }
     if (payload.source === 'none') {
-      el.rateInfo.textContent = 'Kurlar henüz çekilemedi, dövizli fiyatlar çevrilmiyor.';
+      el.rateInfo.textContent = t('ratesNone');
     } else if (payload.stale) {
       // Hiçbir kaynağa ulaşılamadı; elde kalan son tablo kullanılıyor.
-      el.rateInfo.textContent = `Kurlar güncellenemedi, ${when} tarihli değerler kullanılıyor.`;
+      el.rateInfo.textContent = t('ratesStale', when);
     } else {
-      el.rateInfo.textContent = `Kurlar güncel (${when}).`;
+      el.rateInfo.textContent = t('ratesFresh', when);
     }
   });
 })();

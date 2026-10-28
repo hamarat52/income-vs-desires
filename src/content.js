@@ -332,7 +332,7 @@
     chip.dataset.ivdOriginal = price.text;
     chip.dataset.ivdDuration = label;
     chip.textContent = label;
-    chip.title = `${price.text} · tıkla, fiyata dön`;
+    chip.title = IVDi18n.t('chipTitleToPrice', price.text);
     return chip;
   }
 
@@ -350,8 +350,8 @@
     chip.dataset.ivd = showingTime ? 'money' : 'time';
     chip.textContent = showingTime ? chip.dataset.ivdOriginal : chip.dataset.ivdDuration;
     chip.title = showingTime
-      ? `${chip.dataset.ivdDuration} · tıkla, süreye dön`
-      : `${chip.dataset.ivdOriginal} · tıkla, fiyata dön`;
+      ? IVDi18n.t('chipTitleToTime', chip.dataset.ivdDuration)
+      : IVDi18n.t('chipTitleToPrice', chip.dataset.ivdOriginal);
   }
 
   // --- Dinamik içerik --------------------------------------------------------
