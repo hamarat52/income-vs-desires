@@ -339,7 +339,7 @@
   // --- Etkileşim -------------------------------------------------------------
 
   function onChipClick(event) {
-    const chip = event.target.closest?.('[data-ivd]');
+    const chip = event.target.closest?.('[data-ivd]') || chipUnder(event);
     if (!chip) return;
 
     // Fiyat bir linkin içindeyse tıklama gezinmeye gitmesin.
@@ -352,6 +352,21 @@
     chip.title = showingTime
       ? IVDi18n.t('chipTitleToTime', chip.dataset.ivdDuration)
       : IVDi18n.t('chipTitleToPrice', chip.dataset.ivdOriginal);
+  }
+
+  /**
+   * Bazı siteler ürün kartının tamamını şeffaf bir linkle kaplıyor ("stretched
+   * link"; IKEA US'de `a.plp-price-module__product-link`, 28.10.2026). Çip
+   * görünüyor ama tıklama üstteki linke gidiyor ve ürün sayfası açılıyordu.
+   * Tıklanan noktanın altında bizim çipimiz varsa onu döndürürüz.
+   *
+   * Yalnız gerçek fare/dokunuş tıklamasında (`detail > 0`): klavyeyle bir
+   * linke Enter basmak (koordinatı 0,0) gezinmeye devam etsin.
+   */
+  function chipUnder(event) {
+    if (!chips.length || !event.isTrusted || !event.detail) return null;
+    const stack = document.elementsFromPoint(event.clientX, event.clientY);
+    return stack.find((el) => el.dataset && el.dataset.ivd !== undefined) || null;
   }
 
   // --- Dinamik içerik --------------------------------------------------------
