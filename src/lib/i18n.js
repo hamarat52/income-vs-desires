@@ -27,15 +27,36 @@
   }
 
   /**
+   * Yer tutucu nöbetçisi: Özel Kullanım Alanı karakterleri arasında sıra no.
+   * `$` içermez, hiçbir messages.json metninde geçmez.
+   */
+  const SENTINEL_OPEN = '\uE000';
+  const SENTINEL_CLOSE = '\uE001';
+  const SENTINEL = /\uE000(\d+)\uE001/g;
+
+  /**
    * Çeviri. Eksik anahtar ekranda anahtarın kendisi olarak görünür —
    * sessizce boş kalırsa fark edilmiyordu.
+   *
+   * Değerler getMessage'a doğrudan VERİLMEZ. Safari (iOS/macOS 27) yer
+   * tutucuları sırayla değiştiriyor ve yerleştirdiği değeri de yeniden
+   * tarıyor: "$28.41" yazıldıktan sonra içindeki "$2" ikinci değerle
+   * değişiyor → "$227.278.41" (28.10.2026, iPhone EN popup). Chrome
+   * değeri yeniden işlemiyor. Bu yüzden getMessage'a `$`'sız nöbetçiler
+   * gidiyor, gerçek değerler dönüşte burada, tek geçişte yerleşiyor.
    */
   function t(key, substitutions) {
-    const subs =
-      substitutions === undefined || substitutions === null
-        ? undefined
-        : [].concat(substitutions).map(String);
-    return raw(key, subs) || key;
+    if (substitutions === undefined || substitutions === null) return raw(key) || key;
+    const values = [].concat(substitutions).map(String);
+    const marks = values.map((_v, i) => SENTINEL_OPEN + i + SENTINEL_CLOSE);
+    const text = raw(key, marks);
+    if (!text) return key;
+    // Fonksiyonla değiştir: dize verilirse String.replace değerdeki "$&", "$1"
+    // gibi kalıpları yorumlar — kaçtığımız hatanın aynısı.
+    return text.replace(SENTINEL, (match, i) => {
+      const n = Number(i);
+      return n < values.length ? values[n] : match;
+    });
   }
 
   /** Seçilen messages.json'un dili: 'tr' ya da 'en'. */
