@@ -14,16 +14,18 @@ ayda 22 gün** (saatlik ₺284,09).
 | `screenshot-5-test-edilen-siteler.png` | 1280×800 | Ekran görüntüsü 5 | Eklentinin gerçek `options.html`'i, "Test edilmiş siteler" bölümü açık (Chrome for Testing, yukarıdaki profil, %80). Rakamlar `src/options.js > TESTED_SITES` = `docs/qa/saha-testi-2026-10-28.json`. |
 | `promo-small-440x280.png` | 440×280 | Küçük tanıtım karesi (zorunlu) | `src/promo-small-440x280.html` render'ı. Marka yeşili #43e08c→#0c9a6c, ikon `src/icons/icon-128.png`. "500 TL → 1,8 saat" = 500 / 284,09 (eklentinin `IVD.formatDuration`'ı ile doğrulandı). |
 | `marquee-1400x560.png` | 1400×560 | Marquee tanıtım görseli (isteğe bağlı) | `src/marquee-1400x560.html` render'ı. Örnekler `IVD.formatDuration` ile doğrulandı: 500 TL → 1,8 saat, 2.499 TL → 1,1 gün, 50.000 TL → 1 ay. |
-| `store-icon-128.png` | 128×128 (alfa var) | Mağaza ikonu | `src/icons/icon-128.png`'nin birebir kopyası (`cmp` aynı). |
-| `store-icon-128-padded.png` | 128×128 (alfa var) | Mağaza ikonu (alternatif) | Aynı ikon 96×96'ya küçültülüp 16 px saydam pay ile ortalandı (Google'ın "96×96 görsel + 16 px pay" önerisi). |
+| `store-icon-128.png` | 128×128 (alfa var) | — (kullanılmayacak) | `src/icons/icon-128.png`'nin birebir kopyası (`cmp` aynı). |
+| `store-icon-128-padded.png` | 128×128 (alfa var) | **Mağaza ikonu — kullanılacak** (PM kararı, 28.10.2026) | Aynı ikon 96×96'ya küçültülüp 16 px saydam pay ile ortalandı (Google'ın "96×96 görsel + 16 px pay" önerisi). |
 
 ## Notlar
 
 - **İkon:** `icon-128.png` geçerli bir 128×128 PNG ama görsel karenin tamamını
   dolduruyor (alfa yalnız yuvarlak köşelerde; opak kutu 0,0–128,128). Google
   mağaza ikonunda 96×96 görsel + her kenarda 16 px saydam pay öneriyor; aksi
-  hâlde mağazada diğer ikonlardan büyük görünür. Bu yüzden `-padded`
-  alternatifi de var; hangisinin yükleneceği PM kararı.
+  hâlde mağazada diğer ikonlardan büyük görünür. Bu yüzden mağazaya
+  **`store-icon-128-padded.png` yüklenecek** (PM kararı, 28.10.2026).
+  `store-icon-128.png` yalnız karşılaştırma için duruyor; paketin içindeki
+  `src/icons/icon-128.png` değişmedi (araç çubuğu/uzantılar sayfası ikonu).
 - **Chrome for Testing profilinde ağ yoktu** (Frankfurter isteği askıda kaldı).
   Panelde "Kurlar güncel" yazsın diye kur önbelleği (`storage.local.rates`)
   bugünkü gerçek Frankfurter yanıtıyla dolduruldu: ECB 2026-10-27, EUR 1 ·
@@ -34,7 +36,8 @@ ayda 22 gün** (saatlik ₺284,09).
   site logosu içermez. MAGAZA-LISTELEME.md "Dikkat" bölümüne bakın.
 - `store-assets/` kökündeki eski üç kare (`screenshot-{1-trendyol,2-giderler,3-popup}.png`)
   1280×800 ve alfasız, ama **35.000 TL** maaşla çekilmiş; mağaza metniyle
-  çelişiyor. Yerlerine bu klasördekiler kullanılmalı.
+  çelişiyor. **Mağazaya yüklenmeyecek**; yerlerine bu klasördekiler
+  kullanılır. Silinmedi, arşiv olarak yerinde duruyor (PM kararı, 28.10.2026).
 
 ## Yeniden üretme
 

@@ -221,9 +221,10 @@ HTTP isteğinde olduğu gibi kaynak sunucu IP adresini görür.
 Hepsi `store-assets/chrome/` altında; boyut, kaynak ve alan eşlemesi
 [`store-assets/chrome/README.md`](store-assets/chrome/README.md).
 
-- **Mağaza ikonu (128×128)**: `store-icon-128.png` (= `src/icons/icon-128.png`)
-  veya Google'ın 96+16 px pay önerisine uyan `store-icon-128-padded.png`.
-  Seçim PM'de.
+- **Mağaza ikonu (128×128)**: **`store-icon-128-padded.png` kullanılacak**
+  (Google'ın 96×96 görsel + 16 px saydam pay önerisi; PM kararı 28.10.2026).
+  `store-icon-128.png` (= `src/icons/icon-128.png`, kareyi tam dolduruyor)
+  yüklenmeyecek.
 - **Ekran görüntüleri (1280×800, alfasız PNG, 5 adet)**, yükleme sırası:
   1. `screenshot-1-urun-sayfasi.png` — gerçek arama sayfası, fiyatların yerinde süreler
   2. `screenshot-2-panel.png` — ayar paneli (üç alan)
