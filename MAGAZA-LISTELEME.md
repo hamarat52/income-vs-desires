@@ -14,14 +14,16 @@ niş boş. Rekabet düşükken doğru kelimeleri kapmak kolay.
 > alanıdır; geliştirici panelinde düzenlenemez, değiştirmek için manifest'i
 > düzenleyip yeniden paketlemek gerekir
 > ([developer.chrome.com/docs/webstore/prepare](https://developer.chrome.com/docs/webstore/prepare)).
-> Şu an manifest'te `name: "IncomeVsDesires"` (15 karakter) ve
-> `description: "İnternetteki fiyatları, senin maaşına göre çalışma süresine
-> çevirir. 500 TL yerine \"1 saat\"."` (92 karakter) var — aşağıdaki önerilen
-> ad/özet DEĞİL. İlk yüklemeden önce manifest'e taşınıp taşınmayacağı PM
-> kararı (Safari de aynı manifest'i kullanıyor). Uzunluk kontrolü:
-> `node scripts/check-listing-length.js`.
+> Manifest `description` = aşağıdaki **Kısa açıklama**, birebir (PM kararı,
+> 28.10.2026). Manifest `name` şimdilik `"IncomeVsDesires"` (15 karakter);
+> aşağıdaki uzun ad Yusuf onayı bekliyor. Safari de aynı manifest'i
+> kullanıyor. Kısa açıklama değişirse manifest de aynı anda değişmeli.
+> Uzunluk + eşitlik kontrolü: `node scripts/check-listing-length.js`.
 
 ## Ad (75 karakter sınırı)
+
+> **Not:** Mağaza adı manifest `name`'den gelir; uzun ad Yusuf onayı
+> bekliyor, şu an mağazada `IncomeVsDesires` görünür.
 
 ```
 IncomeVsDesires: Fiyatları Maaşına Göre Saate Çevirir
@@ -35,7 +37,7 @@ Alternatifler:
 |---|---|---|
 | `IncomeVsDesires: Fiyatları Maaşına Göre Saate Çevirir` | 53 | önerilen |
 | `IncomeVsDesires: Fiyat Saat Çevirici, Saatlik Ücret Hesaplama` | 61 | daha çok kelime ama robotik okunuyor |
-| `IncomeVsDesires` | 15 | sadece marka; şu an sıfır arama hacmi, kullanma |
+| `IncomeVsDesires` | 15 | sadece marka; sıfır arama hacmi — şu an manifest'te bu (ad Yusuf onayına kadar) |
 
 ## Kısa açıklama (132 karakter sınırı)
 

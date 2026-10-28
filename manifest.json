@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "IncomeVsDesires",
   "version": "0.1.0",
-  "description": "İnternetteki fiyatları, senin maaşına göre çalışma süresine çevirir. 500 TL yerine \"1 saat\".",
+  "description": "Maaşını gir, fiyatlar kaç saat çalıştığına dönüşsün. 500 TL yerine 1,8 saat. Veri toplamaz, kayıt istemez, ücretsiz.",
   "icons": {
     "16": "src/icons/icon-16.png",
     "32": "src/icons/icon-32.png",
