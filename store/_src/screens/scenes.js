@@ -10,8 +10,9 @@ window.DEVICES = {
   ipad:   { W: 1032, H: 1376, u: 1.35, pad: 64, padT: 64, h1: 60, sub: 23, gap: 34, r: 26, rc: 18, bezel: 14, tag: 17, step: 30, stepW: 420, ruleGap: 40, frame: 'device' }
 };
 
-// Ham karenin CSS boyutu (cihaz sınıfına göre)
-window.RAWSIZE = { desktop: [1280, 800], iphone: [402, 874], ipad: [1032, 1376], panel: [300, 564] };
+// Ham karenin CSS boyutu (cihaz sınıfına göre). sim-* = Safari simülatör karesi, birim ham PİKSEL.
+window.RAWSIZE = { desktop: [1280, 800], iphone: [402, 874], ipad: [1032, 1376], panel: [300, 564],
+  'sim-iphone': [1206, 2622], 'sim-ipad': [2064, 2752] };
 
 const T = {
   tr: {
@@ -70,7 +71,101 @@ const TOUCH = {
 const raw = (lang, dev, n) => `../../raw/${lang}/${dev}/${n}.png`;
 const F = { on: '01-eklenti-acik', off: '02-eklenti-kapali', click: '03-cipe-tiklandi', panel: '04-ayar-paneli', exp: '05-giderler-halka' };
 
+/* ── Apple iPhone/iPad seti: GERÇEK Safari (iOS 27 simülatör) kareleri ──────────────
+   Kaynak store/raw-safari/<cihaz>/<dil>/ (README'de saat, URL, derleme). Kırpımlar ham
+   PİKSEL [x, y, w, h]. Site logoları (Trendyol/Zappos üst bandı, Marjin afişi, sekme
+   başlıkları) kırpım dışında. Her rakam karede görüldü (rapor: kanıt satırları).
+   "Bir daha dokun, yine süre" iddiası YOK: Zappos'ta 2. dokunuş ürün sayfasına gidiyor (bulgu H). */
+const SAF = {
+  tr: {
+    iphone: {
+      s1sub: 'Örnek maaş: 50.000 TL · günde 8 saat · ayda 22 gün<br><s>8.149 TL</s> → <b>3,6 gün</b>',
+      s2sub: '<s>711,56 TL</s> → <b>2,5 saat</b> · <s>690,21 TL</s> → <b>2,4 saat</b>',
+      s3sub: '<b>6,7 saat</b> → 1.899,99 TL'
+    },
+    ipad: {
+      s1sub: 'Örnek maaş: 50.000 TL · günde 8 saat · ayda 22 gün<br><s>921,89 TL</s> → <b>3,2 saat</b>',
+      s2sub: '<s>1.899,99 TL</s> → <b>6,7 saat</b> · <s>1.197,82 TL</s> → <b>4,2 saat</b>',
+      s3sub: '<b>3,2 saat</b> → 921,89 TL'
+    },
+    s5sub: 'Kira <b>7,9 gün</b> · sana kalan <b>14 gün</b> (22 günlük mesai)'
+  },
+  en: {
+    iphone: {
+      s1sub: 'Sample pay: $5,000/mo · 8 h/day · 22 days<br><s>$159.99</s> → <b>5.6 hours</b>',
+      s2sub: '<s>$105</s> → <b>3.7 hours</b> · <s>$65</s> → <b>2.3 hours</b>',
+      s3sub: '<b>2.3 hours</b> → $65'
+    },
+    ipad: {
+      s1sub: 'Sample pay: $5,000/mo · 8 h/day · 22 days<br><s>$159.99</s> → <b>5.6 hours</b>',
+      s2sub: '<s>$105</s> → <b>3.7 hours</b> · <s>$130</s> → <b>4.6 hours</b>',
+      s3sub: '<b>2.3 hours</b> → $65'
+    },
+    s5sub: 'Rent <b>6.6 days</b> · left for you <b>15 days</b> (22-day work month)'
+  }
+};
+
+// Kırpımlar (ham piksel). s3mark: dokunulan çip, kırpıma göre.
+const SAFC = {
+  iphone: {
+    tr: {
+      s1: [0, 600, 1206, 2022], s1W: 352,
+      s2: [[30, 1100, 1150, 770]], s2W: 352,
+      s3: [0, 1650, 1206, 680], s3W: 352, s3mark: [138, 493, 240, 66],
+      s4: [0, 190, 900, 2030], s4W: 270,
+      s5: [0, 470, 1206, 1800], s5W: 300
+    },
+    en: {
+      s1: [0, 500, 1206, 2122], s1W: 352,
+      s2: [[20, 640, 1170, 740]], s2W: 352,
+      s3: [0, 520, 1206, 880], s3W: 352, s3mark: [606, 726, 122, 76],
+      s4: [0, 190, 900, 2030], s4W: 270,
+      s5: [0, 220, 1206, 2040], s5W: 300
+    }
+  },
+  ipad: {
+    tr: {
+      s1: [540, 655, 1424, 1530], s1W: 820,
+      s2: [[550, 655, 1410, 255], [540, 1700, 1424, 480]], s2W: 820,
+      s3: [540, 1500, 1424, 690], s3W: 904, s3mark: [10, 594, 160, 58],
+      s4: [880, 60, 660, 1340], s4W: 460,
+      s5: [130, 535, 1800, 1465], s5W: 900
+    },
+    en: {
+      s1: [570, 900, 1440, 1852], s1W: 760,
+      s2: [[560, 1300, 1460, 520], [560, 2540, 1460, 212]], s2W: 840,
+      s3: [560, 1300, 1460, 520], s3W: 904, s3mark: [486, 370, 90, 64],
+      s4: [880, 60, 660, 1340], s4W: 460,
+      s5: [130, 590, 1800, 1465], s5W: 900
+    }
+  }
+};
+
+function buildSafariScenes(set, lang) {
+  const t = { ...T[lang], ...TOUCH[lang] };
+  const s = SAF[lang][set];
+  const C = SAFC[set][lang];
+  const dev = 'sim-' + set;
+  const R = n => `../../raw-safari/${set}/${lang}/${n}.png`;
+  const on = R('01-eklenti-acik'), off = R('02-eklenti-kapali');
+  const pre = R('03a-cip-dokunmadan-once'), tap = R('03-cipe-dokunuldu');
+  const S = [];
+  S.push({ title: t.s1, sub: s.s1sub, layout: 'single', shots: [{ src: on, dev, crop: C.s1, w: C.s1W }] });
+  const offShots = C.s2.map((c, n) => ({ src: off, dev, crop: c, w: C.s2W, tag: n === 0 ? ['off', t.off] : null }));
+  const onShots = C.s2.map((c, n) => ({ src: on, dev, crop: c, w: C.s2W, tag: n === 0 ? ['on', t.on] : null }));
+  S.push({ title: t.s2, sub: s.s2sub, layout: 'stack', shots: [...offShots, ...onShots] });
+  S.push({ title: t.s3, sub: s.s3sub, layout: 'stack', shots: [
+    { src: pre, dev, crop: C.s3, w: C.s3W, tag: ['on', t.before] },
+    { src: tap, dev, crop: C.s3, w: C.s3W, tag: ['off', t.after], mark: C.s3mark }
+  ] });
+  S.push({ title: t.s4, sub: t.s4sub, layout: 'panel', steps: set === 'iphone' ? null : t.steps, result: t.result,
+    shots: [{ src: R('04-popup'), dev, crop: C.s4, w: C.s4W }] });
+  S.push({ title: t.s5, sub: SAF[lang].s5sub, layout: 'single', shots: [{ src: R('05-giderler-halka'), dev, crop: C.s5, w: C.s5W }] });
+  return S;
+}
+
 window.buildScenes = function (set, lang) {
+  if (set === 'iphone' || set === 'ipad') return buildSafariScenes(set, lang);
   let t = { ...T[lang] };
   if (set === 'iphone' || set === 'ipad') t = { ...t, ...TOUCH[lang] };
   const d = set === 'cws' || set === 'mac' ? 'desktop' : set;

@@ -21,9 +21,9 @@ def section(lang):
          [f"{STORE}/chrome-web-store/shared/promo-small-440x280-dilsiz.png",
           f"{STORE}/chrome-web-store/shared/marquee-1400x560-dilsiz.png",
           f"{STORE}/chrome-web-store/shared/store-icon-128-padded.png"], 300),
-        ("App Store · iPhone 1206×2622", sorted(glob.glob(f"{STORE}/app-store/{lang}/iphone/0*.png")), 640),
-        ("App Store · iPad 13\" 2064×2752", sorted(glob.glob(f"{STORE}/app-store/{lang}/ipad/0*.png")), 560),
-        ("App Store · Mac 2880×1800", sorted(glob.glob(f"{STORE}/app-store/{lang}/mac/0*.png")), 340),
+        ("App Store · iPhone 1206×2622 · gerçek Safari (iOS 27 simülatör)", sorted(glob.glob(f"{STORE}/app-store/{lang}/iphone/0*.png")), 640),
+        ("App Store · iPad 13\" 2064×2752 · gerçek Safari (iOS 27 simülatör)", sorted(glob.glob(f"{STORE}/app-store/{lang}/ipad/0*.png")), 560),
+        ("App Store · Mac 2880×1800 · Chrome kaynaklı (macOS Safari çekimi bekliyor)", sorted(glob.glob(f"{STORE}/app-store/{lang}/mac/0*.png")), 340),
         ("İkon önizleme (açık / koyu zemin)", [f"{STORE}/shared/ikon-onizleme.png"], 300),
     ]
     W = 2700
@@ -57,7 +57,7 @@ def section(lang):
         y += rowh + 90
     sheet = Image.new("RGB", (W, y + 20), PAPER)
     d = ImageDraw.Draw(sheet)
-    d.text((40, 36), f"IncomeVsDesires · mağaza görselleri · {lang.upper()} · kontak föyü (28.10.2026)", font=f_h, fill=INK)
+    d.text((40, 36), f"IncomeVsDesires · mağaza görselleri · {lang.upper()} · kontak föyü (29.10.2026)", font=f_h, fill=INK)
     for kind, val, x, yy in placed:
         if kind == "T":
             d.text((x, yy), val, font=f_h, fill=(12, 154, 108))

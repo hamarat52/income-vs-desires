@@ -2,7 +2,8 @@
 # Mağaza görsellerini tek komutla yeniden üretir (headless Chrome + Pillow).
 #   bash store/_src/render.sh            # hepsi
 #   bash store/_src/render.sh cws        # yalnız bir set: cws | mac | iphone | ipad | promo
-# Kaynak: store/raw/ (gerçek ham kareler), şablon store/_src/screens/page.html + scenes.js.
+# Kaynak: cws/mac → store/raw/ (Chrome ham kareleri); iphone/ipad → store/raw-safari/
+# (gerçek iOS 27 Safari simülatör kareleri). Şablon store/_src/screens/page.html + scenes.js.
 # İkonlar ayrı: bash store/_src/icon/render-icons.sh
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
