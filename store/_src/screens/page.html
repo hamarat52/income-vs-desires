@@ -76,6 +76,20 @@
     const p = document.createElement('div'); p.className = 'pair';
     p.append(frame(sc.shots[0]), frame(sc.shots[1]));
     stage.appendChild(p);
+  } else if (sc.layout === 'zoom') {
+    // Ana kare (cihaz kenarı) + aynı ham karenin büyütülmüş kırpımları (yakınlaştırma kartı)
+    const z = document.createElement('div'); z.className = 'zoom';
+    z.style.width = stage.clientWidth + 'px';
+    const main = frame(sc.shots[0], true);
+    main.style.marginLeft = sc.shots[0].at[0] + 'px';
+    z.appendChild(main);
+    sc.shots.slice(1).forEach(s => {
+      const el = frame(s);
+      el.classList.add('inset');
+      Object.assign(el.style, { position: 'absolute', left: s.at[0] + 'px', top: s.at[1] + 'px' });
+      z.appendChild(el);
+    });
+    stage.appendChild(z);
   } else if (sc.layout === 'stack') {
     const p = document.createElement('div'); p.className = 'stack';
     sc.shots.forEach(s => p.appendChild(frame(s)));

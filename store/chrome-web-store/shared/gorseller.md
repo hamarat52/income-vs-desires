@@ -1,5 +1,52 @@
 # Chrome Web Store görselleri
 
+## Güncel set (28.10.2026, ImageArtist) — YÜKLENECEK OLANLAR
+
+| Mağaza alanı | TR | EN | Not |
+|---|---|---|---|
+| Ekran görüntüleri (1280×800, en çok 5) | `../tr/screenshots/01…05-*.png` | `../en/screenshots/01…05-*.png` | alfasız RGB PNG |
+| Küçük tanıtım 440×280 (zorunlu, yerelleştirilemez) | **`promo-small-440x280-dilsiz.png`** | aynı dosya | **önerilen** (PM kararı: dilden bağımsız) |
+| Marquee 1400×560 (isteğe bağlı, yerelleştirilemez) | **`marquee-1400x560-dilsiz.png`** | aynı dosya | **önerilen** |
+| Mağaza ikonu 128 | `store-icon-128-padded.png` (96 + 16 saydam pay) | aynı | yeni ana çizimden yeniden üretildi |
+
+Ekran görüntüsü sırası (her iki dilde aynı): 1) sayfada süreler, 2) öncesi/sonrası
+(aynı sayfa yüklemesi, eklenti kapalı/açık), 3) çipe tıkla → fiyat (kırmızı
+çerçeve tıklanan çipi işaretler; arayüze ait değildir), 4) ayar paneli,
+5) Giderler halka grafiği.
+
+| Dosya | Ham kaynak (`store/raw/…`) | Başlıktaki rakamlar (meta.json'dan) |
+|---|---|---|
+| `tr/screenshots/01-sayfada-sureler.png` | `tr/desktop/01-eklenti-acik.png` | 1.675,09 TL → 5,9 saat |
+| `tr/screenshots/02-oncesi-sonrasi.png` | `tr/desktop/02-eklenti-kapali.png` + `01` | 933,40 TL → 3,3 saat · 830,70 TL → 2,9 saat |
+| `tr/screenshots/03-tikla-fiyat-geri.png` | `tr/desktop/01` + `03-cipe-tiklandi.png` | 7 saat → 1.999,99 TL |
+| `tr/screenshots/04-ayar-paneli.png` | `tr/desktop/04-ayar-paneli.png` (600×1128 = gerçek popup 300 CSS px @2x) | ₺284,09 · ₺2.272,73 |
+| `tr/screenshots/05-giderler-halka.png` | `tr/desktop/05-giderler-halka.png` | Kira 7,9 gün · kalan 13 gün |
+| `en/screenshots/01-hours-on-page.png` | `en/desktop/01-eklenti-acik.png` | $59.99 → 2.1 hours |
+| `en/screenshots/02-before-after.png` | `en/desktop/02` + `01` | $29.99 → 1.1 hours · $19.99 → 42 min |
+| `en/screenshots/03-click-for-price.png` | `en/desktop/01` + `03` | 1.4 hours → $39.99 |
+| `en/screenshots/04-settings-panel.png` | `en/desktop/04-ayar-paneli.png` | $28.41 · $227.27 |
+| `en/screenshots/05-expenses-donut.png` | `en/desktop/05-giderler-halka.png` | Rent 6.6 days · left 15 days |
+
+Ayar paneli notu: PM, panelin 1280 genişlikte göründüğünü not etmişti; bu turda
+kullanılan `04-ayar-paneli.png` ham karesi zaten gerçek popup genişliğinde
+(300 CSS px, 600×1128 @2x) — kırpma/önizleme sayfası gerekmedi. EN'deki
+"days / mo" kesik değil, `_locales/en/messages.json`'daki metnin kendisi.
+
+Dilden bağımsız tanıtım kareleri yalnız marka adı + simge taşır: eklentinin
+desteklediği dört para birimi (₺ $ € £, `src/lib/money.js`) → saat simgesi.
+Kaynak `store/_src/promo/`. Eski TR metinli `promo-small-440x280.png` ve
+`marquee-1400x560.png` yerinde duruyor (arşiv; yüklenmeyecek).
+
+Yeniden üretme: `bash store/_src/render.sh cws` ve `bash store/_src/render.sh promo`;
+ikon: `bash store/_src/icon/render-icons.sh`.
+
+---
+
+## Önceki set (arşiv)
+
+> Aşağıdaki tablo 28.10.2026 öğleden önceki TR setini anlatır; o dosyalar
+> `store/arsiv/chrome-tr-eski-2026-10-28/` altına taşındı, yüklenmeyecek.
+
 > **Yerleşim (28.10.2026, `store/` düzeni):** `screenshot-*.png` dosyaları
 > `../tr/screenshots/` altında (Türkçe set); ikonlar, promo ve marquee bu klasörde
 > (`shared/`, dile bağlı değil); kaynak HTML ve `render.sh` `shared/src/`.

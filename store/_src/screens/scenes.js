@@ -179,5 +179,32 @@ window.buildScenes = function (set, lang) {
     shots: [{ src: panelSrc, dev: 'panel', crop: [0, 0, 300, 564], w: panelW }] });
 
   S.push({ title: t.s5, sub: t.s5sub, layout: 'single', shots: [{ src: R('exp'), dev: d, crop: C.s5, w: C.s5W }] });
+
+  // iPad: ham karede çipler ekrana göre küçük → çip bölgelerine yakınlaş (PM notu).
+  if (set === 'ipad' && lang === 'tr') {
+    const marjin = [15, 350, 640, 130]; // satıcı satırı: "6,7 saat / 7 saat" (logo dışarıda)
+    const cards = [10, 1244, 590, 92]; // kart metni: "1,4 gün", "5,9 saat"
+    S[0] = { ...S[0], layout: 'zoom', shots: [
+      { src: R('on'), dev: d, crop: [0, 350, 1032, 1026], w: 700, at: [0, 0] },
+      { src: R('on'), dev: d, crop: marjin, w: 780, at: [124, 50] },
+      { src: R('on'), dev: d, crop: cards, w: 840, at: [64, 560] }
+    ] };
+    S[1] = { ...S[1], shots: [
+      { src: R('off'), dev: d, crop: marjin, w: 904, tag: ['off', t.off] },
+      { src: R('off'), dev: d, crop: cards, w: 904 },
+      { src: R('on'), dev: d, crop: marjin, w: 904, tag: ['on', t.on] },
+      { src: R('on'), dev: d, crop: cards, w: 904 }
+    ] };
+    S[2] = { ...S[2], shots: [
+      { src: R('on'), dev: d, crop: marjin, w: 904, tag: ['on', t.before] },
+      { src: R('click'), dev: d, crop: marjin, w: 904, tag: ['off', t.after], mark: [83, 54, 66, 24] }
+    ] };
+  }
+  if (set === 'ipad' && lang === 'en') {
+    S[2] = { ...S[2], shots: [
+      { src: R('on'), dev: d, crop: [336, 100, 440, 110], w: 760, tag: ['on', t.before] },
+      { src: R('click'), dev: d, crop: [336, 100, 440, 110], w: 760, tag: ['off', t.after], mark: [222, 54, 72, 26] }
+    ] };
+  }
   return S;
 };

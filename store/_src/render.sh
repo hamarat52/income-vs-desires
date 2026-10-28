@@ -59,4 +59,5 @@ if [[ "$ONLY" == all || "$ONLY" == promo ]]; then
   shot "file://$HERE/promo/promo-440x280.html" 440 280 1 "$STORE/chrome-web-store/shared/promo-small-440x280-dilsiz.png"
   shot "file://$HERE/promo/marquee-1400x560.html" 1400 560 1 "$STORE/chrome-web-store/shared/marquee-1400x560-dilsiz.png"
 fi
+[[ "$ONLY" == all ]] && python3 "$HERE/kontak.py"
 echo "bitti ($WORK)"

@@ -12,17 +12,23 @@ store/
   README.md                         ← bu dosya
   chrome-web-store/
     tr/listing.md   en/listing.md   ← ad + özet (manifest/_locales'ten), detaylı açıklama, kategori, dil, URL'ler
-    tr/screenshots/                 ← mevcut TR set (1280×800); en/screenshots/ ImageArtist'te
-    shared/                         ← ikon 128, promo 440×280, marquee 1400×560 (yerelleştirilemez),
-                                       gizlilik-sekmesi.md (TR+EN), gorseller.md, src/ (kaynak HTML + render.sh)
+    tr/screenshots/ en/screenshots/ ← 01…05 (1280×800), store/_src/render.sh üretir
+    shared/                         ← ikon 128, promo 440×280, marquee 1400×560 (yerelleştirilemez;
+                                       *-dilsiz.png önerilen), gizlilik-sekmesi.md, gorseller.md,
+                                       src/ (eski TR render HTML'leri — arşiv)
   app-store/
     tr/listing.md   en/listing.md   ← ad, alt başlık, tanıtım, açıklama, anahtar kelime, URL'ler
     tr/whats-new.md en/whats-new.md ← ilk sürümde alan yok; 2. sürüm şablonu
-    tr/{iphone,ipad}/               ← eski host app açılış kareleri; mac/ ve en/* ImageArtist'te
+    {tr,en}/{iphone,ipad,mac}/      ← 01…05 ekran görüntüsü (Chrome kaynaklı, geçici)
     shared/                         ← app-privacy.md, yas-derecelendirme.md, sifreleme.md,
-                                       review-notes.md (TR+EN), kategori-fiyat.md, ekran-goruntuleri.md
+                                       review-notes.md (TR+EN), kategori-fiyat.md, ekran-goruntuleri.md,
+                                       AppIcon.icns
+  shared/                           ← ikon-onizleme.png, kontak-foyu-{tr,en}.jpg
+  _src/                             ← render.sh (ekran görüntüleri + promo + kontak), screens/, promo/,
+                                       icon/ (icons.mjs + render-icons.sh)
   raw/{tr,en}/{desktop,iphone,ipad}/ ← gerçek Chrome + gerçek eklentiyle ham kareler; README.md
-  arsiv/chrome-eski-35000tl/        ← yüklenmeyecek eski kareler
+  arsiv/                            ← yüklenmeyecek eski kareler (chrome-eski-35000tl,
+                                       chrome-tr-eski-2026-10-28, apple-hostapp-acilis)
 ```
 
 Eski kök dosyalar `git mv` ile taşındı: `MAGAZA-LISTELEME.md` →
@@ -59,26 +65,38 @@ Resmi kurallar PM tarafından 28.10.2026'da doğrulandı; bu turda ayrıca okuna
 | Platform | macOS 12.0+, iOS host app 17.0+ (uzantı 15.0) | hazır |
 | Yenilikler | CWS'de alan yok; App Store ilk sürümde yok → [`tr/whats-new.md`](app-store/tr/whats-new.md), [`en/whats-new.md`](app-store/en/whats-new.md) (kaynak `CHANGELOG.md`) | hazır |
 
-## 2. İkon — kısmen hazır
+## 2. İkon — hazır (ImageArtist, 28.10.2026)
+
+Tek ana çizim: `store/_src/icon/icons.mjs` (hamaratlabs-web `AppIcon.jsx`
+"Income vs Desires" girdisinin statik SVG karşılığı) → `bash store/_src/icon/render-icons.sh`
+tüm boyutları üretir. Önizleme: [`shared/ikon-onizleme.png`](shared/ikon-onizleme.png)
+(#ffffff, #f2efe6, #202124, #000; eski 16/32 ile yan yana).
 
 | Öğe | Durum |
 |---|---|
-| Chrome 16/32/48/128 | hazır — `src/icons/` |
-| CWS mağaza ikonu 128 (96 + 16 saydam) | hazır — `chrome-web-store/shared/store-icon-128-padded.png` |
-| App Store 1024 (iOS `universal-icon-1024@1x.png`) | **risk**: tüm pikseller opak (alfa 255) ama dosya RGBA kaydedilmiş. Apple 1024 ikonda alfa kanalı istemiyor; RGB'ye düzleştirilmesi önerilir (ImageArtist; bu turda dokunulmadı) |
-| macOS boyutları 16–1024 | hazır — `AppIcon.appiconset` (Mac ikonunda saydamlık normal) |
-| Küçük boyut okunurluk / açık-koyu önizleme | **eksik** (ImageArtist) |
+| App Store 1024 (iOS `universal-icon-1024@1x.png`) | **hazır** — tam taşma kare zemin, RGB, `sips hasAlpha: no` (eskisi beyaz pay + RGBA idi) |
+| iOS koyu / tonlu görünüm | **hazır** — `universal-icon-1024-{dark,tinted}@1x.png`, `Contents.json` bağlandı (eskiden açık ikonun kopyasıydı) |
+| macOS 16–1024 | **hazır** — 824/1024 gövde + gölge, saydam köşe (Apple macOS ızgarası); 16/32 px sade glyph |
+| macOS `.icns` | **hazır** — `app-store/shared/AppIcon.icns` (`iconutil`) |
+| Chrome 16/32/48/128 | **hazır** — `src/icons/`; 16/32 zincirsiz kalın terazi (eski 16'da glyph seçilmiyordu) |
+| CWS mağaza ikonu 128 (96 + 16 saydam) | **hazır** — `chrome-web-store/shared/store-icon-128-padded.png` (yeni çizimle) |
+| Xcode doğrulaması | macOS Release + iOS simülatör Release: **BUILD SUCCEEDED**, actool uyarısı yok |
+| `LargeIcon.imageset`, `Resources/Icon.png` (host app penceresi) | **eksik** — eski render; bu görevin yazma alanı dışında |
 | Play / Android / Windows | kapsam dışı (bu ürün için mağaza yok) |
 
-## 3. Mağaza görselleri — ham kareler hazır, çerçeveli set eksik
+## 3. Mağaza görselleri — hazır (Apple seti Chrome kaynaklı, Safari çekimi bekliyor)
+
+Şablon `store/_src/` (tek komut: `bash store/_src/render.sh`); kontak föyleri
+[`shared/kontak-foyu-tr.jpg`](shared/kontak-foyu-tr.jpg) · [`shared/kontak-foyu-en.jpg`](shared/kontak-foyu-en.jpg).
 
 | Öğe | Durum |
 |---|---|
-| Ham kareler TR + EN, 6 sahne × 3 cihaz (36 PNG) | **hazır** — [`raw/README.md`](raw/README.md): URL, saat, dil, emülasyon, "Chrome görüntü alanı" notu |
-| CWS TR ekran görüntüleri 1280×800 | mevcut set `chrome-web-store/tr/screenshots/` (Türkçe-only sürümle çekildi); yeni ham karelerden yenilenmesi ImageArtist'te |
-| CWS EN ekran görüntüleri | **eksik** (ImageArtist; kaynak `raw/en/desktop/`) |
-| CWS 440×280, 1400×560 | hazır (TR metinli; yerelleştirilemez — açık soru) |
-| App Store iPhone / iPad / Mac, TR + EN | **eksik**: ham kareler Chrome'da; Apple seti Safari'de çekilmeli (Rehber 2.3.10: başka tarayıcı arayüzü görünmemeli). Mevcut `app-store/tr/{iphone,ipad}/` yalnız host app açılışı |
+| Ham kareler TR + EN, 6 sahne × 3 cihaz (36 PNG) | **hazır** — [`raw/README.md`](raw/README.md) |
+| CWS ekran görüntüleri TR + EN, 5 × 1280×800 | **hazır** — `chrome-web-store/{tr,en}/screenshots/0*.png`; liste [`gorseller.md`](chrome-web-store/shared/gorseller.md) |
+| CWS 440×280, 1400×560 | **hazır** — dilden bağımsız `*-dilsiz.png` **önerilen**; eski TR metinli sürümler yerinde (yüklenmeyecek) |
+| App Store iPhone 1206×2622, iPad 2064×2752, Mac 2880×1800 — TR + EN, 5'er | **hazır (geçici)** — `app-store/{tr,en}/{iphone,ipad,mac}/`; kaynak Chrome görüntü alanı, Chrome öğesi yok; Safari'de gerçek çekim gelince değiştirilecek — [`ekran-goruntuleri.md`](app-store/shared/ekran-goruntuleri.md) |
+| Safari'de gerçek çekim (Mac + simülatör) | **eksik** — ekran kilidi açıkken (GUI) yapılacak |
+| Eski kareler | `arsiv/chrome-tr-eski-2026-10-28/` (eski CWS TR), `arsiv/apple-hostapp-acilis/` (host app açılışı) |
 
 ## 4. Tanıtım videosu — eksik
 
@@ -168,9 +186,12 @@ paketleniyor; host app açılış metni `navigator.language` ile TR/EN.
 ## Açık sorular
 
 1. CWS'de gizlilik politikası URL'si tek alan mı (dil başına değil)? Panelde doğrulanmadı; TR mi EN mi girilecek?
-2. 440×280 / 1400×560 yerelleştirilemiyor ve şu an Türkçe metin taşıyor; varsayılan dil EN olunca görselin dili ne olmalı?
-3. App Store birincil dil TR mi EN mi? (Gizlilik URL'si uygulama düzeyinde tek görünüyor.)
+2. ~~440×280 / 1400×560 dili~~ — PM kararı: dilden bağımsız; `*-dilsiz.png` hazır (yalnız marka adı + simge).
+3. ~~App Store birincil dil~~ — PM kararı: TR birincil, EN yerelleştirme.
 4. App Store ikincil kategori: Alışveriş Mac için seçilebiliyor mu; "Safari Extensions" kategorisi kullanılmalı mı?
-5. iOS 1024 ikonun alfa kanalı (opak ama RGBA) yüklemede sorun çıkarır mı — RGB'ye düzleştirilsin mi?
+5. ~~iOS 1024 ikon alfa~~ — RGB'ye düzleştirildi (`hasAlpha: no`), tam taşma zemin.
 6. "Hata bildir" `mailto:` bağlantısı App Privacy'de "toplama" sayılır mı (öneri: sayılmaz)?
 7. Safari'de `storage.sync` cihazlar arası eşitliyor mu? (Metinler bunu iddia etmiyor.)
+8. Apple ekran görüntüleri Chrome görüntü alanından (tarayıcı öğesi yok, site mobil düzeni Chrome'da çizildi). Safari'de gerçek çekim gelmeden gönderilsin mi, yoksa ilk gönderim Safari çekimini mi beklesin? (Öneri: beklesin.)
+9. iOS 26 / macOS 26 "Icon Composer" (`.icon`, katmanlı Liquid Glass) ikonu üretilmedi; klasik appiconset ile derleme uyarısız. Gerekli mi?
+10. Host app penceresindeki `LargeIcon.imageset` ve `Resources/Icon.png` eski render'da (beyaz levha); bu görevin yazma alanı dışında — WebDev/AppDev yenilesin mi? (Kaynak: `store/_src/icon/`, `mac` varyantı.)

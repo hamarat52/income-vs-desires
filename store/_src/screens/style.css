@@ -80,6 +80,9 @@ h1 {
 .tag.on::before, .tag.off::before { content: ""; width: calc(var(--u) * 8px); height: calc(var(--u) * 8px); border-radius: 50%; background: currentColor; }
 
 .pair { display: flex; gap: var(--gap); align-items: flex-start; }
+.zoom { position: relative; }
+.zoom > .frame { width: fit-content; }
+.frame.inset .shot { border: calc(var(--u) * 3px) solid var(--g2); box-shadow: 0 calc(var(--u) * 16px) calc(var(--u) * 40px) rgba(4, 50, 33, 0.35); }
 .stack { display: flex; flex-direction: column; gap: calc(var(--gap) * 0.8); align-items: flex-start; }
 .col { display: flex; flex-direction: column; align-items: flex-start; }
 .arrow { align-self: center; font: 700 calc(var(--u) * 34px)/1 var(--mono); color: var(--g2); }
