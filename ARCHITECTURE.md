@@ -130,13 +130,56 @@ Yukaridaki uyumluluk tablosu bu bes testin yerini TUTMAZ.
 
 ### Safari GUI dogrulamasi (2026-10-28)
 
-**Safari icinde GUI dogrulamasi YAPILAMADI:** ekran gun boyu kilitliydi
-(`ioreg ... CGSSessionScreenIsLocked = true`, 10:00 ve 16:00 kontrolleri). Bu nedenle
-statik risk listesindeki 1-3 (popup `tab.url`, `tabs.sendMessage`, kur fetch'i) ve
-"Development imzali build'de 'Imzasiz uzantilara izin ver' gerekir mi" sorusu
-GOZLENMEDI; dogrulanmis/curutulmus sayilmaz.
+**Gunduz (10:00-16:00):** ekran kilitliydi, GUI dogrulamasi yapilamadi. **Aksam
+(21:00-23:25, MobileDev):** ekran acikti (`IOConsoleLocked = false`); asagidaki "Gercek
+Safari gozlemleri" bolumune bakin. Ham kareler ve kanitlar: `store/raw-safari/README.md`.
 
-Gozlenenler (headless):
+#### Gercek Safari gozlemleri (2026-10-28 aksam)
+
+Ortam: macOS 27.0 + Safari 27.0; iOS 27.0 simulator (iPhone 18 Pro). macOS'ta masaustu
+girdisi (tiklama/tus) bu oturumda onaysiz calisamadi -> macOS'ta yalniz pasif gozlem.
+iOS'ta girdi simulatorun ICINDE XCUITest ile verildi (repoda degil, scratch'te).
+
+| Konu | Sonuc | Kanit (`store/raw-safari/...`) |
+|---|---|---|
+| macOS: Development imzali Debug build Safari'de gorunuyor mu | **Evet**: host app "IncomeVsDesires is currently on"; Safari kapaliyken yeniden baslatildi, arac cubugunda uzanti dugmesi var | `_kanit/mac-tr-arac-cubugu-simgesi-uyari.png` |
+| macOS: "Imzasiz uzantilara izin ver" gerekli mi | **Gerekmedi** (Apple Development imzasi; Safari bu ayari her acilista sifirlar, yeni acilan Safari'de uzanti yuklu). Gelistir menusune dokunulmadi | ayni |
+| macOS: site izni olmadan content script | **Enjekte edilmiyor**: Trendyol'da fiyatlar TL, simgede turuncu uyari rozeti (izin bekliyor). Izin verme tiklama ister -> yapilamadi | `_kanit/mac-tr-trendyol-site-izni-yok.png` |
+| iOS: uzantiyi acma + "Diger Web Siteleri: Izin Ver" | **Calisti** (Ayarlar > Uygulamalar > Safari > Genisletmeler) | `_kanit/iphone-tr-ayarlar-*.png` |
+| iOS: gercek sayfada cip (TR Trendyol, EN Zappos) | **Calisti** | `iphone/{tr,en}/01-*.png` |
+| iOS: popup anahtari Kapali -> fiyatlar geri, Acik -> cipler | **Calisti** (ayni sayfa yuklemesi) | `iphone/{tr,en}/02-*.png` |
+| iOS: cipe dokununca fiyat (gezinmeden) | Zappos listesi ve Trendyol urun sayfasinda **calisti**; **Trendyol listesinde dokunus urun sayfasina gitti** (asagida bulgu B) | `iphone/{tr,en}/03*.png`, `_kanit/iphone-tr-cip-dokunma-*.png` |
+| iOS: popup maas girisi, saatlik oran, dil | TR **dogru**; EN **yanlis metin** (bulgu A) | `iphone/{tr,en}/04-popup.png` |
+| iOS: Giderler sayfasi + halka | TR **calisti** (Kira 18.000 -> 7,9 gun %36); EN bir kez kayitli ayarlari gostermedi (bulgu D) | `iphone/tr/05-*.png`, `_kanit/iphone-en-giderler-sayfasi-ayarlar-bos.png` |
+| Dil (TR/EN) | Popup, Ayarlar'daki uzanti aciklamasi, Giderler: simulator diline gore TR/EN **dogru** | yukaridakiler |
+
+Statik risk listesi 1-3, gozleme gore:
+1. `tab.url` -> **site izni verilmisken sorun yok**: iOS'ta "www.trendyol.com icin kapat" /
+   "Turn off for www.ikea.com" gorundu. Izinsiz durumda popup acilamadi (macOS girdi yok) -> o yari GOZLENMEDI.
+2. `tabs.sendMessage` -> **izinle calisiyor**: IKEA US'de "Rescan this page" -> "40 prices converted".
+   Izinsiz durumda content script'in hic enjekte edilmedigi macOS'ta goruldu (risk onculu dogru);
+   "Bu sayfada calismiyor" yazisi gozlenmedi.
+3. Kur fetch'i -> popup "Kurlar guncel (28.10.2026)." / "Exchange rates up to date (10/28/2026)."
+   yani bir kaynaktan basarili cekim var. **Hangi kaynak (`source`) okunamadi** (Web Inspector yok).
+   "Diger Web Siteleri: Izin Ver" secimi kur alan adlarini da "Izin Ver" yapti; "Sor" durumunda
+   fetch denenmedi -> "izinsiz de gecer" kismi GOZLENMEDI.
+
+Bulgular (kod duzeltilmedi; rapor):
+- **A (yuksek, EN):** Safari `i18n.getMessage` yer tutucu degisimi ardisik: `rateSalary`
+  ("... ≈ $ARG1$ · ... ≈ $ARG2$") EN'de "$227.278.41" uretti (dogrusu $28.41). Aciklama
+  (gozleme uyan hipotez): `$1` -> "$28.41" yazildiktan sonra icindeki "$2" ikinci degerle
+  ("$227.27") yeniden degistiriliyor. Iki+ yer tutuculu ve degeri "$<rakam>" iceren her mesaj
+  etkilenir (USD/CAD/AUD...). Chrome'da yok. TR (₺) etkilenmiyor.
+- **B (orta, dokunmatik):** Trendyol mobil listesinde cipe dokunus urun sayfasina gidiyor
+  (Chrome'da fare tiklamasi gitmiyordu). Ayni cip urun sayfasinda dogru donuyor; Zappos'ta da dogru.
+- **C (bilgi):** IKEA US mobil duzende gorunen bolunmus fiyat ("$" + "39" + ".99") cevrilmiyor;
+  popup 40 donusum diyor (Chrome mobil emulasyonunda da gorunur 3/40 idi).
+- **D (dogrulanmadi):** EN Giderler sayfasi bir kez maas/saat alanlarini bos acti (kayitli
+  5,000 USD gelmedi). O dakikada simulator disaridan kesildi; tekrar denenemedi.
+- **E (kozmetik):** iPhone'da popup 300 px sabit genislikte; sayfa sag ~100 pt bos.
+- **F (kucuk):** Trendyol "814 TL Kupon" etiketi "2,9 saat Kupon"a cevriliyor (indirim tutari).
+
+Gozlenenler (headless, gunduz):
 - Uzanti paketi: `--rebuild-project` (1e11b7d) Resources fazina ARCHITECTURE.md,
   LICENSE, README/SEO/MAGAZA md, docs/, site/, test/ ve `safari/` (build/ dahil)
   klasorunu geri eklemisti — Debug .appex Resources 1,7 MB / 11 oge. Duzeltildi
@@ -151,16 +194,19 @@ Gozlenenler (headless):
   Turkce acilis metni goruntulendi. Uzanti etkinlestirme GUI gerektirdigi icin
   simulatorde de denenemedi (`simctl`'de uzanti acma komutu yok).
 
-### Kaldigin yer (ekran acilinca)
+### Kaldigin yer (2026-10-28 23:25 itibariyla acik kalanlar)
 
-1. Gerekirse yeniden derle (DerivedData `/var/folders/.../T` altinda, macOS
-   temizleyebilir): `cd safari/IncomeVsDesires && xcodebuild -scheme IncomeVsDesires
-   -configuration Debug -derivedDataPath "$TMPDIR/ivd-dd" CODE_SIGN_IDENTITY=-
-   CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM= build`
-2. `open "$TMPDIR/ivd-dd/Build/Products/Debug/IncomeVsDesires.app"` (bir kez).
-3. Safari > Ayarlar > Gelismis > "Web gelistiricileri icin ozellikleri goster";
-   Gelistir > "Imzasiz Uzantilara Izin Ver" (Safari her yeniden acilista sifirlar).
-4. Ayarlar > Uzantilar > IncomeVsDesires'i etkinlestir; "Her web sitesinde izin ver"
+Yapilmadi: macOS Safari kareleri/kaydi (masaustu girdisi onay ister), iPad TR/EN,
+iPhone EN 05 + EN kayit, `source` dogrulamasi (Web Inspector), "Sor" izniyle kur fetch'i,
+bulgu A/B/D'nin kok nedeni.
+
+1. Derleme (28.10'da calisti): `cd safari/IncomeVsDesires && xcodebuild -scheme
+   "IncomeVsDesires (macOS)" -configuration Debug -derivedDataPath build/dd-macos
+   -allowProvisioningUpdates build` (Apple Development imzasi).
+2. `open build/dd-macos/Build/Products/Debug/IncomeVsDesires.app` (bir kez).
+3. "Imzasiz Uzantilara Izin Ver" GEREKMEDI (Development imzali). Web Inspector icin
+   yine de Gelistir menusu gerekir (ayar degisikligi -> Yusuf onayi).
+4. Ayarlar > Uzantilar > IncomeVsDesires zaten acik; arac cubugu simgesinden site izni
    (risk 1-3'u eler; izinsiz durumu da ayrica dene).
 5. `python3 -m http.server 8765 --bind 127.0.0.1` -> `http://127.0.0.1:8765/test/demo.html`
    -> 18 cip bekleniyor (Chrome sonucu) + gercek bir magaza sayfasi; ekran goruntusu.
