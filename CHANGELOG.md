@@ -50,7 +50,8 @@ hedefleri aynı `manifest.json` + `src/` ile hazırlanıyor; henüz yayında de�
 - Dokunmatik: çipe dokunmak bazı ürün kartlarında (iOS Safari, Trendyol mobil
   listesi, mağaza vitrini) çipi döndürmeden ürün sayfasını açıyordu. Çip artık
   parmak kalkınca döner ve dokunuşun ardından tıklama üretilmez; kaydırma ve
-  fare tıklaması değişmedi. iOS Safari'de yeniden doğrulanması bekliyor.
+  fare tıklaması değişmedi. iOS Safari'de (iPhone 18 Pro simülatörü, Trendyol
+  listesi) doğrulandı: 2/2 çip gezinmeden döndü.
 - Panel: maaş/saat/gün yazılıp yarım saniye dolmadan "Giderlerin ve grafik →"
   düğmesine basılınca Giderler sayfası eski değerle açılabiliyordu. Bekleyen
   kayıt artık sayfa açılmadan önce yazılıyor (yazma takılırsa en çok 1 sn

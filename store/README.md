@@ -19,7 +19,7 @@ store/
   app-store/
     tr/listing.md   en/listing.md   ← ad, alt başlık, tanıtım, açıklama, anahtar kelime, URL'ler
     tr/whats-new.md en/whats-new.md ← ilk sürümde alan yok; 2. sürüm şablonu
-    {tr,en}/{iphone,ipad,mac}/      ← 01…05 ekran görüntüsü (Chrome kaynaklı, geçici)
+    {tr,en}/{iphone,ipad,mac}/      ← 01…05 ekran görüntüsü (iPhone/iPad gerçek Safari; Mac Chrome kaynaklı, geçici)
     shared/                         ← app-privacy.md, yas-derecelendirme.md, sifreleme.md,
                                        review-notes.md (TR+EN), kategori-fiyat.md, ekran-goruntuleri.md,
                                        AppIcon.icns
@@ -178,7 +178,7 @@ paketleniyor; host app açılış metni `navigator.language` ile TR/EN.
 | Öğe | Durum |
 |---|---|
 | `store/<mağaza>/<dil>/…` + bu kontrol listesi | hazır |
-| `vd` proje kaydı `marketplaces` | **eksik** — bu turda güncellenmedi (PM) |
+| `vd` proje kaydı `marketplaces` | **hazır** (PM, 29.10) — `chrome_web_store`, `app_store_macos`, `app_store_ios`: `hazirlaniyor` (0.1.0; panelde taslak kayıt yok → `taslak` değil); `github`, `web`: `yayinda` |
 
 ## Yusuf'un yapacakları
 
