@@ -9,6 +9,18 @@ niş boş. Rekabet düşükken doğru kelimeleri kapmak kolay.
 
 ---
 
+> **Önemli — ad ve kısa açıklama paketten okunur.** Chrome Web Store'da
+> görünen ad manifest'teki `name`, kısa açıklama (özet) `description`
+> alanıdır; geliştirici panelinde düzenlenemez, değiştirmek için manifest'i
+> düzenleyip yeniden paketlemek gerekir
+> ([developer.chrome.com/docs/webstore/prepare](https://developer.chrome.com/docs/webstore/prepare)).
+> Şu an manifest'te `name: "IncomeVsDesires"` (15 karakter) ve
+> `description: "İnternetteki fiyatları, senin maaşına göre çalışma süresine
+> çevirir. 500 TL yerine \"1 saat\"."` (92 karakter) var — aşağıdaki önerilen
+> ad/özet DEĞİL. İlk yüklemeden önce manifest'e taşınıp taşınmayacağı PM
+> kararı (Safari de aynı manifest'i kullanıyor). Uzunluk kontrolü:
+> `node scripts/check-listing-length.js`.
+
 ## Ad (75 karakter sınırı)
 
 ```
@@ -33,7 +45,7 @@ Arama sonuçlarında görünen tek metin bu. En yüksek dönüşüm etkisi burad
 Maaşını gir, fiyatlar kaç saat çalıştığına dönüşsün. 500 TL yerine 1,8 saat. Veri toplamaz, kayıt istemez, ücretsiz.
 ```
 
-115 karakter. Ne yaptığını ilk cümlede söylüyor, ikinci cümlede örnek veriyor,
+116 karakter (`node scripts/check-listing-length.js`). Ne yaptığını ilk cümlede söylüyor, ikinci cümlede örnek veriyor,
 üçüncüde en yaygın itirazı (gizlilik) kapatıyor.
 
 ## Detaylı açıklama
@@ -99,10 +111,12 @@ olmayan sitelerde de çalışır.
 
 GİZLİLİK
 
-Sunucumuz yok. Hesap yok. Analitik yok. Maaşın ve giderlerin yalnızca senin
-tarayıcında durur. Gezdiğin siteler, gördüğün fiyatlar hiçbir yere gitmez.
-Dışarıya çıkan tek istek, döviz kuru tablosunu çeken günlük çağrıdır (ana
-kaynağa ulaşılamazsa aynı tablo iki yedek kaynaktan istenir).
+Sunucumuz yok. Hesap yok. Analitik yok. Maaşın ve giderlerin Chrome'un kendi
+ayar deposunda durur; Chrome senkronizasyonun açıksa Chrome bunları kendi
+Google hesabındaki diğer cihazlarına taşır, bize hiçbir şey gelmez. Gezdiğin
+siteler, gördüğün fiyatlar hiçbir yere gitmez. Dışarıya çıkan tek istek,
+döviz kuru tablosunu çeken günlük çağrıdır (ana kaynağa ulaşılamazsa aynı
+tablo iki yedek kaynaktan istenir).
 
 E-posta, doküman ve bankacılık sitelerinde eklenti hiç çalışmaz. İstediğin
 siteyi de panelden tek tıkla kapatabilirsin.
@@ -121,8 +135,13 @@ Reklam yok, abonelik yok, "pro" sürüm yok.
 |---|---|
 | Kategori | Alışveriş (Shopping) |
 | Dil | Türkçe (birincil) |
-| Gizlilik politikası URL | `https://incomevsdesires.com/gizlilik.html` |
-| Destek sitesi | `https://incomevsdesires.com` |
+| Gizlilik politikası URL | `https://hamarat52.github.io/income-vs-desires/gizlilik.html` |
+| Destek sitesi | `https://hamarat52.github.io/income-vs-desires/` |
+
+İki adres de yayında (28.10.2026, `curl` → HTTP 200). `incomevsdesires.com`
+alınmadı (yanıt yok); alan adı kararı Yusuf'ta. Alan adı alınırsa
+`site/posts.json > siteUrl` + `node site/build.js` ile birlikte bu iki satır da
+güncellenmeli.
 
 ### Tek amaç beyanı (single purpose)
 
@@ -133,31 +152,86 @@ Google inceleme sırasında bunu ister:
 
 ### İzin gerekçeleri
 
+`manifest.json` ile birebir (28.10.2026): `permissions` = `storage`, `alarms`,
+`activeTab`; `host_permissions` = 3 kur kaynağı; tek `content_scripts`
+girdisi `<all_urls>` (+ `exclude_matches`). Başka izin yok.
+
 | İzin | Gerekçe |
 |---|---|
-| `storage` | Kullanıcının maaşını, çalışma düzenini ve gider listesini cihazda saklamak için. |
-| `activeTab` | Panelden "sayfayı yeniden tara" denince yalnızca aktif sekmeye mesaj göndermek için. |
+| `storage` | Kullanıcının maaşını, çalışma düzenini, görünüm tercihlerini ve gider listesini (`storage.sync`) ve son çekilen kur tablosunu (`storage.local`) saklamak için. |
+| `activeTab` | Kullanıcı araç çubuğundaki panele tıkladığında yalnızca o anki sekmede: alan adını okuyup "bu sitede kapat" düğmesini göstermek ve "sayfayı yeniden tara" mesajını göndermek için. |
 | `alarms` | Döviz kurlarını günde bir kez tazelemek için. |
 | `host_permissions: api.frankfurter.dev` | Döviz kuru tablosunu çekmek için (ana kaynak, ECB verisi). |
 | `host_permissions: open.er-api.com`, `cdn.jsdelivr.net` | Ana kaynağa ulaşılamazsa sırayla denenen iki yedek kur kaynağı. İstekler yalnızca kur tablosunu ister; kullanıcıya ait hiçbir veri içermez. Eklentinin yaptığı dış istekler yalnızca bunlardır. |
-| `content_scripts: <all_urls>` | Fiyat hangi sitede olursa olsun çevrilebilsin diye. Eklenti site listesi tutmaz. |
+| `content_scripts: <all_urls>` | Fiyat hangi sitede olursa olsun çevrilebilsin diye. Eklenti site listesi tutmaz. Sayfa metni yalnızca cihazda okunur ve yerinde değiştirilir; hiçbir yere gönderilmez. E-posta, doküman ve 4 banka `exclude_matches` ile dışarıda. |
+
+### Gizlilik uygulamaları sekmesi — hazır cevaplar
+
+**Uzak kod kullanıyor musunuz?** → **Hayır, uzak kod kullanmıyorum.**
+
+Kanıt (28.10.2026, `src/` üzerinde grep): `eval(`, `new Function`,
+`importScripts`, dizgeli `setTimeout/setInterval`, dinamik `import(`,
+`chrome.scripting`/`executeScript` ve dış adresli `<script src>` **yok** (tek
+eşleşme `background.js:5`'teki "importScripts kaldırıldı" yorumu). Tüm
+`<script>` etiketleri paket içi dosyalar (`theme.js`, `lib/money.js`,
+`popup.js`, `options.js`). Tek `fetch` çağrısı `background.js:121`; yalnızca
+JSON kur tablosu alır, çalıştırılabilir kod değil.
+
+**Veri kullanımı — hangi kullanıcı verilerini topluyorsunuz?** → Hiçbir kutu
+işaretlenmez:
+
+| Kategori | Durum |
+|---|---|
+| Kişisel kimlik bilgileri | Toplanmıyor |
+| Sağlık bilgileri | Toplanmıyor |
+| Finansal ve ödeme bilgileri | Toplanmıyor (aşağıdaki nota bakın) |
+| Kimlik doğrulama bilgileri | Toplanmıyor |
+| Kişisel iletişimler | Toplanmıyor |
+| Konum | Toplanmıyor |
+| Web geçmişi | Toplanmıyor (adres yalnızca sekme içinde, tek sayfa uygulamalarında yeniden tarama için okunur; saklanmaz, gönderilmez) |
+| Kullanıcı etkinliği | Toplanmıyor |
+| Web sitesi içeriği | Toplanmıyor (fiyat metni cihazda okunup yerinde değiştirilir) |
+
+Dürüst değerlendirme — `storage.sync`: Maaş, çalışma düzeni ve gider listesi
+`chrome.storage.sync`'te tutuluyor. Kullanıcının Chrome senkronizasyonu
+açıksa bu veriler **Chrome tarafından** Google hesabına senkronlanır ve
+kullanıcının diğer cihazlarına gider. Geliştiricinin sunucusu yok; veri bize
+ya da üçüncü tarafa gelmez, Google'a giden aktarım Chrome'un kendi özelliği.
+Bu yüzden "toplanmıyor" cevabı savunulabilir; gizlilik politikası
+(`site/gizlilik.html`, "Bu veriler Chrome'un kendi storage.sync deposunda
+tutulur…") bunu zaten açıkça yazıyor. İnceleme maaşı "finansal bilgi" sayıp
+soru sorarsa iki seçenek var: (a) bu açıklamayla itiraz, (b) maaşı
+`storage.local`'a taşımak (cihazlar arası eşitleme kaybolur). Karar PM'de.
+
+Kur istekleri: üç kur kaynağına giden isteklerde kullanıcı verisi yok; her
+HTTP isteğinde olduğu gibi kaynak sunucu IP adresini görür.
+
+**Sertifikalar (üçü de işaretlenir):**
+
+- [x] Kullanıcı verilerini, onaylanmış kullanım durumları dışında üçüncü taraflara satmıyorum veya aktarmıyorum.
+- [x] Kullanıcı verilerini, öğemin tek amacıyla ilgisi olmayan amaçlarla kullanmıyorum veya aktarmıyorum.
+- [x] Kullanıcı verilerini kredi itibarını belirlemek veya borç verme amacıyla kullanmıyorum veya aktarmıyorum.
 
 ---
 
 ## Görseller
 
-- **İkon**: hazır. `src/icons/icon-{16,32,48,128}.png`, hamaratlabs-web'deki
-  resmi AppIcon.jsx tasarımından (yeşil terazi glyph'i, #43e08c/#0c9a6c,
-  liquid-glass efekti) üretildi; `manifest.json`'daki `icons` ve
-  `action.default_icon` alanlarına bağlandı.
-- **Ekran görüntüsü**: Hâlâ eksik, mağazaya yüklemeden önce hazırlanmalı.
-  1280x800, en fazla 5 tane. Önerilen sıra:
-  1. Gerçek bir ürün sayfası, fiyatların yerinde süreler (en güçlü kare, ilk sırada olmalı)
-  2. Ayar paneli (üç alan, ne kadar basit olduğu görünsün)
-  3. Giderler sayfası, halka grafik
-  4. Aynı fiyatın para ve saat hali yan yana (öncesi/sonrası)
-  5. Test edilmiş siteler listesi
-- **Küçük tanıtım karesi**: 440x280.
+Hepsi `store-assets/chrome/` altında; boyut, kaynak ve alan eşlemesi
+[`store-assets/chrome/README.md`](store-assets/chrome/README.md).
+
+- **Mağaza ikonu (128×128)**: `store-icon-128.png` (= `src/icons/icon-128.png`)
+  veya Google'ın 96+16 px pay önerisine uyan `store-icon-128-padded.png`.
+  Seçim PM'de.
+- **Ekran görüntüleri (1280×800, alfasız PNG, 5 adet)**, yükleme sırası:
+  1. `screenshot-1-urun-sayfasi.png` — gerçek arama sayfası, fiyatların yerinde süreler
+  2. `screenshot-2-panel.png` — ayar paneli (üç alan)
+  3. `screenshot-3-giderler.png` — Giderler sayfası, halka grafik
+  4. `screenshot-4-once-sonra.png` — aynı kartların TL ve mesai hâli yan yana
+  5. `screenshot-5-test-edilen-siteler.png` — test edilmiş siteler (28.10.2026 rakamları)
+- **Küçük tanıtım karesi (440×280)**: `promo-small-440x280.png`.
+- **Marquee (1400×560, isteğe bağlı)**: `marquee-1400x560.png`.
+- `store-assets/` kökündeki eski üç kare 35.000 TL maaşla çekilmişti;
+  mağaza metniyle (50.000 TL) çeliştiği için kullanılmayacak.
 
 ---
 
