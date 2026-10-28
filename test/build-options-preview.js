@@ -39,7 +39,8 @@ window.chrome = {
       set: (patch) => { Object.assign(store, patch); return Promise.resolve(); },
     },
     local: {
-      get: () => Promise.resolve({ rates: { rates: { EUR: 1, USD: 1.12, GBP: 0.84, TRY: 55.7 } } }),
+      // ECB / Frankfurter, 2026-10-27 tarihli kur (28.10.2026'da çekildi).
+      get: () => Promise.resolve({ rates: { rates: { EUR: 1, USD: 1.115, GBP: 0.83658, TRY: 55.513 } } }),
     },
     // Testler panelden gelen değişikliği window.__onChanged(changes, 'sync') ile taklit eder.
     onChanged: { addListener: (fn) => { window.__onChanged = fn; } },
