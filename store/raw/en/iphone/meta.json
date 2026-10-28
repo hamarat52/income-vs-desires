@@ -1,0 +1,78 @@
+{
+  "lang": "en",
+  "device": "iphone",
+  "emulation": {
+    "width": 402,
+    "height": 874,
+    "dsf": 3,
+    "mobile": true,
+    "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+  },
+  "chrome": "Chrome/156.0.8078.73",
+  "files": [
+    {
+      "file": "store/raw/en/iphone/01-eklenti-acik.png",
+      "url": "https://www.ikea.com/us/en/search/?q=desk%20lamp",
+      "at": "2026-10-28T15:02:13.391Z",
+      "note": "eklenti açık; görünür çip 3, sayfada 40",
+      "chips": [
+        {
+          "text": "42 min",
+          "original": "$19.99",
+          "x": 244.4140625,
+          "y": 159.359375
+        },
+        {
+          "text": "1.4 hours",
+          "original": "$39.99",
+          "x": 252.6953125,
+          "y": 526.203125
+        },
+        {
+          "text": "1.6 hours",
+          "original": "$44.99",
+          "x": 252.84375,
+          "y": 830.203125
+        }
+      ]
+    },
+    {
+      "file": "store/raw/en/iphone/02-eklenti-kapali.png",
+      "url": "https://www.ikea.com/us/en/search/?q=desk%20lamp",
+      "at": "2026-10-28T15:02:15.991Z",
+      "note": "aynı sayfa yüklemesi, enabled=false; sayfada çip 0"
+    },
+    {
+      "file": "store/raw/en/iphone/03-cipe-tiklandi.png",
+      "url": "https://www.ikea.com/us/en/search/?q=desk%20lamp",
+      "at": "2026-10-28T15:02:20.212Z",
+      "note": "\"1.4 hours\" çipine gerçek tıklama (CDP Input) → fiyata döndü: [\"$39.99\"]",
+      "clicked": {
+        "text": "1.4 hours",
+        "original": "$39.99",
+        "x": 252.6953125,
+        "y": 526.203125
+      }
+    },
+    {
+      "file": "store/raw/en/iphone/04-ayar-paneli.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/popup.html",
+      "at": "2026-10-28T15:02:24.160Z",
+      "note": "gerçek popup.html, 300×564 CSS px @3x, mağaza sekmesiyle aynı pencerede (aynı pencere: true); site düğmesi görünür: false; One hour of your work ≈ $28.41 · one workday ≈ $227.27; Exchange rates up to date (10/28/2026)."
+    },
+    {
+      "file": "store/raw/en/iphone/05-giderler-halka.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:02:27.892Z",
+      "note": "Giderler sayfası, \"WHERE YOUR MONTH GOES RENT 6.6 days 30% · 52.8 hours a month DIGITAL SUBSCRIPTION 58 min 0.5% · 1 hour a month OTHER 2.1 hours 1.2% · 2.1 hours a month LEFT FOR\""
+    },
+    {
+      "file": "store/raw/en/iphone/06-test-edilmis-siteler.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:02:28.876Z",
+      "note": "Giderler › test edilmiş siteler açık (12 satır)"
+    }
+  ],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+  "acceptLanguage": "en-US,en"
+}

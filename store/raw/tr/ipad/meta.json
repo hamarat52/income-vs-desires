@@ -1,0 +1,96 @@
+{
+  "lang": "tr",
+  "device": "ipad",
+  "emulation": {
+    "width": 1032,
+    "height": 1376,
+    "dsf": 2,
+    "mobile": true,
+    "ua": "Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+  },
+  "chrome": "Chrome/156.0.8078.73",
+  "files": [
+    {
+      "file": "store/raw/tr/ipad/01-eklenti-acik.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:02:48.122Z",
+      "note": "eklenti açık; görünür çip 6, sayfada 86",
+      "chips": [
+        {
+          "text": "6,7 saat",
+          "original": "1.899,99 TL",
+          "x": 126.1640625,
+          "y": 404.0625
+        },
+        {
+          "text": "7 saat",
+          "original": "1.999,99 TL",
+          "x": 115.609375,
+          "y": 418.0625
+        },
+        {
+          "text": "6,7 saat",
+          "original": "1.899,99 TL",
+          "x": 796.1640625,
+          "y": 404.0625
+        },
+        {
+          "text": "7 saat",
+          "original": "1.999,99 TL",
+          "x": 785.609375,
+          "y": 418.0625
+        },
+        {
+          "text": "1,4 gün",
+          "original": "3.103,07 TL",
+          "x": 42.9609375,
+          "y": 1292.5625
+        },
+        {
+          "text": "5,9 saat",
+          "original": "1.675,09 TL",
+          "x": 555.1640625,
+          "y": 1312.5625
+        }
+      ]
+    },
+    {
+      "file": "store/raw/tr/ipad/02-eklenti-kapali.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:02:50.870Z",
+      "note": "aynı sayfa yüklemesi, enabled=false; sayfada çip 0"
+    },
+    {
+      "file": "store/raw/tr/ipad/03-cipe-tiklandi.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:02:55.045Z",
+      "note": "\"7 saat\" çipine gerçek tıklama (CDP Input) → fiyata döndü: [\"1.999,99 TL\"]",
+      "clicked": {
+        "text": "7 saat",
+        "original": "1.999,99 TL",
+        "x": 115.609375,
+        "y": 418.0625
+      }
+    },
+    {
+      "file": "store/raw/tr/ipad/04-ayar-paneli.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/popup.html",
+      "at": "2026-10-28T15:02:59.035Z",
+      "note": "gerçek popup.html, 300×564 CSS px @2x, mağaza sekmesiyle aynı pencerede (aynı pencere: true); site düğmesi görünür: false; Bir saatin ≈ ₺284,09 · bir mesai ≈ ₺2.272,73; Kurlar güncel (28.10.2026)."
+    },
+    {
+      "file": "store/raw/tr/ipad/05-giderler-halka.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:03:02.683Z",
+      "note": "Giderler sayfası, \"AYIN NEREYE GİDİYOR KİRA 7,9 gün %36 · ayda 63,4 saat DİJİTAL ABONELİK 1,3 saat %0,8 · ayda 1,3 saat TAKSİT 1,1 gün %5 · ayda 8,8 saat SANA KALAN 13 gün %58,2 ·\""
+    },
+    {
+      "file": "store/raw/tr/ipad/06-test-edilmis-siteler.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:03:04.015Z",
+      "note": "Giderler › test edilmiş siteler açık (12 satır)"
+    }
+  ],
+  "userAgent": "Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+  "acceptLanguage": "tr-TR,tr"
+}

@@ -1,0 +1,132 @@
+{
+  "lang": "en",
+  "device": "ipad",
+  "emulation": {
+    "width": 1032,
+    "height": 1376,
+    "dsf": 2,
+    "mobile": true,
+    "ua": "Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+  },
+  "chrome": "Chrome/156.0.8078.73",
+  "files": [
+    {
+      "file": "store/raw/en/ipad/01-eklenti-acik.png",
+      "url": "https://www.ikea.com/us/en/search/?q=desk%20lamp",
+      "at": "2026-10-28T15:03:20.480Z",
+      "note": "eklenti açık; görünür çip 12, sayfada 40",
+      "chips": [
+        {
+          "text": "53 min",
+          "original": "$24.99",
+          "x": 369.4375,
+          "y": 165.578125
+        },
+        {
+          "text": "2.1 hours",
+          "original": "$59.99",
+          "x": 593.5390625,
+          "y": 165.578125
+        },
+        {
+          "text": "53 min",
+          "original": "$24.99",
+          "x": 801.4375,
+          "y": 183.078125
+        },
+        {
+          "text": "1.1 hours",
+          "original": "$29.99",
+          "x": 377.2421875,
+          "y": 688.328125
+        },
+        {
+          "text": "42 min",
+          "original": "$19.99",
+          "x": 585.4140625,
+          "y": 705.828125
+        },
+        {
+          "text": "21 min",
+          "original": "$10.00",
+          "x": 679.3828125,
+          "y": 742.1875
+        },
+        {
+          "text": "1.1 hours",
+          "original": "$29.99",
+          "x": 665.8671875,
+          "y": 766.6875
+        },
+        {
+          "text": "1.2 hours",
+          "original": "$34.99",
+          "x": 377.5390625,
+          "y": 1264.734375
+        },
+        {
+          "text": "2.8 hours",
+          "original": "$79.99",
+          "x": 594.1015625,
+          "y": 1264.734375
+        },
+        {
+          "text": "1.1 hours",
+          "original": "$29.99",
+          "x": 809.2421875,
+          "y": 1247.234375
+        },
+        {
+          "text": "21 min",
+          "original": "$10.00",
+          "x": 895.1953125,
+          "y": 1283.59375
+        },
+        {
+          "text": "1.4 hours",
+          "original": "$39.99",
+          "x": 882.65625,
+          "y": 1308.09375
+        }
+      ]
+    },
+    {
+      "file": "store/raw/en/ipad/02-eklenti-kapali.png",
+      "url": "https://www.ikea.com/us/en/search/?q=desk%20lamp",
+      "at": "2026-10-28T15:03:22.970Z",
+      "note": "aynı sayfa yüklemesi, enabled=false; sayfada çip 0"
+    },
+    {
+      "file": "store/raw/en/ipad/03-cipe-tiklandi.png",
+      "url": "https://www.ikea.com/us/en/search/?q=desk%20lamp",
+      "at": "2026-10-28T15:03:26.874Z",
+      "note": "\"2.1 hours\" çipine gerçek tıklama (CDP Input) → fiyata döndü: [\"$59.99\"]",
+      "clicked": {
+        "text": "2.1 hours",
+        "original": "$59.99",
+        "x": 593.5390625,
+        "y": 165.578125
+      }
+    },
+    {
+      "file": "store/raw/en/ipad/04-ayar-paneli.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/popup.html",
+      "at": "2026-10-28T15:03:30.720Z",
+      "note": "gerçek popup.html, 300×564 CSS px @2x, mağaza sekmesiyle aynı pencerede (aynı pencere: true); site düğmesi görünür: false; One hour of your work ≈ $28.41 · one workday ≈ $227.27; Exchange rates up to date (10/28/2026)."
+    },
+    {
+      "file": "store/raw/en/ipad/05-giderler-halka.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:03:34.488Z",
+      "note": "Giderler sayfası, \"WHERE YOUR MONTH GOES RENT 6.6 days 30% · 52.8 hours a month DIGITAL SUBSCRIPTION 58 min 0.5% · 1 hour a month OTHER 2.1 hours 1.2% · 2.1 hours a month LEFT FOR\""
+    },
+    {
+      "file": "store/raw/en/ipad/06-test-edilmis-siteler.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:03:35.334Z",
+      "note": "Giderler › test edilmiş siteler açık (12 satır)"
+    }
+  ],
+  "userAgent": "Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+  "acceptLanguage": "en-US,en"
+}

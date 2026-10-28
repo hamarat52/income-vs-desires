@@ -1,0 +1,96 @@
+{
+  "lang": "tr",
+  "device": "iphone",
+  "emulation": {
+    "width": 402,
+    "height": 874,
+    "dsf": 3,
+    "mobile": true,
+    "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+  },
+  "chrome": "Chrome/156.0.8078.73",
+  "files": [
+    {
+      "file": "store/raw/tr/iphone/01-eklenti-acik.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:01:34.579Z",
+      "note": "eklenti açık; görünür çip 6, sayfada 86",
+      "chips": [
+        {
+          "text": "6,7 saat",
+          "original": "1.899,99 TL",
+          "x": 126.1640625,
+          "y": 375.140625
+        },
+        {
+          "text": "7 saat",
+          "original": "1.999,99 TL",
+          "x": 115.609375,
+          "y": 389.140625
+        },
+        {
+          "text": "6,7 saat",
+          "original": "1.899,99 TL",
+          "x": 376.1484375,
+          "y": 375.140625
+        },
+        {
+          "text": "7 saat",
+          "original": "1.999,99 TL",
+          "x": 365.59375,
+          "y": 389.140625
+        },
+        {
+          "text": "1,4 gün",
+          "original": "3.103,07 TL",
+          "x": 42.9609375,
+          "y": 793.140625
+        },
+        {
+          "text": "5,9 saat",
+          "original": "1.675,09 TL",
+          "x": 240.1640625,
+          "y": 813.140625
+        }
+      ]
+    },
+    {
+      "file": "store/raw/tr/iphone/02-eklenti-kapali.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:01:37.576Z",
+      "note": "aynı sayfa yüklemesi, enabled=false; sayfada çip 0"
+    },
+    {
+      "file": "store/raw/tr/iphone/03-cipe-tiklandi.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:01:42.089Z",
+      "note": "\"7 saat\" çipine gerçek tıklama (CDP Input) → fiyata döndü: [\"1.999,99 TL\"]",
+      "clicked": {
+        "text": "7 saat",
+        "original": "1.999,99 TL",
+        "x": 115.609375,
+        "y": 389.140625
+      }
+    },
+    {
+      "file": "store/raw/tr/iphone/04-ayar-paneli.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/popup.html",
+      "at": "2026-10-28T15:01:47.822Z",
+      "note": "gerçek popup.html, 300×564 CSS px @3x, mağaza sekmesiyle aynı pencerede (aynı pencere: true); site düğmesi görünür: false; Bir saatin ≈ ₺284,09 · bir mesai ≈ ₺2.272,73; Kurlar güncel (28.10.2026)."
+    },
+    {
+      "file": "store/raw/tr/iphone/05-giderler-halka.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:01:51.711Z",
+      "note": "Giderler sayfası, \"AYIN NEREYE GİDİYOR KİRA 7,9 gün %36 · ayda 63,4 saat DİJİTAL ABONELİK 1,3 saat %0,8 · ayda 1,3 saat TAKSİT 1,1 gün %5 · ayda 8,8 saat SANA KALAN 13 gün %58,2 ·\""
+    },
+    {
+      "file": "store/raw/tr/iphone/06-test-edilmis-siteler.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:01:52.524Z",
+      "note": "Giderler › test edilmiş siteler açık (12 satır)"
+    }
+  ],
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+  "acceptLanguage": "tr-TR,tr"
+}

@@ -1,0 +1,131 @@
+{
+  "lang": "tr",
+  "device": "desktop",
+  "emulation": {
+    "width": 1280,
+    "height": 800,
+    "dsf": 2,
+    "mobile": false
+  },
+  "chrome": "Chrome/156.0.8078.73",
+  "files": [
+    {
+      "file": "store/raw/tr/desktop/01-eklenti-acik.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:00:15.674Z",
+      "note": "eklenti açık; görünür çip 12, sayfada 91",
+      "chips": [
+        {
+          "text": "6,7 saat",
+          "original": "1.899,99 TL",
+          "x": 781.1640625,
+          "y": 200.5
+        },
+        {
+          "text": "7 saat",
+          "original": "1.999,99 TL",
+          "x": 773.1328125,
+          "y": 215
+        },
+        {
+          "text": "6,7 saat",
+          "original": "1.899,99 TL",
+          "x": 969.8203125,
+          "y": 200.5
+        },
+        {
+          "text": "7 saat",
+          "original": "1.999,99 TL",
+          "x": 961.7890625,
+          "y": 215
+        },
+        {
+          "text": "6,7 saat",
+          "original": "1.899,99 TL",
+          "x": 1158.4765625,
+          "y": 200.5
+        },
+        {
+          "text": "7 saat",
+          "original": "1.999,99 TL",
+          "x": 1150.4453125,
+          "y": 215
+        },
+        {
+          "text": "1,4 gün",
+          "original": "3.103,07 TL",
+          "x": 296.1015625,
+          "y": 705.5
+        },
+        {
+          "text": "5,9 saat",
+          "original": "1.675,09 TL",
+          "x": 547.4765625,
+          "y": 726.5
+        },
+        {
+          "text": "3,3 saat",
+          "original": "933,40 TL",
+          "x": 797.4765625,
+          "y": 721
+        },
+        {
+          "text": "5,1 saat",
+          "original": "1.436 TL",
+          "x": 851.1171875,
+          "y": 721.5
+        },
+        {
+          "text": "2,9 saat",
+          "original": "830,70 TL",
+          "x": 1047.4765625,
+          "y": 721
+        },
+        {
+          "text": "4,5 saat",
+          "original": "1.278 TL",
+          "x": 1101.1171875,
+          "y": 721.5
+        }
+      ]
+    },
+    {
+      "file": "store/raw/tr/desktop/02-eklenti-kapali.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:00:19.069Z",
+      "note": "aynı sayfa yüklemesi, enabled=false; sayfada çip 0"
+    },
+    {
+      "file": "store/raw/tr/desktop/03-cipe-tiklandi.png",
+      "url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "at": "2026-10-28T15:00:24.680Z",
+      "note": "\"7 saat\" çipine gerçek tıklama (CDP Input) → fiyata döndü: [\"1.999,99 TL\"]",
+      "clicked": {
+        "text": "7 saat",
+        "original": "1.999,99 TL",
+        "x": 773.1328125,
+        "y": 215
+      }
+    },
+    {
+      "file": "store/raw/tr/desktop/04-ayar-paneli.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/popup.html",
+      "at": "2026-10-28T15:00:30.872Z",
+      "note": "gerçek popup.html, 300×564 CSS px @2x, mağaza sekmesiyle aynı pencerede (aynı pencere: true); site düğmesi görünür: false; Bir saatin ≈ ₺284,09 · bir mesai ≈ ₺2.272,73; Kurlar güncel (28.10.2026)."
+    },
+    {
+      "file": "store/raw/tr/desktop/05-giderler-halka.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:00:34.428Z",
+      "note": "Giderler sayfası, \"AYIN NEREYE GİDİYOR KİRA 7,9 gün %36 · ayda 63,4 saat DİJİTAL ABONELİK 1,3 saat %0,8 · ayda 1,3 saat TAKSİT 1,1 gün %5 · ayda 8,8 saat SANA KALAN 13 gün %58,2 ·\""
+    },
+    {
+      "file": "store/raw/tr/desktop/06-test-edilmis-siteler.png",
+      "url": "chrome-extension://kbkicnlinfcjeenkogafebeopbodkkdf/src/options.html",
+      "at": "2026-10-28T15:00:35.206Z",
+      "note": "Giderler › test edilmiş siteler açık (12 satır)"
+    }
+  ],
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "acceptLanguage": "tr-TR,tr"
+}
