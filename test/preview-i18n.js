@@ -10,7 +10,10 @@ function i18nShim() {
   const messages = JSON.stringify({ tr: stub.load('tr'), en: stub.load('en') }).replace(/<\//g, '<\\/');
   return [
     'window.__ivdNoAutoI18n = true;',
-    fs.readFileSync(path.join(__dirname, 'i18n-stub.js'), 'utf8'),
+    // i18n-stub.js yorumunda `<script …></script>` geçiyor; satır içi
+    // <script> bloğunu erken kapatıp önizlemede bütün metinleri anahtar
+    // adına düşürüyordu. `</` → `<\/` JS için aynı, HTML için zararsız.
+    fs.readFileSync(path.join(__dirname, 'i18n-stub.js'), 'utf8').replace(/<\//g, '<\\/'),
     "const __ivdLang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'tr';",
     `IVDi18nStub.installFromMessages(${messages}[__ivdLang], __ivdLang);`,
   ].join('\n');
