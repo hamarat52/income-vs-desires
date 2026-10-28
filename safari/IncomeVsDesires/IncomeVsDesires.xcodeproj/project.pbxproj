@@ -33,6 +33,8 @@
 		ED38A8E730905DA500693561 /* src in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DC30905DA500693561 /* src */; };
 		ED38A8EF30905DA500693561 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D930905DA500693561 /* manifest.json */; };
 		ED38A8F230905DA500693561 /* src in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DC30905DA500693561 /* src */; };
+		ED38A9A130905DA500693561 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = ED38A9A030905DA500693561 /* _locales */; };
+		ED38A9A230905DA500693561 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = ED38A9A030905DA500693561 /* _locales */; };
 		ED38A90130905DA500693561 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */; };
 		ED38A90230905DA500693561 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */; };
 		ED38A90330905DA500693561 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */; };
@@ -101,6 +103,7 @@
 		ED38A8B230905DA500693561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED38A8D930905DA500693561 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../manifest.json; sourceTree = "<group>"; };
 		ED38A8DC30905DA500693561 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../src; sourceTree = "<group>"; };
+		ED38A9A030905DA500693561 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../_locales; sourceTree = "<group>"; };
 		ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				ED38A8D930905DA500693561 /* manifest.json */,
+				ED38A9A030905DA500693561 /* _locales */,
 				ED38A8DC30905DA500693561 /* src */,
 			);
 			name = Resources;
@@ -379,6 +383,7 @@
 			files = (
 				ED38A90330905DA500693561 /* PrivacyInfo.xcprivacy in Resources */,
 				ED38A8EF30905DA500693561 /* manifest.json in Resources */,
+				ED38A9A230905DA500693561 /* _locales in Resources */,
 				ED38A8F230905DA500693561 /* src in Resources */,
 			);
 		};
@@ -387,6 +392,7 @@
 			files = (
 				ED38A90430905DA500693561 /* PrivacyInfo.xcprivacy in Resources */,
 				ED38A8E430905DA500693561 /* manifest.json in Resources */,
+				ED38A9A130905DA500693561 /* _locales in Resources */,
 				ED38A8E730905DA500693561 /* src in Resources */,
 			);
 		};

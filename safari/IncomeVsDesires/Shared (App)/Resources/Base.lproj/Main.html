@@ -10,11 +10,12 @@
     <script src="../Script.js" defer></script>
 </head>
 <body>
-    <img src="../Icon.png" width="128" height="128" alt="IncomeVsDesires simgesi">
-    <p class="platform-ios">IncomeVsDesires bir Safari uzantısıdır. Açmak için Ayarlar &gt; Uygulamalar &gt; Safari &gt; Uzantılar bölümüne git (iOS 17’de: Ayarlar &gt; Safari &gt; Uzantılar), IncomeVsDesires’ı aç ve web sitelerine izin ver.</p>
-    <p class="platform-mac state-unknown">IncomeVsDesires uzantısını Safari &gt; Tercihler &gt; Uzantılar bölümünden açabilirsin.</p>
-    <p class="platform-mac state-on">IncomeVsDesires uzantısı şu anda açık. Safari &gt; Tercihler &gt; Uzantılar bölümünden kapatabilirsin.</p>
-    <p class="platform-mac state-off">IncomeVsDesires uzantısı şu anda kapalı. Safari &gt; Tercihler &gt; Uzantılar bölümünden açabilir, ardından web sitelerine izin verebilirsin.</p>
-    <button class="platform-mac open-preferences">Çık ve Safari Uzantı Tercihlerini Aç…</button>
+    <!-- Metinler Script.js'te TR/EN; dil navigator.language'dan (tr* → Türkçe, diğerleri İngilizce). -->
+    <img src="../Icon.png" width="128" height="128" alt="IncomeVsDesires" data-i18n-alt="iconAlt">
+    <p class="platform-ios" data-i18n="ios"></p>
+    <p class="platform-mac state-unknown" data-i18n="macUnknown"></p>
+    <p class="platform-mac state-on" data-i18n="macOn"></p>
+    <p class="platform-mac state-off" data-i18n="macOff"></p>
+    <button class="platform-mac open-preferences" data-i18n="openPreferences"></button>
 </body>
 </html>
