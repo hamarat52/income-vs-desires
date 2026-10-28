@@ -32,10 +32,14 @@
 
     const sync = () => {
       const dark = root.dataset.theme === 'dark';
+      // İngilizce sayfalar (site/en/) aynı dosyayı kullanıyor.
+      const en = /^en\b/.test(root.lang);
       button.textContent = dark ? '☀' : '☾';
       button.setAttribute(
         'aria-label',
-        dark ? 'Aydınlık görünüme geç' : 'Karanlık görünüme geç'
+        en
+          ? dark ? 'Switch to light theme' : 'Switch to dark theme'
+          : dark ? 'Aydınlık görünüme geç' : 'Karanlık görünüme geç'
       );
       button.setAttribute('aria-pressed', String(dark));
     };
