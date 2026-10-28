@@ -189,6 +189,7 @@ izin gerekçeleri, form cevapları, ham ekran görüntüleri). Kontrol listesi:
 | `test/demo.html` | Eklenti yüklemeden test etmek için sahte `chrome.*` API'li sayfa — tarayıcıda direkt aç |
 | `test/test-money.js` | Birim testleri: fiyat yakalama, sayı ayrıştırma, süre birimleri (`node test/test-money.js`) |
 | `test/test-background.js` | Service worker testleri: kur çekme, önbellek, çöküş yolları (`node test/test-background.js`) |
+| `test/test-popup.js` | Panel testi: bekleyen kayıt Giderler açılmadan yazılıyor mu (`node test/test-popup.js`) |
 | `test/build-popup-preview.js` | Ayar panelini tarayıcıda açılabilir tek dosyaya gömer; ayrıca `popup-stage.html` (büyütülmüş vitrin) üretir |
 | `test/build-options-preview.js` | Giderler sayfası için aynısı; `window.__ivdErrors`'a yakalanan hataları da toplar |
 | `scripts/build-cws-zip.sh` | Chrome Web Store paketi: yalnız `manifest.json` + `src/` → `dist/income-vs-desires-chrome-<sürüm>.zip` |

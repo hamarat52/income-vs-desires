@@ -94,7 +94,7 @@
   });
   el.toggleHost.addEventListener('click', toggleHost);
   el.rescan.addEventListener('click', rescan);
-  el.openOptions.addEventListener('click', () => chrome.runtime.openOptionsPage());
+  el.openOptions.addEventListener('click', openOptions);
 
   async function save(patch) {
     settings = { ...settings, ...patch };
@@ -119,11 +119,34 @@
     saveTimer = setTimeout(flushSave, 500);
   }
 
+  /** Bekleyen kaydı hemen yazar; yazmanın sözünü döndürür (yoksa çözülmüş). */
   function flushSave() {
     clearTimeout(saveTimer);
-    if (!pendingPatch) return;
-    chrome.storage.sync.set(pendingPatch);
+    if (!pendingPatch) return Promise.resolve();
+    const write = chrome.storage.sync.set(pendingPatch);
     pendingPatch = null;
+    return write;
+  }
+
+  /**
+   * Giderler sayfası ayarları açılırken storage'dan okur. Maaşı yazıp 500 ms
+   * dolmadan düğmeye basılırsa kayıt henüz yazılmamış olur ve sayfa eski
+   * değerle açılırdı; önce yazıp sonra açıyoruz. Yazma takılırsa (Safari'de
+   * geri çağrısı hiç dönmeyen storage/mesaj gözlendi, bulgu G) düğme ölü
+   * kalmasın diye en çok FLUSH_WAIT_MS beklenir; hata da açmayı engellemez.
+   */
+  const FLUSH_WAIT_MS = 1000;
+
+  async function openOptions() {
+    try {
+      await Promise.race([
+        flushSave(),
+        new Promise((resolve) => setTimeout(resolve, FLUSH_WAIT_MS)),
+      ]);
+    } catch {
+      // Yazılamadıysa Giderler son kayıtlı değerle açılır.
+    }
+    chrome.runtime.openOptionsPage();
   }
 
   function render() {

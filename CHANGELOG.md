@@ -51,6 +51,10 @@ hedefleri aynı `manifest.json` + `src/` ile hazırlanıyor; henüz yayında de�
   listesi, mağaza vitrini) çipi döndürmeden ürün sayfasını açıyordu. Çip artık
   parmak kalkınca döner ve dokunuşun ardından tıklama üretilmez; kaydırma ve
   fare tıklaması değişmedi. iOS Safari'de yeniden doğrulanması bekliyor.
+- Panel: maaş/saat/gün yazılıp yarım saniye dolmadan "Giderlerin ve grafik →"
+  düğmesine basılınca Giderler sayfası eski değerle açılabiliyordu. Bekleyen
+  kayıt artık sayfa açılmadan önce yazılıyor (yazma takılırsa en çok 1 sn
+  beklenir, hata sayfanın açılmasını engellemez). Test: `test/test-popup.js`.
 
 ### Bilinen sınırlar
 
