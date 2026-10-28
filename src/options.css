@@ -400,6 +400,25 @@ textarea {
   font-weight: 600;
 }
 
+/*
+ * Telefon genişliği (iOS Safari): altı sütun 400 px'e sığmıyor, tablo
+ * sayfayı yana taşırıyordu. Tür ve yüzde halka grafiğin açıklamasında da
+ * var; dar ekranda bu iki sütun gizlenir, süreler satır içinde kırılmaz.
+ */
+@media (max-width: 560px) {
+  .items th:nth-child(2),
+  .items td:nth-child(2),
+  .items th:nth-child(5),
+  .items td:nth-child(5) {
+    display: none;
+  }
+
+  .items .num,
+  .legend .value {
+    white-space: nowrap;
+  }
+}
+
 .remove {
   border: 0;
   background: transparent;
