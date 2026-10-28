@@ -29,28 +29,14 @@
 		ED38A8BE30905DA500693561 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED38A87E30905DA500693561 /* Assets.xcassets */; };
 		ED38A8BF30905DA500693561 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A88030905DA500693561 /* SafariWebExtensionHandler.swift */; };
 		ED38A8C030905DA500693561 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38A88030905DA500693561 /* SafariWebExtensionHandler.swift */; };
-		ED38A8DD30905DA500693561 /* ARCHITECTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D230905DA500693561 /* ARCHITECTURE.md */; };
-		ED38A8DE30905DA500693561 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D330905DA500693561 /* LICENSE */; };
-		ED38A8DF30905DA500693561 /* test in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D430905DA500693561 /* test */; };
-		ED38A8E030905DA500693561 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D530905DA500693561 /* docs */; };
-		ED38A8E130905DA500693561 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D630905DA500693561 /* README.md */; };
-		ED38A8E230905DA500693561 /* SEO.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D730905DA500693561 /* SEO.md */; };
-		ED38A8E330905DA500693561 /* safari in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D830905DA500693561 /* safari */; };
 		ED38A8E430905DA500693561 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D930905DA500693561 /* manifest.json */; };
-		ED38A8E530905DA500693561 /* site in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DA30905DA500693561 /* site */; };
-		ED38A8E630905DA500693561 /* MAGAZA-LISTELEME.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DB30905DA500693561 /* MAGAZA-LISTELEME.md */; };
 		ED38A8E730905DA500693561 /* src in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DC30905DA500693561 /* src */; };
-		ED38A8E830905DA500693561 /* ARCHITECTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D230905DA500693561 /* ARCHITECTURE.md */; };
-		ED38A8E930905DA500693561 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D330905DA500693561 /* LICENSE */; };
-		ED38A8EA30905DA500693561 /* test in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D430905DA500693561 /* test */; };
-		ED38A8EB30905DA500693561 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D530905DA500693561 /* docs */; };
-		ED38A8EC30905DA500693561 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D630905DA500693561 /* README.md */; };
-		ED38A8ED30905DA500693561 /* SEO.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D730905DA500693561 /* SEO.md */; };
-		ED38A8EE30905DA500693561 /* safari in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D830905DA500693561 /* safari */; };
 		ED38A8EF30905DA500693561 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8D930905DA500693561 /* manifest.json */; };
-		ED38A8F030905DA500693561 /* site in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DA30905DA500693561 /* site */; };
-		ED38A8F130905DA500693561 /* MAGAZA-LISTELEME.md in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DB30905DA500693561 /* MAGAZA-LISTELEME.md */; };
 		ED38A8F230905DA500693561 /* src in Resources */ = {isa = PBXBuildFile; fileRef = ED38A8DC30905DA500693561 /* src */; };
+		ED38A90130905DA500693561 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */; };
+		ED38A90230905DA500693561 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */; };
+		ED38A90330905DA500693561 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */; };
+		ED38A90430905DA500693561 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,17 +99,9 @@
 		ED38A8A830905DA500693561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED38A8AD30905DA500693561 /* IncomeVsDesires Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "IncomeVsDesires Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED38A8B230905DA500693561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ED38A8D230905DA500693561 /* ARCHITECTURE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ARCHITECTURE.md; path = ../../../ARCHITECTURE.md; sourceTree = "<group>"; };
-		ED38A8D330905DA500693561 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../../LICENSE; sourceTree = "<group>"; };
-		ED38A8D430905DA500693561 /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; name = test; path = ../../../test; sourceTree = "<group>"; };
-		ED38A8D530905DA500693561 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = docs; path = ../../../docs; sourceTree = "<group>"; };
-		ED38A8D630905DA500693561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../README.md; sourceTree = "<group>"; };
-		ED38A8D730905DA500693561 /* SEO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = SEO.md; path = ../../../SEO.md; sourceTree = "<group>"; };
-		ED38A8D830905DA500693561 /* safari */ = {isa = PBXFileReference; lastKnownFileType = folder; name = safari; path = ../..; sourceTree = "<group>"; };
 		ED38A8D930905DA500693561 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../manifest.json; sourceTree = "<group>"; };
-		ED38A8DA30905DA500693561 /* site */ = {isa = PBXFileReference; lastKnownFileType = folder; name = site; path = ../../../site; sourceTree = "<group>"; };
-		ED38A8DB30905DA500693561 /* MAGAZA-LISTELEME.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "MAGAZA-LISTELEME.md"; path = "../../../MAGAZA-LISTELEME.md"; sourceTree = "<group>"; };
 		ED38A8DC30905DA500693561 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../src; sourceTree = "<group>"; };
+		ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				ED38A87D30905DA400693561 /* ViewController.swift */,
+				ED38A90030905DA500693561 /* PrivacyInfo.xcprivacy */,
 				ED38A87E30905DA500693561 /* Assets.xcassets */,
 				ED38A87730905DA400693561 /* Resources */,
 			);
@@ -245,16 +224,7 @@
 		ED38A8D130905DA500693561 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ED38A8D230905DA500693561 /* ARCHITECTURE.md */,
-				ED38A8D330905DA500693561 /* LICENSE */,
-				ED38A8D430905DA500693561 /* test */,
-				ED38A8D530905DA500693561 /* docs */,
-				ED38A8D630905DA500693561 /* README.md */,
-				ED38A8D730905DA500693561 /* SEO.md */,
-				ED38A8D830905DA500693561 /* safari */,
 				ED38A8D930905DA500693561 /* manifest.json */,
-				ED38A8DA30905DA500693561 /* site */,
-				ED38A8DB30905DA500693561 /* MAGAZA-LISTELEME.md */,
 				ED38A8DC30905DA500693561 /* src */,
 			);
 			name = Resources;
@@ -357,10 +327,10 @@
 				};
 			};
 			buildConfigurationList = ED38A87530905DA400693561 /* Build configuration list for PBXProject "IncomeVsDesires" */;
-			developmentRegion = en;
+			developmentRegion = tr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
+				tr,
 				Base,
 			);
 			mainGroup = ED38A87130905DA400693561;
@@ -382,6 +352,7 @@
 		ED38A88330905DA500693561 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
+				ED38A90130905DA500693561 /* PrivacyInfo.xcprivacy in Resources */,
 				ED38A8B530905DA500693561 /* Icon.png in Resources */,
 				ED38A88E30905DA500693561 /* LaunchScreen.storyboard in Resources */,
 				ED38A8B330905DA500693561 /* Main.html in Resources */,
@@ -394,6 +365,7 @@
 		ED38A89530905DA500693561 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
+				ED38A90230905DA500693561 /* PrivacyInfo.xcprivacy in Resources */,
 				ED38A8B630905DA500693561 /* Icon.png in Resources */,
 				ED38A8B830905DA500693561 /* Style.css in Resources */,
 				ED38A89D30905DA500693561 /* Main.storyboard in Resources */,
@@ -405,33 +377,17 @@
 		ED38A8A130905DA500693561 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				ED38A8E930905DA500693561 /* LICENSE in Resources */,
-				ED38A8EB30905DA500693561 /* docs in Resources */,
-				ED38A8F130905DA500693561 /* MAGAZA-LISTELEME.md in Resources */,
-				ED38A8ED30905DA500693561 /* SEO.md in Resources */,
-				ED38A8EC30905DA500693561 /* README.md in Resources */,
-				ED38A8F030905DA500693561 /* site in Resources */,
+				ED38A90330905DA500693561 /* PrivacyInfo.xcprivacy in Resources */,
 				ED38A8EF30905DA500693561 /* manifest.json in Resources */,
 				ED38A8F230905DA500693561 /* src in Resources */,
-				ED38A8E830905DA500693561 /* ARCHITECTURE.md in Resources */,
-				ED38A8EA30905DA500693561 /* test in Resources */,
-				ED38A8EE30905DA500693561 /* safari in Resources */,
 			);
 		};
 		ED38A8AB30905DA500693561 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				ED38A8DE30905DA500693561 /* LICENSE in Resources */,
-				ED38A8E030905DA500693561 /* docs in Resources */,
-				ED38A8E630905DA500693561 /* MAGAZA-LISTELEME.md in Resources */,
-				ED38A8E230905DA500693561 /* SEO.md in Resources */,
-				ED38A8E130905DA500693561 /* README.md in Resources */,
-				ED38A8E530905DA500693561 /* site in Resources */,
+				ED38A90430905DA500693561 /* PrivacyInfo.xcprivacy in Resources */,
 				ED38A8E430905DA500693561 /* manifest.json in Resources */,
 				ED38A8E730905DA500693561 /* src in Resources */,
-				ED38A8DD30905DA500693561 /* ARCHITECTURE.md in Resources */,
-				ED38A8DF30905DA500693561 /* test in Resources */,
-				ED38A8E330905DA500693561 /* safari in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -645,7 +601,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -679,7 +635,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -709,6 +665,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = IncomeVsDesires;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -719,7 +676,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -750,6 +707,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = IncomeVsDesires;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -760,7 +718,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -800,7 +758,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -836,7 +794,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -868,14 +826,17 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = IncomeVsDesires;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Muhammed Yusuf Hamarat";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -910,14 +871,17 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = IncomeVsDesires;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Muhammed Yusuf Hamarat";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
