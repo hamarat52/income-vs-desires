@@ -1,6 +1,6 @@
 # Ham Safari kareleri (gerçek Safari + gerçek uzantı)
 
-Durum 28.10.2026 23:25, dal `release/safari-chrome` (HEAD `264072b` üstüne), MobileDev.
+Durum 29.10.2026 00:20, dal `release/safari-chrome` (HEAD `264072b` üstüne), MobileDev.
 Her kare gerçek Safari'de, bu worktree'den derlenmiş gerçek uzantıyla, gerçek sitede
 çekildi. Kompozit, rötuş, sahte arayüz yok. Kırpma/çerçeve/başlık yok (ImageArtist işi).
 
@@ -11,15 +11,17 @@ Her kare gerçek Safari'de, bu worktree'den derlenmiş gerçek uzantıyla, gerç
 | iPhone 18 Pro simülatör (iOS 27.0) TR — 01…05 + kayıt | **hazır** (03 ürün sayfasında, aşağıya bakın) |
 | iPhone 18 Pro simülatör EN — 01…04 | **hazır**; **04'te uzantı hatası görünüyor** (mağazada kullanılmamalı) |
 | iPhone EN 05 (Giderler) + EN kayıt | **eksik** — Giderler sayfası kayıtlı ayarları göstermedi (bkz. `_kanit/iphone-en-giderler-sayfasi-ayarlar-bos.png`), simülatör o sırada dışarıdan kesildi |
-| iPad Pro 13" (M5) TR/EN | **eksik** — zaman yetmedi (simülatör 3 kez dışarıdan kapatıldı) |
+| iPad Pro 13" (M5) simülatör TR — 01…05 + kayıt | **hazır** (03 listede gezinmesiz) |
+| iPad Pro 13" (M5) EN | **eksik** — yeniden başlatma sonrası uzantı Zappos'ta fiyat çevirmedi, popup mesajları yanıtsız (bulgu G); EN popup'ta hata A iPad'de de var |
 | macOS Safari TR/EN (`mac/`) | **eksik** — masaüstü girdisi (tıklama/tuş) bu oturumda onaysız çalışamadı; yalnız pasif kanıt `_kanit/mac-*` |
 
-`mac/{tr,en}/`, `ipad/{tr,en}/` klasörleri boş (git boş klasörü izlemez).
+`mac/{tr,en}/` ve `ipad/en/` boş (git boş klasörü izlemez).
 
 ## Nasıl çekildi
 
 - Derleme: `xcodebuild -scheme "IncomeVsDesires (iOS)" -configuration Release -sdk iphonesimulator
-  -derivedDataPath safari/IncomeVsDesires/build/dd-iossim build` → **BUILD SUCCEEDED**;
+  -derivedDataPath safari/IncomeVsDesires/build/dd-iossim build` → **BUILD SUCCEEDED** (28.10 21:04,
+  `src/` = `264072b`; bulgu A/B düzeltmeleri `f29044d`/`9f9b9e8` bu derlemede **yok**);
   `xcrun simctl install`.
 - Uzantıyı açma: Ayarlar › Uygulamalar › Safari › Genişletmeler › IncomeVsDesires ›
   "Genişletmeye İzin Ver" açık; İzinler › "Diğer Web Siteleri" = **İzin Ver** (bu seçim
@@ -68,6 +70,24 @@ Saatlik ₺284,09 ile sağlama: 711,56/284,09 = 2,50 sa; 8.149/284,09/8 = 3,59 g
 
 Sağlama ($28.41/sa): 105/28,41 = 3,70; 65/28,41 = 2,29; 159,99/28,41 = 5,63.
 
+### iPad Pro 13" (M5) · TR · 2064×2752 (iOS 27.0, ayrı simülatör; uzantı ve izinler aynı yolla açıldı)
+
+iPad'de uzantı adres çubuğundaki düğmeden **popover** olarak açılıyor; "Giderlerin ve grafik →"
+Giderler'i yeni sekmede açıyor (sekme çubuğu görünür). Saatler İstanbul; 05'ten itibaren tarih 29.10.
+
+| Dosya | Saat | URL | Ne gösteriyor |
+|---|---|---|---|
+| `ipad/tr/01-eklenti-acik.png` | 23:51:50 (28.10) | https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1 | Marjin "6,7 saat / 7 saat" ×3, Dark Seer "3,2 saat", McDark "4,2 saat" (üstü çizili "5,6 saat") |
+| `ipad/tr/02-eklenti-kapali.png` | 23:53:24 | aynı, aynı sayfa yüklemesi | Kapalı → 1.899,99 TL ×3, 921,89 TL, 1.197,82 TL (1.590 TL) |
+| `ipad/tr/03a-cip-dokunmadan-once.png` | 23:54:33 | aynı | Yeniden Açık; Dark Seer "3,2 saat" |
+| `ipad/tr/03-cipe-dokunuldu.png` | 23:54:52 | aynı | "3,2 saat" çipine dokunuş → "921,89 TL" (soluk = fiyat modu), **listede gezinme yok** |
+| `ipad/tr/04-popup.png` | 23:50:57 | Trendyol üstünde popover | Açık · 50.000 TRY · 8/22 · ₺284,09 / ₺2.272,73 · "www.trendyol.com için kapat" · "Kurlar güncel (28.10.2026)." |
+| `ipad/tr/05-giderler-halka.png` | 00:00:41 (29.10) | uzantı Giderler sekmesi | Kira 18.000 → KİRA 7,9 gün %36 · SANA KALAN 14 gün %64, halka "22 gün aylık mesain" |
+| `ipad/tr/kayit.mov` | 00:01:47–00:02:25 | Trendyol → Giderler | H.264 2064×2752, 38,2 sn, ses yok, 18,8 MB. 0–9 sn liste+çipler · 12–16 sn "3,2 saat" → "921,89 TL" · 17 sn geri "3,2 saat" · ~20–29 sn popover · ~31–38 sn Giderler + halka |
+
+Saat = ekran görüntüsünün alındığı an (`_kanit/zaman-damgalari.tsv`).
+Sağlama: 921,89/284,09 = 3,25 sa; 1.197,82/284,09 = 4,22 sa; 1.590/284,09 = 5,60 sa.
+
 ### `_kanit/` (mağaza karesi değil, doğrulama kanıtı)
 
 | Dosya | Saat | Ne |
@@ -81,4 +101,10 @@ Sağlama ($28.41/sa): 105/28,41 = 3,70; 65/28,41 = 2,29; 159,99/28,41 = 5,63.
 | `iphone-en-ikea-gorunur-fiyat-cevrilmedi.png` | 23:00:17 | IKEA US mobil: görünen "$39.99", "$44.99" çevrilmemiş |
 | `iphone-en-ikea-popup-40-fiyat-cevrildi.png` | 23:11:51 | Aynı sayfada popup "Rescan" → "40 prices converted" |
 | `iphone-en-giderler-sayfasi-ayarlar-bos.png` | 23:21:52 | EN Giderler sayfası: maaş boş, TRY, 8/22 yer tutucu (kayıtlı 5,000 USD gelmedi) |
+| `ipad-tr-ayarlar-uzanti-acik.png`, `ipad-tr-ayarlar-izinler-izin-ver.png` | 23:43:40 · 23:44:21 | iPad: uzantı açık, tüm siteler İzin Ver |
+| `ipad-en-zappos-try-maas-usd-cevrilmedi-kur-satiri-yok.png` | 00:06:58 | iPad EN (yeniden başlatma sonrası): TRY maaş, Zappos $ fiyatları çevrilmemiş; popover'da kur satırı yok |
+| `ipad-en-giderler-ayarlar-dolu-D-tekrarlanmadi.png` | 00:07:44 | iPad EN Giderler: maaş 50,000 TRY, Kira, halka dolu — bulgu D iPad'de tekrarlanmadı |
+| `ipad-en-popup-hata-A-tekrar.png` | 00:12:07 | iPad EN: 5,000 USD → "One hour of your work ≈ $227.278.41" (hata A, ikinci cihazda) |
+| `ipad-en-rescan-yanit-yok.png` | 00:13:02 | "Rescan this page" dokunuşu sonuç yazısı göstermedi (yanıt/hata geri çağrısı yok) |
+| `ipad-en-zappos-usd-maas-safari-yeniden-acildi-cevrilmedi.png` | 00:13:38 | Safari sonlandırılıp açıldıktan sonra da Zappos $ fiyatları çevrilmemiş (USD maaş) |
 | `zaman-damgalari.tsv` | — | Kopyalama anı günlüğü (çekim saatleri yukarıdaki tablolarda) |
