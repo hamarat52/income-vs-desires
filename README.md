@@ -189,6 +189,7 @@ Mağaza listeleme metni, izin gerekçeleri ve eksik görseller:
 | `test/test-background.js` | Service worker testleri: kur çekme, önbellek, çöküş yolları (`node test/test-background.js`) |
 | `test/build-popup-preview.js` | Ayar panelini tarayıcıda açılabilir tek dosyaya gömer; ayrıca `popup-stage.html` (büyütülmüş vitrin) üretir |
 | `test/build-options-preview.js` | Giderler sayfası için aynısı; `window.__ivdErrors`'a yakalanan hataları da toplar |
+| `scripts/build-cws-zip.sh` | Chrome Web Store paketi: yalnız `manifest.json` + `src/` → `dist/income-vs-desires-chrome-<sürüm>.zip` |
 
 ## Saha testi (28.10.2026)
 

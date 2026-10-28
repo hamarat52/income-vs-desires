@@ -3,6 +3,9 @@ test/popup-preview.html
 test/options-preview.html
 test/popup-stage.html
 
+# Chrome Web Store paketi (scripts/build-cws-zip.sh)
+dist/
+
 # Safari/Xcode kullanıcı ve derleme artefaktları
 safari/**/xcuserdata/
 safari/**/build/
