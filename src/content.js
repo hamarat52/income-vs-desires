@@ -81,6 +81,20 @@
   let urlTimer = null;
   let lastUrl = null;
 
+  /**
+   * Dokunmatik: parmak en fazla bu kadar kayarsa ve bu kadar sürede kalkarsa
+   * "dokunuş" sayılır; fazlası kaydırma/uzun basma, ona karışmıyoruz.
+   */
+  const TAP_SLOP = 10; // CSS px
+  const TAP_MAX_MS = 700;
+  /** Dokunuşla döndürülen çipin ardından gelebilecek tıklamayı yutma süresi. */
+  const CLICK_AFTER_TAP_MS = 800;
+
+  /** Çip üzerinde başlamış, henüz bitmemiş tek parmaklı temas. */
+  let touch = null;
+  /** Son dokunuşla döndürülen çip: { chip, until }. */
+  let tapped = null;
+
   /** Gözlemciden gelip henüz taranmamış kökler. */
   const pending = new Set();
 
@@ -101,6 +115,12 @@
     chrome.storage.onChanged.addListener(onStorageChanged);
     chrome.runtime.onMessage.addListener(onMessage);
     document.addEventListener('click', onChipClick, true);
+    // Dokunmatik: başlangıç/hareket pasif (kaydırmayı geciktirmez); yalnız
+    // touchend iptal edilebilir olmalı.
+    document.addEventListener('touchstart', onTouchStart, { capture: true, passive: true });
+    document.addEventListener('touchmove', onTouchMove, { capture: true, passive: true });
+    document.addEventListener('touchend', onTouchEnd, { capture: true, passive: false });
+    document.addEventListener('touchcancel', () => { touch = null; }, { capture: true, passive: true });
 
     apply();
   }
@@ -339,19 +359,85 @@
   // --- Etkileşim -------------------------------------------------------------
 
   function onChipClick(event) {
+    // Dokunuşla zaten döndürdük; touchend iptal edildiği için tıklama normalde
+    // hiç gelmez, gelirse (eski motor, touchend iptali yok sayıldı) ikinci kez
+    // döndürmeden yut. Bir sonraki touchstart bu kaydı siler.
+    if (tapped) {
+      const fresh = performance.now() < tapped.until;
+      tapped = null;
+      if (fresh && event.isTrusted) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+    }
+
     const chip = event.target.closest?.('[data-ivd]') || chipUnder(event);
     if (!chip) return;
 
     // Fiyat bir linkin içindeyse tıklama gezinmeye gitmesin.
     event.preventDefault();
     event.stopPropagation();
+    toggleChip(chip);
+  }
 
+  function toggleChip(chip) {
     const showingTime = chip.dataset.ivd === 'time';
     chip.dataset.ivd = showingTime ? 'money' : 'time';
     chip.textContent = showingTime ? chip.dataset.ivdOriginal : chip.dataset.ivdDuration;
     chip.title = showingTime
       ? IVDi18n.t('chipTitleToTime', chip.dataset.ivdDuration)
       : IVDi18n.t('chipTitleToPrice', chip.dataset.ivdOriginal);
+  }
+
+  /**
+   * Dokunmatikte çipi `click` beklemeden, parmak kalkınca (touchend) döndürür.
+   *
+   * iOS Safari'de Trendyol mobil listesinde (mağaza vitrini kartı:
+   * `a.seller-store-product-card` > `div.css-slider.ios-device`, 28.10.2026)
+   * çipe dokunmak çipi döndürmeden ürün sayfasını açtı; aynı sayfada fare
+   * tıklaması ve Chrome'un dokunmatik öykünmesi doğru çalışıyor. Yani o
+   * tıklama ya bize hiç ulaşmadı ya da çipin dışını hedefledi. Hangisi
+   * olduğu Safari'de doğrulanamadı; bu yüzden olayı kaynağında yakalıyoruz:
+   * touchend iptal edilince tarayıcı ardından gelen fare olaylarını ve
+   * tıklamayı (link gezinmesini) hiç üretmez — WebKit ve Blink aynı.
+   *
+   * Yalnız gerçek dokunuş: tek parmak, ≤10 px kayma, ≤700 ms. Kaydırma
+   * hareketinde touchend zaten iptal edilemez (`cancelable` false).
+   */
+  function onTouchStart(event) {
+    touch = null;
+    tapped = null;
+    if (!chips.length || event.touches.length !== 1) return;
+    const point = event.touches[0];
+    const chip = event.target.closest?.('[data-ivd]') || chipAt(point.clientX, point.clientY);
+    if (!chip) return;
+    touch = { chip, x: point.clientX, y: point.clientY, time: performance.now() };
+  }
+
+  function onTouchMove(event) {
+    if (!touch) return;
+    const point = event.touches[0];
+    if (event.touches.length !== 1 || !point || moved(point)) touch = null;
+  }
+
+  function onTouchEnd(event) {
+    const start = touch;
+    touch = null;
+    if (!start || !event.cancelable || event.touches.length) return;
+    const point = event.changedTouches[0];
+    if (!point || moved(point, start)) return;
+    if (performance.now() - start.time > TAP_MAX_MS) return;
+    if (!start.chip.isConnected) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    toggleChip(start.chip);
+    tapped = { chip: start.chip, until: performance.now() + CLICK_AFTER_TAP_MS };
+  }
+
+  function moved(point, start = touch) {
+    return Math.hypot(point.clientX - start.x, point.clientY - start.y) > TAP_SLOP;
   }
 
   /**
@@ -365,7 +451,11 @@
    */
   function chipUnder(event) {
     if (!chips.length || !event.isTrusted || !event.detail) return null;
-    const stack = document.elementsFromPoint(event.clientX, event.clientY);
+    return chipAt(event.clientX, event.clientY);
+  }
+
+  function chipAt(x, y) {
+    const stack = document.elementsFromPoint(x, y);
     return stack.find((el) => el.dataset && el.dataset.ivd !== undefined) || null;
   }
 
