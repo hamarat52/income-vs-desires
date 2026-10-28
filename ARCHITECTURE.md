@@ -128,6 +128,29 @@ WebKit kaynak kodu (IDL) [W], Safari surum notlari [R].
 
 Yukaridaki uyumluluk tablosu bu bes testin yerini TUTMAZ.
 
+### Safari GUI dogrulamasi (2026-10-28)
+
+**Safari icinde GUI dogrulamasi YAPILAMADI:** ekran gun boyu kilitliydi
+(`ioreg ... CGSSessionScreenIsLocked = true`, 10:00 ve 16:00 kontrolleri). Bu nedenle
+statik risk listesindeki 1-3 (popup `tab.url`, `tabs.sendMessage`, kur fetch'i) ve
+"Development imzali build'de 'Imzasiz uzantilara izin ver' gerekir mi" sorusu
+GOZLENMEDI; dogrulanmis/curutulmus sayilmaz.
+
+Gozlenenler (headless):
+- Uzanti paketi: `--rebuild-project` (1e11b7d) Resources fazina ARCHITECTURE.md,
+  LICENSE, README/SEO/MAGAZA md, docs/, site/, test/ ve `safari/` (build/ dahil)
+  klasorunu geri eklemisti — Debug .appex Resources 1,7 MB / 11 oge. Duzeltildi
+  (8b42e4d): .appex Resources artik yalniz `PrivacyInfo.xcprivacy`, `manifest.json`,
+  `src/`; macOS arsivi ve iOS Simulator build'inde `diff -r src` / `cmp manifest.json`
+  repo ile birebir.
+- Development imzali Debug build (0.1.0) `pluginkit` ile Safari web-extension olarak
+  kayitli (Path = `safari/IncomeVsDesires/build/dd-macos/...`).
+- Sema adlari artik `IncomeVsDesires (macOS)` / `IncomeVsDesires (iOS)`; yukaridaki
+  "Kaldigin yer" komutlarindaki `-scheme IncomeVsDesires` eski adla yazili.
+- iOS Simulator (iPhone 18 Pro, iPad Pro 13 M5; iOS 27.0): host app kuruldu ve acildi,
+  Turkce acilis metni goruntulendi. Uzanti etkinlestirme GUI gerektirdigi icin
+  simulatorde de denenemedi (`simctl`'de uzanti acma komutu yok).
+
 ### Kaldigin yer (ekran acilinca)
 
 1. Gerekirse yeniden derle (DerivedData `/var/folders/.../T` altinda, macOS
