@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+  Mağaza ekran görüntüsü şablonu. Kullanım (render.sh yapar):
+    page.html?set=cws|mac|iphone|ipad&lang=tr|en&i=1..5
+  Görseller store/raw/ altındaki gerçek ham karelerin kırpımlarıdır; bu sayfa yalnız
+  başlık, kırpım ve çerçeve ekler. Arayüz çizmez, rakam üretmez.
+-->
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="style.css" />
+<script src="scenes.js"></script>
+</head>
+<body>
+<header>
+  <div class="brand"><img src="../../../src/icons/icon-128.png" alt="" /><span>IncomeVsDesires</span><i></i></div>
+  <h1 id="title"></h1>
+  <p class="sub" id="sub"></p>
+</header>
+<main class="stage" id="stage"></main>
+<script>
+(function () {
+  const q = new URLSearchParams(location.search);
+  const set = q.get('set') || 'cws';
+  const lang = q.get('lang') || 'tr';
+  const i = +(q.get('i') || 1);
+  const D = DEVICES[set];
+  document.documentElement.lang = lang;
+  const st = document.body.style;
+  st.setProperty('--W', D.W + 'px'); st.setProperty('--H', D.H + 'px');
+  st.setProperty('--u', D.u); st.setProperty('--pad', D.pad + 'px'); st.setProperty('--padT', D.padT + 'px');
+  st.setProperty('--h1', D.h1 + 'px'); st.setProperty('--sub', D.sub + 'px'); st.setProperty('--gap', D.gap + 'px');
+  st.setProperty('--r', D.r + 'px'); st.setProperty('--rc', D.rc + 'px'); st.setProperty('--bezel', D.bezel + 'px'); st.setProperty('--tag', D.tag + 'px');
+  st.setProperty('--step', D.step + 'px'); st.setProperty('--stepW', D.stepW + 'px'); st.setProperty('--ruleGap', D.ruleGap + 'px');
+
+  const sc = buildScenes(set, lang)[i - 1];
+  document.getElementById('title').textContent = sc.title;
+  document.getElementById('sub').innerHTML = sc.sub;
+  const stage = document.getElementById('stage');
+
+  function frame(s, single) {
+    const [cw, ch] = RAWSIZE[s.dev];
+    const [x, y, w, h] = s.crop;
+    const k = s.w / w;
+    const f = document.createElement('div');
+    // Cihaz kenarı yalnız tek kırpımda; yan yana/üst üste kırpımlar ince kart
+    f.className = 'frame ' + (s.dev === 'panel' || !single ? 'card' : D.frame);
+    const shot = document.createElement('div');
+    shot.className = 'shot';
+    shot.style.width = s.w + 'px';
+    shot.style.height = Math.round(h * k) + 'px';
+    shot.style.backgroundImage = `url("${s.src}")`;
+    shot.style.backgroundSize = `${cw * k}px ${ch * k}px`;
+    shot.style.backgroundPosition = `${-x * k}px ${-y * k}px`;
+    if (s.mark) {
+      const m = document.createElement('div');
+      m.className = 'mark';
+      const [mx, my, mw, mh] = s.mark;
+      Object.assign(m.style, { left: mx * k + 'px', top: my * k + 'px', width: mw * k + 'px', height: mh * k + 'px' });
+      shot.appendChild(m);
+    }
+    f.appendChild(shot);
+    if (!s.tag) return f;
+    const col = document.createElement('div');
+    col.className = 'col';
+    const tg = document.createElement('span');
+    tg.className = 'tag ' + s.tag[0];
+    tg.textContent = s.tag[1];
+    col.append(tg, f);
+    return col;
+  }
+
+  if (sc.layout === 'single') {
+    stage.appendChild(frame(sc.shots[0], true));
+  } else if (sc.layout === 'pair') {
+    const p = document.createElement('div'); p.className = 'pair';
+    p.append(frame(sc.shots[0]), frame(sc.shots[1]));
+    stage.appendChild(p);
+  } else if (sc.layout === 'stack') {
+    const p = document.createElement('div'); p.className = 'stack';
+    sc.shots.forEach(s => p.appendChild(frame(s)));
+    stage.appendChild(p);
+  } else if (sc.layout === 'panel') {
+    const w = document.createElement('div'); w.className = 'panelwrap';
+    if (sc.steps) {
+      const ol = document.createElement('ol'); ol.className = 'steps';
+      sc.steps.forEach((s, n) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<em>${n + 1}</em><span>${s[0]}<small>${s[1]}</small></span>`;
+        ol.appendChild(li);
+      });
+      const li = document.createElement('li'); li.className = 'result';
+      li.innerHTML = `<em>=</em><span>${sc.result[0]}<small>${sc.result[1]}</small></span>`;
+      ol.appendChild(li);
+      w.appendChild(ol);
+    }
+    w.appendChild(frame(sc.shots[0]));
+    stage.appendChild(w);
+  }
+
+  // Sığmıyorsa üstten hizala ve alt kenardan taşır (tam taşma); sığıyorsa ortala.
+  const avail = stage.clientHeight;
+  const content = stage.firstElementChild;
+  if (content.offsetHeight + D.gap * 2 <= avail) {
+    stage.classList.add('center');
+  } else if (sc.layout === 'single') {
+    content.classList.add('bleed');
+  }
+})();
+</script>
+</body>
+</html>

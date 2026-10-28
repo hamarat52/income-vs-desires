@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+  CWS küçük tanıtım karesi 440×280 — DİLDEN BAĞIMSIZ sürüm (yerelleştirilemez alan).
+  Yalnız marka adı + simge: eklentinin desteklediği dört para birimi (₺ $ € £,
+  src/lib/money.js) → saat simgesi. Metin yok; TR ve EN mağaza sayfasında aynı görünür.
+  İkon: src/icons/icon-128.png. Eski TR metinli sürüm: ../../chrome-web-store/shared/promo-small-440x280.png
+-->
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  html, body { margin: 0; width: 440px; height: 280px; overflow: hidden; }
+  body {
+    background: radial-gradient(90% 120% at 15% 0%, #5be89c 0%, rgba(67, 224, 140, 0) 60%),
+                linear-gradient(140deg, #43e08c 0%, #0c9a6c 70%, #0a7c58 100%);
+    color: #fff; font-family: system-ui, -apple-system, sans-serif; position: relative;
+    display: flex; flex-direction: column; justify-content: center; padding: 0 34px; box-sizing: border-box;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { width: 64px; height: 64px; filter: drop-shadow(0 6px 14px rgba(4, 50, 33, 0.35)); }
+  .brand span { font: 700 25px/1 ui-monospace, "SFMono-Regular", Menlo, monospace; letter-spacing: -0.3px;
+    text-shadow: 0 1px 0 rgba(4, 50, 33, 0.2); }
+  .eq { display: flex; align-items: center; gap: 12px; margin-top: 30px; }
+  .cur { display: flex; gap: 6px; }
+  .cur b { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+    background: rgba(255, 255, 255, 0.18); border: 1.5px solid rgba(255, 255, 255, 0.45);
+    font: 700 22px/1 ui-monospace, Menlo, monospace; color: #fff; text-decoration: line-through;
+    text-decoration-thickness: 2px; text-decoration-color: rgba(255, 255, 255, 0.75); }
+  .arrow { font: 700 26px/1 ui-monospace, Menlo, monospace; opacity: 0.95; }
+  .clock { width: 56px; height: 56px; border-radius: 15px; background: #fbf9f4; display: grid; place-items: center;
+    box-shadow: 0 8px 20px rgba(4, 50, 33, 0.3); }
+</style>
+</head>
+<body>
+  <div class="brand"><img src="../../../src/icons/icon-128.png" alt="" /><span>IncomeVsDesires</span></div>
+  <div class="eq">
+    <div class="cur"><b>₺</b><b>$</b><b>€</b><b>£</b></div>
+    <span class="arrow">→</span>
+    <div class="clock">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0c9a6c" stroke-width="2.4" stroke-linecap="round">
+        <circle cx="12" cy="12" r="9.5" /><path d="M12 6.5V12l3.8 2.4" />
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

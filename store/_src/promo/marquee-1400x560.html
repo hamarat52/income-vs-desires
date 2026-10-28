@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+  CWS marquee 1400×560 — DİLDEN BAĞIMSIZ sürüm (yerelleştirilemez alan).
+  Marka adı + simge + büyük ikon. Para birimleri eklentinin desteklediği dört birim
+  (₺ $ € £, src/lib/money.js); saat simgesi = fiyatın çalışma süresine çevrilmesi.
+  Rakam/metin yok. İkon: src/icons/icon-128.png ve AppIcon 1024 (aynı ana çizim).
+-->
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  html, body { margin: 0; width: 1400px; height: 560px; overflow: hidden; }
+  body {
+    background: radial-gradient(70% 120% at 10% 0%, #5be89c 0%, rgba(67, 224, 140, 0) 60%),
+                linear-gradient(135deg, #43e08c 0%, #0c9a6c 65%, #0a7c58 100%);
+    color: #fff; font-family: system-ui, -apple-system, sans-serif; position: relative;
+    display: flex; align-items: center; padding: 0 100px; box-sizing: border-box; gap: 80px;
+  }
+  .left { flex: 1; }
+  .brand { display: flex; align-items: center; gap: 22px; }
+  .brand img { width: 92px; height: 92px; filter: drop-shadow(0 10px 22px rgba(4, 50, 33, 0.35)); }
+  .brand span { font: 700 52px/1 ui-monospace, "SFMono-Regular", Menlo, monospace; letter-spacing: -1px;
+    text-shadow: 0 2px 0 rgba(4, 50, 33, 0.18); }
+  .eq { display: flex; align-items: center; gap: 26px; margin-top: 64px; }
+  .cur { display: flex; gap: 14px; }
+  .cur b { width: 92px; height: 92px; border-radius: 24px; display: grid; place-items: center;
+    background: rgba(255, 255, 255, 0.16); border: 2px solid rgba(255, 255, 255, 0.45);
+    font: 700 46px/1 ui-monospace, Menlo, monospace; text-decoration: line-through;
+    text-decoration-thickness: 4px; text-decoration-color: rgba(255, 255, 255, 0.75); }
+  .arrow { font: 700 54px/1 ui-monospace, Menlo, monospace; }
+  .clock { width: 116px; height: 116px; border-radius: 30px; background: #fbf9f4; display: grid; place-items: center;
+    box-shadow: 0 16px 36px rgba(4, 50, 33, 0.32); }
+  .icon { width: 400px; height: 400px; flex: none; filter: drop-shadow(0 30px 50px rgba(4, 50, 33, 0.45)); }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="brand"><img src="../../../src/icons/icon-128.png" alt="" /><span>IncomeVsDesires</span></div>
+    <div class="eq">
+      <div class="cur"><b>₺</b><b>$</b><b>€</b><b>£</b></div>
+      <span class="arrow">→</span>
+      <div class="clock">
+        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#0c9a6c" stroke-width="2.4" stroke-linecap="round">
+          <circle cx="12" cy="12" r="9.5" /><path d="M12 6.5V12l3.8 2.4" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <img class="icon" src="../../../safari/IncomeVsDesires/Shared (App)/Assets.xcassets/AppIcon.appiconset/mac-icon-512@2x.png" alt="" />
+</body>
+</html>

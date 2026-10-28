@@ -6,7 +6,7 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 SHARED="$(cd "$HERE/.." && pwd)"
-TR_SHOTS="$(cd "$HERE/../../tr/screenshots" && pwd)"
+TR_SHOTS="$(cd "$HERE/../../../arsiv/chrome-tr-eski-2026-10-28" && pwd)"  # eski TR set arşivde (28.10.2026); yeni set: store/_src/render.sh
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 PROFILE="$(mktemp -d "${TMPDIR:-/tmp}/ivd-render.XXXXXX")"
 
