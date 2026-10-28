@@ -1,6 +1,6 @@
 # Ham Safari kareleri (gerçek Safari + gerçek uzantı)
 
-Durum 29.10.2026 00:20, dal `release/safari-chrome` (HEAD `264072b` üstüne), MobileDev.
+Durum 29.10.2026 01:05, dal `release/safari-chrome` (HEAD `264072b` üstüne), MobileDev.
 Her kare gerçek Safari'de, bu worktree'den derlenmiş gerçek uzantıyla, gerçek sitede
 çekildi. Kompozit, rötuş, sahte arayüz yok. Kırpma/çerçeve/başlık yok (ImageArtist işi).
 
@@ -9,13 +9,16 @@ Her kare gerçek Safari'de, bu worktree'den derlenmiş gerçek uzantıyla, gerç
 | Hedef | Durum |
 |---|---|
 | iPhone 18 Pro simülatör (iOS 27.0) TR — 01…05 + kayıt | **hazır** (03 ürün sayfasında, aşağıya bakın) |
-| iPhone 18 Pro simülatör EN — 01…04 | **hazır**; **04'te uzantı hatası görünüyor** (mağazada kullanılmamalı) |
-| iPhone EN 05 (Giderler) + EN kayıt | **eksik** — Giderler sayfası kayıtlı ayarları göstermedi (bkz. `_kanit/iphone-en-giderler-sayfasi-ayarlar-bos.png`), simülatör o sırada dışarıdan kesildi |
-| iPad Pro 13" (M5) simülatör TR — 01…05 + kayıt | **hazır** (03 listede gezinmesiz) |
-| iPad Pro 13" (M5) EN | **eksik** — yeniden başlatma sonrası uzantı Zappos'ta fiyat çevirmedi, popup mesajları yanıtsız (bulgu G); EN popup'ta hata A iPad'de de var |
-| macOS Safari TR/EN (`mac/`) | **eksik** — masaüstü girdisi (tıklama/tuş) bu oturumda onaysız çalışamadı; yalnız pasif kanıt `_kanit/mac-*` |
+| iPhone 18 Pro simülatör EN — 01…05 + kayıt | **hazır**; 04, 05 ve kayıt **düzeltmeli derlemeyle** (`9f9b9e8`) — hata A yok |
+| iPad Pro 13" (M5) simülatör TR — 01…05 + kayıt | **hazır** (03 listede gezinmesiz; eski derleme) |
+| iPad Pro 13" (M5) simülatör EN — 01…05 | **hazır** (düzeltmeli derleme `9f9b9e8`); iPad EN kayıt **yok** — kayıtta bulgu H çıktı (kanıt olarak `_kanit/`'te) |
+| macOS Safari TR/EN (`mac/`) | **eksik** — masaüstü girdisi (tıklama/tuş) bu oturumda onaysız çalışamadı (2 deneme); yalnız pasif kanıt `_kanit/mac-*` |
 
-`mac/{tr,en}/` ve `ipad/en/` boş (git boş klasörü izlemez).
+`mac/{tr,en}/` boş (git boş klasörü izlemez).
+
+**Hangi derleme:** iPhone TR 01–05 + kayıt, iPhone EN 01–03, iPad TR 01–05 + kayıt → `264072b`
+(28.10 21:04). iPhone EN 04/05 + kayıt, iPad EN 01–05 → `9f9b9e8` (29.10 00:18, hata A/B düzeltmeli).
+TR karelerde hata A görünmez (₺); B yalnız iPhone TR 03'ü etkiledi (03 ürün sayfasında çekildi).
 
 ## Nasıl çekildi
 
@@ -66,7 +69,9 @@ Saatlik ₺284,09 ile sağlama: 711,56/284,09 = 2,50 sa; 8.149/284,09/8 = 3,59 g
 | `iphone/en/02-eklenti-kapali.png` | 23:14:29 | aynı, aynı sayfa yüklemesi | Off → $105 / $65 / $159.99 |
 | `iphone/en/03a-cip-dokunmadan-once.png` | 23:15:59 | aynı | Yeniden On; "2.3 hours" |
 | `iphone/en/03-cipe-dokunuldu.png` | 23:16:14 | aynı | "2.3 hours" çipine dokunuş → "$65", liste sayfasında kaldı |
-| `iphone/en/04-popup.png` | 22:59:23 | https://www.ikea.com/us/en/search/?q=desk%20lamp üstünde | **HATA görünür:** "One hour of your work ≈ $227.278.41 · one workday ≈ $227.27" (doğrusu $28.41). Mağazada kullanılmamalı. |
+| `iphone/en/04-popup.png` | 00:24 (29.10) | https://www.zappos.com/sneakers üstünde (`9f9b9e8`) | On · 5,000 USD · 8/22 · "One hour of your work ≈ $28.41 · one workday ≈ $227.27" · "Turn off for www.zappos.com" · "Exchange rates up to date (10/28/2026)." (eski hatalı kare: `_kanit/iphone-en-popup-hata-A-eski-derleme.png`) |
+| `iphone/en/05-giderler-halka.png` | 00:30 (29.10) | uzantı Giderler sayfası (`9f9b9e8`) | Rent $1,500 → RENT 6.6 days 30% · LEFT FOR YOU 15 days 70%, halka "22 days your work month" |
+| `iphone/en/kayit.mov` | 00:38:50–00:39:42 | Zappos → Giderler (`9f9b9e8`) | H.264 1206×2622, 52,1 sn, ses yok. 0–10 sn liste+çipler · ~11 sn "2.3 hours" → "$65" · **~20 sn ürün sayfasına geçiş** (önce sürücü dokunuşu sandım; iPad'de aynı şey bulgu H olarak tekrarlandı — 2. dokunuş olabilir) · ~24–36 popup · ~38–52 Giderler + halka. Mağaza kesitinde 0–19 sn ve 24 sn sonrası kullanılabilir. |
 
 Sağlama ($28.41/sa): 105/28,41 = 3,70; 65/28,41 = 2,29; 159,99/28,41 = 5,63.
 
@@ -88,6 +93,20 @@ Giderler'i yeni sekmede açıyor (sekme çubuğu görünür). Saatler İstanbul;
 Saat = ekran görüntüsünün alındığı an (`_kanit/zaman-damgalari.tsv`).
 Sağlama: 921,89/284,09 = 3,25 sa; 1.197,82/284,09 = 4,22 sa; 1.590/284,09 = 5,60 sa.
 
+### iPad Pro 13" (M5) · EN · 2064×2752 (düzeltmeli derleme `9f9b9e8`, 29.10)
+
+| Dosya | Saat | URL | Ne gösteriyor |
+|---|---|---|---|
+| `ipad/en/01-eklenti-acik.png` | 00:46 | https://www.zappos.com/sneakers | Nike "3.7 hours", Skechers ×2 "2.3 hours", ECCO "5.6 hours", L.L.Bean "4.6 hours" (adres çubuğu küçülmüş) |
+| `ipad/en/02-eklenti-kapali.png` | 00:48 | aynı, aynı sayfa yüklemesi | Off → $105 / $65 / $66 / $159.99 / $130 |
+| `ipad/en/03a-cip-dokunmadan-once.png` | 00:49 | aynı | Yeniden On; Skechers Core Track "2.3 hours" |
+| `ipad/en/03-cipe-dokunuldu.png` | 00:49 | aynı | "2.3 hours" → "$65", listede, gezinme yok (1. dokunuş) |
+| `ipad/en/04-popup.png` | 00:47 | Zappos üstünde popover | On · 5,000 USD · 8/22 · $28.41 / $227.27 · "Turn off for www.zappos.com" · "Exchange rates up to date (10/28/2026)." |
+| `ipad/en/05-giderler-halka.png` | 00:53 | uzantı Giderler sekmesi | Rent $1,500 → RENT 6.6 days 30% · LEFT FOR YOU 15 days 70%, halka "22 days your work month" |
+
+Kesin saatler `_kanit/zaman-damgalari.tsv`'de. iPad EN kaydı mağaza için alınmadı: kayıtta 2. dokunuş
+ürün sayfasına gitti (bulgu H) → `_kanit/ipad-en-H-kayit-ikinci-dokunus-gezindi.mov`.
+
 ### `_kanit/` (mağaza karesi değil, doğrulama kanıtı)
 
 | Dosya | Saat | Ne |
@@ -106,5 +125,11 @@ Sağlama: 921,89/284,09 = 3,25 sa; 1.197,82/284,09 = 4,22 sa; 1.590/284,09 = 5,6
 | `ipad-en-giderler-ayarlar-dolu-D-tekrarlanmadi.png` | 00:07:44 | iPad EN Giderler: maaş 50,000 TRY, Kira, halka dolu — bulgu D iPad'de tekrarlanmadı |
 | `ipad-en-popup-hata-A-tekrar.png` | 00:12:07 | iPad EN: 5,000 USD → "One hour of your work ≈ $227.278.41" (hata A, ikinci cihazda) |
 | `ipad-en-rescan-yanit-yok.png` | 00:13:02 | "Rescan this page" dokunuşu sonuç yazısı göstermedi (yanıt/hata geri çağrısı yok) |
-| `ipad-en-zappos-usd-maas-safari-yeniden-acildi-cevrilmedi.png` | 00:13:38 | Safari sonlandırılıp açıldıktan sonra da Zappos $ fiyatları çevrilmemiş (USD maaş) |
+| `ipad-en-zappos-usd-maas-safari-yeniden-acildi-cevrilmedi.png` | 00:13:38 | Safari sonlandırılıp açıldıktan sonra da Zappos $ fiyatları çevrilmemiş (USD maaş) — eski derleme (G) |
+| `iphone-en-popup-hata-A-eski-derleme.png` | 22:59:23 (28.10) | Eski iPhone EN 04: "$227.278.41" (hata A, `264072b`) |
+| `iphone-en-rescan-277-cevrildi-yeni-derleme.png` | 00:25 (29.10) | `9f9b9e8`: Rescan → "277 prices converted" |
+| `iphone-en-giderler-kira-try-usd-cevrildi.png` | 00:27 | Kira 18.000 TRY ≈ $361.17 (döviz çevirisi; "1 day = 24 hours" yanlışlıkla açıktı → 7.3 days) |
+| `iphone-B-duzeltme-oncesi-liste-36min-40min.png`, `…-dokunus1-853TL-gezinme-yok.png`, `…-dokunus2-949TL-gezinme-yok.png` | 00:28–00:29 | `9f9b9e8`: Trendyol listesinde 2/2 çip gezinmeden döndü (B düzeldi) |
+| `ipad-en-kalana-gore-hesap-26-36.png` | 00:50 | "Calculate from what's left" açık: $26.36/sa, çipler 4 / 2.5 / 6.1 hours |
+| `ipad-en-H-dokunus1-65-dolar.png`, `ipad-en-H-dokunus2-urun-sayfasina-gitti.png`, `ipad-en-H-kayit-ikinci-dokunus-gezindi.mov` | 00:54–00:57 | `9f9b9e8`, Zappos: 1. dokunuş "$65" (doğru), fiyat modundaki çipe 2. dokunuş → ürün sayfası (bulgu H; 2 kez) |
 | `zaman-damgalari.tsv` | — | Kopyalama anı günlüğü (çekim saatleri yukarıdaki tablolarda) |
