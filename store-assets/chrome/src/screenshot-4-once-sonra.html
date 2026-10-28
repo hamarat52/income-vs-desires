@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+  Mağaza ekran görüntüsü 4 (1280×800): aynı fiyatın para ve süre hâli.
+  İki kırpım da AYNI sayfa yüklemesinden (trendyol.com/sr?q=spor ayakkabı,
+  28.10.2026 15:40, ajan tarayıcısı, 1280×800, deviceScaleFactor 1):
+    img/trendyol-kart-sure.png  — eklentinin çevirdiği hâl
+    img/trendyol-kart-fiyat.png — aynı kartlardaki çiplere tıklandıktan sonra
+                                  (content.js fiyatı geri koyar)
+  Ayrıntı: img/trendyol-yakalama.json. Görüntüler yeniden çizilmedi.
+-->
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --paper: #f2efe6; --surface: #fbf9f4; --ink: #17150f; --ink-2: #57534a; --muted: #8b857a;
+    --rule: #d9d4c6; --stamp: #b8371f;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; background: var(--paper); }
+  body { box-sizing: border-box; padding: 40px 0 0; text-align: center; }
+  h1 { font: 700 38px/1.2 var(--mono); color: var(--ink); margin: 0 0 6px; letter-spacing: -0.5px; }
+  .sub { font: 400 18px/1.4 var(--sans); color: var(--ink-2); margin: 0 0 24px; }
+  .pair { display: flex; justify-content: center; align-items: flex-start; gap: 28px; }
+  figure { margin: 0; }
+  figcaption { font: 700 15px/1 var(--mono); letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+               margin: 0 0 10px; text-align: left; }
+  figcaption b { color: var(--stamp); }
+  .shot { width: 488px; height: 524px; border: 1px solid var(--rule); background: #fff; overflow: hidden;
+          box-shadow: 0 12px 34px rgba(23, 21, 15, 0.12); }
+  .shot img { display: block; width: 488px; height: 524px; }
+  .arrow { font: 700 40px/1 var(--mono); color: var(--stamp); align-self: center; margin-top: 30px; }
+  .foot { position: absolute; left: 0; right: 0; bottom: 18px; font: 400 13px/1.3 var(--mono); color: var(--muted); }
+</style>
+</head>
+<body>
+  <h1>Aynı fiyat, iki hâli</h1>
+  <p class="sub">Süreye tıkla, fiyat geri gelsin. Tekrar tıkla, mesaine dönsün.</p>
+  <div class="pair">
+    <figure>
+      <figcaption>Önce · <b>TL</b></figcaption>
+      <div class="shot"><img src="img/trendyol-kart-fiyat.png" alt="Fiyatlar TL olarak" /></div>
+    </figure>
+    <div class="arrow">→</div>
+    <figure>
+      <figcaption>Sonra · <b>mesai</b></figcaption>
+      <div class="shot"><img src="img/trendyol-kart-sure.png" alt="Aynı fiyatlar çalışma süresi olarak" /></div>
+    </figure>
+  </div>
+  <p class="foot">Maaş 50.000 TL · günde 8 saat · ayda 22 gün · gerçek arama sayfası, 28.10.2026</p>
+</body>
+</html>

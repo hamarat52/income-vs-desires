@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+  Mağaza ekran görüntüsü 2 (1280×800): ayar paneli.
+  img/panel-x15.png = eklentinin gerçek popup.html'i (Chrome for Testing 153,
+  worktree'deki eklenti, maaş 50.000 TL · 8 saat · 22 gün), 1,5x ölçekte
+  yakalandı (450×1200; alt kısmı boş zemin). Burada 0,9 ölçekle zemine
+  yerleştiriliyor; arayüz yeniden çizilmedi.
+-->
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --paper: #f2efe6; --ink: #17150f; --ink-2: #57534a; --rule: #d9d4c6; --stamp: #b8371f;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; background: var(--paper); }
+  body { display: grid; grid-template-columns: 1fr 407px; align-items: center; gap: 72px; padding: 0 130px; box-sizing: border-box; }
+  h1 { font: 700 46px/1.15 var(--mono); color: var(--ink); margin: 0 0 20px; letter-spacing: -0.5px; }
+  p { font: 400 21px/1.5 var(--sans); color: var(--ink-2); margin: 0 0 14px; max-width: 520px; }
+  .rule { border-top: 2px solid var(--ink); width: 64px; margin: 0 0 28px; }
+  .num { font-family: var(--mono); color: var(--stamp); font-weight: 700; }
+  .panel { width: 405px; height: 762px; overflow: hidden; border: 1px solid var(--rule); background: var(--paper);
+           box-shadow: 0 18px 50px rgba(23, 21, 15, 0.14); }
+  .panel img { display: block; width: 405px; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="rule"></div>
+    <h1>Üç alan,<br />hepsi bu.</h1>
+    <p>Aylık net maaşını, günde kaç saat ve ayda kaç gün çalıştığını gir.</p>
+    <p>50.000 TL · 8 saat · 22 gün → bir saatin <span class="num">₺284,09</span>.</p>
+  </div>
+  <div class="panel"><img src="img/panel-x15.png" alt="IncomeVsDesires ayar paneli" /></div>
+</body>
+</html>

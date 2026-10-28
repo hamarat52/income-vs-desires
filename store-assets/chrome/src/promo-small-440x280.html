@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+  Küçük tanıtım karesi (440×280, Chrome Web Store "Small promo tile").
+  Marka: yeşil #43e08c → #0c9a6c, ikon src/icons/icon-128.png (terazi glyph).
+  Örnek hesap MAGAZA-LISTELEME.md kısa açıklamasıyla aynı: 500 TL → 1,8 saat
+  (50.000 TL · 8 saat · 22 gün → saatlik 284,09 TL; 500 / 284,09 = 1,76).
+-->
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<style>
+  html, body { margin: 0; width: 440px; height: 280px; overflow: hidden; }
+  body {
+    background: linear-gradient(135deg, #43e08c 0%, #0c9a6c 100%);
+    color: #fff; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box; padding: 30px 32px; position: relative;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand img { width: 56px; height: 56px; border-radius: 13px; box-shadow: 0 6px 18px rgba(6, 60, 40, 0.28); }
+  .brand span { font: 700 21px/1 ui-monospace, "SFMono-Regular", Menlo, monospace; letter-spacing: -0.3px; }
+  h1 { font-size: 31px; line-height: 1.12; font-weight: 800; margin: 26px 0 14px; letter-spacing: -0.6px;
+       text-shadow: 0 1px 0 rgba(6, 60, 40, 0.15); }
+  .calc { font: 700 25px/1 ui-monospace, "SFMono-Regular", Menlo, monospace; display: inline-flex; gap: 12px;
+          align-items: baseline; background: rgba(255, 255, 255, 0.94); color: #0b5e43; padding: 10px 14px; border-radius: 10px; }
+  .calc s { color: #6f7f78; font-weight: 600; text-decoration-thickness: 2px; }
+</style>
+</head>
+<body>
+  <div class="brand"><img src="../../../src/icons/icon-128.png" alt="" /><span>IncomeVsDesires</span></div>
+  <h1>Fiyatı değil,<br />mesaini gör.</h1>
+  <div class="calc"><s>500 TL</s><span>→</span><span>1,8 saat</span></div>
+</body>
+</html>
