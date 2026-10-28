@@ -201,9 +201,26 @@ Bulgular (MobileDev raporu; A ve B sonradan duzeltildi, asagidaki alt maddeler):
 - **E (kozmetik):** iPhone'da popup 300 px sabit genislikte; sayfa sag ~100 pt bos.
 - **F (kucuk):** Trendyol "814 TL Kupon" etiketi "2,9 saat Kupon"a cevriliyor (indirim tutari).
 
-**Hangi derleme:** Tum iPhone ve iPad kareleri 28.10 21:04 Release-iphonesimulator derlemesiyle
-(`src/` = 264072b) cekildi, yani A (f29044d) ve B (9f9b9e8) duzeltmelerinden ONCE. iPad'deki
-hata A tekrari ve G bu eski derlemede. Duzeltmeler iOS Safari'de henuz denenmedi.
+**Hangi derleme:** iPhone TR, iPhone EN 01-03 ve iPad TR kareleri 28.10 21:04 derlemesiyle
+(`src/` = 264072b, A/B duzeltmelerinden ONCE). iPhone EN 04/05/kayit ve iPad EN 01-05 ise
+29.10 00:18 derlemesiyle (`src/` = 9f9b9e8, A + B dahil; ayrinti `store/raw-safari/README.md`).
+
+#### Duzeltmeli derlemeyle iOS Safari dogrulamasi (MobileDev, 29.10 00:18-01:00)
+
+- **A dogrulandi (duzeldi):** iPhone + iPad EN popup "One hour of your work ≈ $28.41 · one workday
+  ≈ $227.27" (`iphone/en/04-popup.png`, `ipad/en/04-popup.png`).
+- **B dogrulandi (duzeldi):** iPhone Trendyol listesinde 2/2 cip ("36 min" -> "853,60 TL",
+  "40 min" -> "949 TL") gezinmeden dondu (`_kanit/iphone-B-duzeltme-*.png`).
+- **G tekrarlanmadi:** yeni derlemede iPhone ve iPad EN'de Zappos cevrildi, kur satiri dolu, Rescan
+  "277 prices converted". (iPhone'daki "Rescan yanitsiz" gozlemim yanlis dokunustu: dokunus
+  "1 day = 24 hours" anahtarina gelmisti.) Eski derlemedeki G'nin nedeni belirsiz kaldi.
+- **H (YENI, orta, dokunmatik, 9f9b9e8):** Zappos'ta fiyat modundaki cipe (ilk dokunusla "$65"e
+  donmus) **ikinci dokunus urun sayfasina gidiyor**; ilk dokunus dogru. iPad'de 2 kez tekrarlandi
+  (`_kanit/ipad-en-H-*`); iPhone EN kaydinda da ~20 sn'de urun sayfasina gecis var (muhtemelen ayni).
+  Eski derlemede iPad Trendyol'da ikinci dokunus geri donmustu (`ipad/tr/kayit.mov` 17 sn).
+  Hipotez (dogrulanmadi): touchend yolu `data-ivd='money'` cipini ya da cip altindaki tam-kart
+  linkini (Zappos) ikinci seferde yakalamiyor. Kod degistirilmedi.
+- Doviz cevirisi calisiyor: Kira 18.000 TRY ≈ $361.17; "kalana gore" acikken $26.36/sa.
 
 Gozlenenler (headless, gunduz):
 - Uzanti paketi: `--rebuild-project` (1e11b7d) Resources fazina ARCHITECTURE.md,

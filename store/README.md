@@ -96,8 +96,8 @@ tüm boyutları üretir. Önizleme: [`shared/ikon-onizleme.png`](shared/ikon-oni
 | CWS ekran görüntüleri TR + EN, 5 × 1280×800 | **hazır** — `chrome-web-store/{tr,en}/screenshots/0*.png`; liste [`gorseller.md`](chrome-web-store/shared/gorseller.md) |
 | CWS 440×280, 1400×560 | **hazır** — dilden bağımsız `*-dilsiz.png` **önerilen**; eski TR metinli sürümler yerinde (yüklenmeyecek) |
 | App Store iPhone 1206×2622, iPad 2064×2752, Mac 2880×1800 — TR + EN, 5'er | **hazır (geçici)** — `app-store/{tr,en}/{iphone,ipad,mac}/`; kaynak Chrome görüntü alanı, Chrome öğesi yok; Safari'de gerçek çekim gelince değiştirilecek — [`ekran-goruntuleri.md`](app-store/shared/ekran-goruntuleri.md) |
-| Safari'de gerçek çekim — iPhone (simülatör) | **gerçek Safari kaynağı hazır (kısmi)** — TR 01…05 + `kayit.mov`, EN 01…04 ([`raw-safari/README.md`](raw-safari/README.md)); **EN 04'te uzantı hatası görünür** (fiyat metni bozuk) → EN 04 kullanılamaz; EN 05 ve EN kaydı **eksik** |
-| Safari'de gerçek çekim — iPad | **gerçek Safari kaynağı hazır (TR)** — iPad Pro 13" sim TR 01…05 + `kayit.mov` (38 sn); **EN eksik** (uzantı yeniden başlatma sonrası çevirmedi — bulgu G; EN popup'ta hata A) |
+| Safari'de gerçek çekim — iPhone (simülatör) | **gerçek Safari kaynağı hazır** — TR 01…05 + `kayit.mov`, EN 01…05 + `kayit.mov` ([`raw-safari/README.md`](raw-safari/README.md)); EN 04/05/kayıt düzeltmeli derlemeyle (hata A yok); TR 03 ürün sayfasında (eski derlemede listede bulgu B) |
+| Safari'de gerçek çekim — iPad | **gerçek Safari kaynağı hazır** — iPad Pro 13" sim TR 01…05 + `kayit.mov` (38 sn), EN 01…05 (düzeltmeli derleme); **EN kayıt eksik** (kayıtta bulgu H) |
 | Safari'de gerçek çekim — Mac | **eksik** — gerçek Safari kaynağı yok (masaüstü girdisi onay ister; yalnız izin-yok kanıtı `raw-safari/_kanit/mac-*`) |
 | Safari ham kare alfa | simctl PNG'leri `hasAlpha: yes` (opak) — App Store'a girmeden düzleştirilmeli |
 | Eski kareler | `arsiv/chrome-tr-eski-2026-10-28/` (eski CWS TR), `arsiv/apple-hostapp-acilis/` (host app açılışı) |
