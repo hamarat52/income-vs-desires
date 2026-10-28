@@ -148,9 +148,10 @@ iOS'ta girdi simulatorun ICINDE XCUITest ile verildi (repoda degil, scratch'te).
 | iOS: uzantiyi acma + "Diger Web Siteleri: Izin Ver" | **Calisti** (Ayarlar > Uygulamalar > Safari > Genisletmeler) | `_kanit/iphone-tr-ayarlar-*.png` |
 | iOS: gercek sayfada cip (TR Trendyol, EN Zappos) | **Calisti** | `iphone/{tr,en}/01-*.png` |
 | iOS: popup anahtari Kapali -> fiyatlar geri, Acik -> cipler | **Calisti** (ayni sayfa yuklemesi) | `iphone/{tr,en}/02-*.png` |
-| iOS: cipe dokununca fiyat (gezinmeden) | Zappos listesi ve Trendyol urun sayfasinda **calisti**; **Trendyol listesinde dokunus urun sayfasina gitti** (asagida bulgu B) | `iphone/{tr,en}/03*.png`, `_kanit/iphone-tr-cip-dokunma-*.png` |
-| iOS: popup maas girisi, saatlik oran, dil | TR **dogru**; EN **yanlis metin** (bulgu A) | `iphone/{tr,en}/04-popup.png` |
-| iOS: Giderler sayfasi + halka | TR **calisti** (Kira 18.000 -> 7,9 gun %36); EN bir kez kayitli ayarlari gostermedi (bulgu D) | `iphone/tr/05-*.png`, `_kanit/iphone-en-giderler-sayfasi-ayarlar-bos.png` |
+| iOS: cipe dokununca fiyat (gezinmeden) | Zappos listesi, Trendyol urun sayfasi ve **iPad'de Trendyol listesi** calisti; **iPhone'da Trendyol listesinde dokunus urun sayfasina gitti** (bulgu B) | `iphone/{tr,en}/03*.png`, `ipad/tr/03*.png`, `_kanit/iphone-tr-cip-dokunma-*.png` |
+| iOS: popup maas girisi, saatlik oran, dil | TR **dogru** (iPhone + iPad); EN **yanlis metin** (bulgu A, iPhone + iPad) | `iphone/{tr,en}/04-popup.png`, `ipad/tr/04-popup.png`, `_kanit/ipad-en-popup-hata-A-tekrar.png` |
+| iOS: Giderler sayfasi + halka | TR **calisti** (iPhone + iPad; Kira 18.000 -> 7,9 gun %36); iPhone EN bir kez ayarlari bos acti (bulgu D), iPad EN'de dolu acti | `iphone/tr/05-*.png`, `ipad/tr/05-*.png`, `_kanit/*giderler*` |
+| iPad EN (simulator dil degisimi + yeniden baslatma sonrasi) | **Calismadi**: Zappos'ta fiyat cevrilmedi (TRY ve USD maasla), popover'da kur satiri bos, "Rescan" sonuc yazmadi (bulgu G) | `_kanit/ipad-en-*.png` |
 | Dil (TR/EN) | Popup, Ayarlar'daki uzanti aciklamasi, Giderler: simulator diline gore TR/EN **dogru** | yukaridakiler |
 
 Statik risk listesi 1-3, gozleme gore:
@@ -177,8 +178,9 @@ Bulgular (MobileDev raporu; A ve B sonradan duzeltildi, asagidaki alt maddeler):
 - **D (incelendi, WebDev):** `options.js`'te yaris kosulu bulunamadi. Karede oran satiri bos ve
   8/22 yer tutucu -> betik `await chrome.storage.sync.get` / `local.get` (options.js:119-126)
   adiminda bekliyordu ya da reddedildi; Safari tarafi, dogrulanmadi. Kod degismedi.
-- **B (orta, dokunmatik):** Trendyol mobil listesinde cipe dokunus urun sayfasina gidiyor
+- **B (orta, dokunmatik, iPhone):** Trendyol mobil listesinde cipe dokunus urun sayfasina gidiyor
   (Chrome'da fare tiklamasi gitmiyordu). Ayni cip urun sayfasinda dogru donuyor; Zappos'ta da dogru.
+  iPad'de (masaustu duzeni) Trendyol listesinde dogru dondu -> mobil kart duzenine ozgu.
   - *Duzeltme (WebDev, 9f9b9e8):* dokunulan kart magaza vitrini (`a.seller-store-product-card` >
     `div.css-slider.ios-device`, React `onTouchEnd` -> `stopPropagation`). Chrome mobil oykunmesinde
     (iPhone UA, dokunmatik) hata URETILEMEDI: tiklama cipe geliyor, gezinme yok. Safari'de tiklamanin
@@ -188,10 +190,20 @@ Bulgular (MobileDev raporu; A ve B sonradan duzeltildi, asagidaki alt maddeler):
     **iOS Safari'de yeniden dogrulanmali.**
 - **C (bilgi):** IKEA US mobil duzende gorunen bolunmus fiyat ("$" + "39" + ".99") cevrilmiyor;
   popup 40 donusum diyor (Chrome mobil emulasyonunda da gorunur 3/40 idi).
-- **D (dogrulanmadi):** EN Giderler sayfasi bir kez maas/saat alanlarini bos acti (kayitli
-  5,000 USD gelmedi). O dakikada simulator disaridan kesildi; tekrar denenemedi.
+- **D ek gozlem (MobileDev, 29.10 00:07):** iPad EN'de Giderler sekmesi yeniden yuklenince
+  maas/saat/gider ve halka dolu acti -> D iPad'de tekrarlanmadi.
+- **G (yuksek olabilir, dogrulanmadi):** iPad'de simulator dili EN yapilip yeniden baslatildiktan
+  sonra uzanti Zappos'ta hic fiyat cevirmedi (USD maasla bile), popover'da kur satiri bos kaldi ve
+  "Rescan this page" hicbir sonuc yazmadi (`runtime/tabs.sendMessage` geri cagrilari hic donmuyor
+  gibi). Safari'yi sonlandirip acmak duzeltmedi. iPhone EN'de de yeniden baslatma sonrasi kur satiri
+  bostu (ama Zappos cipleri calisiyordu). Ayrim yapilamadi: dil mi, yeniden baslatma mi, arka plan
+  service worker'in Safari'de uyanmamasi mi, `storage.local` kur tablosunun kaybi mi. Web Inspector gerekli.
 - **E (kozmetik):** iPhone'da popup 300 px sabit genislikte; sayfa sag ~100 pt bos.
 - **F (kucuk):** Trendyol "814 TL Kupon" etiketi "2,9 saat Kupon"a cevriliyor (indirim tutari).
+
+**Hangi derleme:** Tum iPhone ve iPad kareleri 28.10 21:04 Release-iphonesimulator derlemesiyle
+(`src/` = 264072b) cekildi, yani A (f29044d) ve B (9f9b9e8) duzeltmelerinden ONCE. iPad'deki
+hata A tekrari ve G bu eski derlemede. Duzeltmeler iOS Safari'de henuz denenmedi.
 
 Gozlenenler (headless, gunduz):
 - Uzanti paketi: `--rebuild-project` (1e11b7d) Resources fazina ARCHITECTURE.md,
@@ -208,11 +220,11 @@ Gozlenenler (headless, gunduz):
   Turkce acilis metni goruntulendi. Uzanti etkinlestirme GUI gerektirdigi icin
   simulatorde de denenemedi (`simctl`'de uzanti acma komutu yok).
 
-### Kaldigin yer (2026-10-28 23:25 itibariyla acik kalanlar)
+### Kaldigin yer (2026-10-29 00:20 itibariyla acik kalanlar)
 
-Yapilmadi: macOS Safari kareleri/kaydi (masaustu girdisi onay ister), iPad TR/EN,
+Yapilmadi: macOS Safari kareleri/kaydi (masaustu girdisi onay ister), iPad EN,
 iPhone EN 05 + EN kayit, `source` dogrulamasi (Web Inspector), "Sor" izniyle kur fetch'i,
-bulgu A/B/D'nin kok nedeni.
+bulgu A/B/D/G'nin kok nedeni.
 
 1. Derleme (28.10'da calisti): `cd safari/IncomeVsDesires && xcodebuild -scheme
    "IncomeVsDesires (macOS)" -configuration Debug -derivedDataPath build/dd-macos
