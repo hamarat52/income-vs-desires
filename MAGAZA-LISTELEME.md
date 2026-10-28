@@ -76,18 +76,22 @@ Dolar, euro ve sterlin fiyatlar önce senin para birimine çevrilir. Kurlar
 Avrupa Merkez Bankası verisinden günlük alınır.
 
 
-GERÇEK SAYFALARDA TEST EDİLDİ
+GERÇEK SAYFALARDA TEST EDİLDİ (28 Ekim 2026)
 
-Sayfadaki fiyatların kaçını yakaladığı ve taramanın kaç milisaniye sürdüğü
+Sayfadaki fiyatların kaçını çevirdiği ve taramanın kaç milisaniye sürdüğü
 ölçüldü:
 
-  LC Waikiki         191 / 191 fiyat     41 ms
-  Migros              49 / 49 fiyat      17 ms
-  Hepsiburada            162 fiyat
-  Amazon.com.tr           68 fiyat      128 ms
-  Google Alışveriş        68 fiyat       88 ms
-  Trendyol                67 fiyat
-  n11                     41 fiyat
+  LC Waikiki         145 fiyat      34 ms
+  Trendyol           143 fiyat      33 ms
+  n11                 93 fiyat      25 ms
+  Hepsiburada         90 fiyat      50 ms
+  Amazon.com.tr       79 fiyat     124 ms
+  Google Alışveriş    62 fiyat      41 ms
+  Migros              51 fiyat      31 ms
+  Teknosa             49 fiyat      35 ms
+  Çiçeksepeti         45 fiyat      12 ms
+  Sahibinden          20 fiyat      38 ms
+  MediaMarkt           8 fiyat      29 ms   (ilk ekran; ürünler kaydırınca yüklenir)
 
 Eklenti site listesi tutmaz, sayfadaki fiyat yazımını tanır. Bu yüzden listede
 olmayan sitelerde de çalışır.

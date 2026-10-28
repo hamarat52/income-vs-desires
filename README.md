@@ -190,24 +190,40 @@ Mağaza listeleme metni, izin gerekçeleri ve eksik görseller:
 | `test/build-popup-preview.js` | Ayar panelini tarayıcıda açılabilir tek dosyaya gömer; ayrıca `popup-stage.html` (büyütülmüş vitrin) üretir |
 | `test/build-options-preview.js` | Giderler sayfası için aynısı; `window.__ivdErrors`'a yakalanan hataları da toplar |
 
-## Saha testi (31.07.2026)
+## Saha testi (28.10.2026)
 
-Gerçek sitelerde, gerçek algoritmayla ölçüldü.
+Gerçek sitelerde, eklentinin kendi kodu (`content.js`) çalışırken ölçüldü. Ham
+veri ve yöntem: [`docs/qa/saha-testi-2026-10-28.json`](docs/qa/saha-testi-2026-10-28.json).
+
+Yöntem kısaca: arama/liste sayfası 1280×800 pencerede açıldı, yüklendikten
+8 sn sonra panelin "Sayfayı yeniden tara" mesajı (`ivd:rescan`) eklenti
+sayfasından gönderildi. **Bulunan fiyat** content.js'in yanıtladığı chip
+sayısı; **süre** mesajın gidiş-dönüşü (geri alma + tam tarama, ~1 ms mesaj
+yükü dahil), 5 tekrarın medyanı. Kaydırma yapılmadı. **Element** sayfadaki
+`querySelectorAll('*')` sayısı.
 
 | Site | Element | Bulunan fiyat | Süre |
 |---|---|---|---|
-| LC Waikiki | 7.447 | **191 / 191** | 41 ms |
-| Migros | 3.418 | **49 / 49** | 17 ms |
-| Hepsiburada | — | 162 | — |
-| Amazon.com.tr | 8.869 | 68 | 128 ms |
-| Google Alışveriş | 8.545 | 68 | 88 ms |
-| Trendyol (arama) | — | 67 | — |
-| n11 | — | 41 | — |
+| LC Waikiki | 7.594 | 145 | 34 ms |
+| Trendyol (arama) | 6.937 | 143 | 33 ms |
+| n11 | 4.412 | 93 | 25 ms |
+| Hepsiburada | 6.642 | 90 | 50 ms |
+| Amazon.com.tr | 11.093 | 79 | 124 ms |
+| Google Alışveriş | 8.725 | 62 | 41 ms |
+| Migros | 3.648 | 51 | 31 ms |
+| Teknosa | 6.817 | 49 | 35 ms |
+| Çiçeksepeti | 1.965 | 45 | 12 ms |
+| Sahibinden | 3.282 | 20 | 38 ms |
+| MediaMarkt | 5.684 | 8 (ilk ekran) | 29 ms |
+| Boyner | — | bilinmiyor | — |
 
-Sahibinden bot korumasına takıldı; MediaMarkt test tarayıcısında ürünleri hiç
-render etmedi (sayfadaki tek fiyat bulundu).
+Boyner'de ürün kartları test tarayıcısında yüklenmedi (bulunan 5 tutar sayfa
+kabuğundaki metinlerdi). MediaMarkt ürünleri kaydırdıkça yüklüyor; kaydırınca
+33 fiyat çevrildi, kaçan fiyat görülmedi. Amazon'un ilk araması hata sayfası
+döndü, ikinci aramada ölçüldü. Önceki tablo (31.07.2026) iki ayrı veri
+setine bölünmüştü; bu ölçüm onların yerini alır.
 
-Testte çıkıp düzeltilen hatalar:
+İlk saha testinde (31.07.2026) çıkıp düzeltilen hatalar:
 
 1. **Hepsiburada** — kuruş ayrı elementte (`2.144<span>,35 TL</span>`). Eski kod
    `,35 TL`'yi ayrı fiyat sanıp "7 dk" yazıyordu. → alt ağaç düzleştirme.
@@ -237,7 +253,9 @@ Testte çıkıp düzeltilen hatalar:
 - Gmail, Docs, Drive, Calendar, Slack, Notion, Figma, GitHub ve 4 banka
   `exclude_matches` ile hariç tutuldu. Google Alışveriş dahil diğer Google
   sayfalarında eklenti çalışır.
-- İkon dosyası yok; Chrome varsayılan ikonu gösterir.
+- Trendyol'da ilk yüklemede görünmeyen (0×0) fiyat kopyaları da çevriliyor;
+  tam yeniden taramada bunlar atlanıyor (28.10 ölçümünde 188 → 143). Ekranda
+  görünen sonucu değiştirmiyor.
 
 ## Lisans
 

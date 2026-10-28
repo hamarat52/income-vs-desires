@@ -18,37 +18,34 @@
   const FEEDBACK_EMAIL = 'yusuf.hamarat@ozu.edu.tr';
 
   /**
-   * 31.07.2026'da gerçek sayfalarda ölçüldü. `ok` = fiyatlar doğru çevrildi,
+   * 28.10.2026'da gerçek sayfalarda ölçüldü; ham veri ve yöntem
+   * docs/qa/saha-testi-2026-10-28.json. README, MAGAZA-LISTELEME.md ve
+   * site/index.html aynı rakamları gösterir. `ok` = fiyatlar doğru çevrildi,
    * `bilinmiyor` = test tarayıcısında doğrulanamadı (site engelledi ya da
    * ürünler hiç yüklenmedi), eklentinin çalışmadığı anlamına gelmez.
    */
   const TESTED_SITES = [
-    { host: 'lcw.com', name: 'LC Waikiki', status: 'ok', note: '191 fiyat · 41 ms' },
-    { host: 'trendyol.com', name: 'Trendyol', status: 'ok', note: '58 fiyat · 33 ms' },
-    { host: 'hepsiburada.com', name: 'Hepsiburada', status: 'ok', note: '103 fiyat · 17 ms' },
-    { host: 'amazon.com.tr', name: 'Amazon', status: 'ok', note: '68 fiyat · 128 ms' },
-    { host: 'google.com', name: 'Google Alışveriş', status: 'ok', note: '68 fiyat · 88 ms' },
-    { host: 'ciceksepeti.com', name: 'Çiçeksepeti', status: 'ok', note: '54 fiyat · 5 ms' },
-    { host: 'migros.com.tr', name: 'Migros', status: 'ok', note: '49 fiyat · 17 ms' },
-    { host: 'teknosa.com', name: 'Teknosa', status: 'ok', note: '38 fiyat · 13 ms' },
-    { host: 'n11.com', name: 'n11', status: 'ok', note: '28 fiyat · 70 ms' },
+    { host: 'lcw.com', name: 'LC Waikiki', status: 'ok', note: '145 fiyat · 34 ms' },
+    { host: 'trendyol.com', name: 'Trendyol', status: 'ok', note: '143 fiyat · 33 ms' },
+    { host: 'n11.com', name: 'n11', status: 'ok', note: '93 fiyat · 25 ms' },
+    { host: 'hepsiburada.com', name: 'Hepsiburada', status: 'ok', note: '90 fiyat · 50 ms' },
+    { host: 'amazon.com.tr', name: 'Amazon', status: 'ok', note: '79 fiyat · 124 ms' },
+    { host: 'google.com', name: 'Google Alışveriş', status: 'ok', note: '62 fiyat · 41 ms' },
+    { host: 'migros.com.tr', name: 'Migros', status: 'ok', note: '51 fiyat · 31 ms' },
+    { host: 'teknosa.com', name: 'Teknosa', status: 'ok', note: '49 fiyat · 35 ms' },
+    { host: 'ciceksepeti.com', name: 'Çiçeksepeti', status: 'ok', note: '45 fiyat · 12 ms' },
+    { host: 'sahibinden.com', name: 'Sahibinden', status: 'ok', note: '20 fiyat · 38 ms' },
+    {
+      host: 'mediamarkt.com.tr',
+      name: 'MediaMarkt',
+      status: 'ok',
+      note: '8 fiyat (ilk ekran) · 29 ms',
+    },
     {
       host: 'boyner.com.tr',
       name: 'Boyner',
       status: 'bilinmiyor',
       note: 'ürünler test tarayıcısında yüklenmedi',
-    },
-    {
-      host: 'mediamarkt.com.tr',
-      name: 'MediaMarkt',
-      status: 'bilinmiyor',
-      note: 'ürünler test tarayıcısında yüklenmedi',
-    },
-    {
-      host: 'sahibinden.com',
-      name: 'Sahibinden',
-      status: 'bilinmiyor',
-      note: 'bot koruması testi engelledi',
     },
   ];
 
