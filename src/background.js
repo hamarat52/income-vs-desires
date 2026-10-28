@@ -13,7 +13,7 @@
 
 const RATES_KEY = 'rates';
 // Tazeleme sıklığının TEK kaynağı. Alarm periyodu ve önbellek ömrü buradan
-// türer; README, MAGAZA-LISTELEME.md ve gizlilik sayfası da bu değeri
+// türer; README, store/ altındaki mağaza metinleri ve gizlilik sayfası da bu değeri
 // ("günde bir") yazar. Kurlar zaten günde bir yayımlanıyor (ECB iş günü
 // sonunda), daha sık çekmek yeni bilgi getirmiyor.
 // Önceden alarm 6 saat, ömür 12 saatti; fetchedAt çekim bittikten sonra

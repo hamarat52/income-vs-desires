@@ -1,5 +1,10 @@
 # Chrome Web Store görselleri
 
+> **Yerleşim (28.10.2026, `store/` düzeni):** `screenshot-*.png` dosyaları
+> `../tr/screenshots/` altında (Türkçe set); ikonlar, promo ve marquee bu klasörde
+> (`shared/`, dile bağlı değil); kaynak HTML ve `render.sh` `shared/src/`.
+
+
 Hepsi 28.10.2026'da üretildi. Ekran görüntüleri alfasız 24-bit PNG (sips:
 `hasAlpha: no`, `samplesPerPixel: 3`); yalnız mağaza ikonu saydam köşeli.
 Maaş örneği her yerde mağaza metniyle aynı: **50.000 TL · günde 8 saat ·
@@ -33,16 +38,16 @@ ayda 22 gün** (saatlik ₺284,09).
   için kur hiçbir rakamı etkilemiyor.
 - **Marka adları:** 1. ve 4. karede Trendyol'un kendi sayfası görünüyor
   (eklentinin gerçek sayfada çalıştığının kanıtı). Tanıtım kareleri hiçbir
-  site logosu içermez. MAGAZA-LISTELEME.md "Dikkat" bölümüne bakın.
-- `store-assets/` kökündeki eski üç kare (`screenshot-{1-trendyol,2-giderler,3-popup}.png`)
+  site logosu içermez. ../tr/listing.md "Dikkat" bölümüne bakın.
+- Eski üç kare (`store/arsiv/chrome-eski-35000tl/screenshot-{1-trendyol,2-giderler,3-popup}.png`)
   1280×800 ve alfasız, ama **35.000 TL** maaşla çekilmiş; mağaza metniyle
   çelişiyor. **Mağazaya yüklenmeyecek**; yerlerine bu klasördekiler
-  kullanılır. Silinmedi, arşiv olarak yerinde duruyor (PM kararı, 28.10.2026).
+  kullanılır. Silinmedi; 28.10.2026 düzenlemesinde `store/arsiv/`e taşındı (PM kararı).
 
 ## Yeniden üretme
 
 ```bash
-store-assets/chrome/src/render.sh      # 2, 4, promo ve marquee (headless Google Chrome)
+store/chrome-web-store/shared/src/render.sh   # 2, 4 → ../tr/screenshots/, promo ve marquee → shared/
 ```
 
 1, 3, 5 ve `src/img/*` doğrudan tarayıcıdan alınmış ekran görüntüleridir;

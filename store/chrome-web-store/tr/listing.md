@@ -1,54 +1,47 @@
-# Chrome Web Mağazası listeleme metni
+# Chrome Web Mağazası — Türkçe listeleme
 
-Mağaza içi arama üç alana bakar: **ad**, **kısa açıklama**, **detaylı açıklama**.
-Ağırlık bu sırayla azalır. "IncomeVsDesires" tek başına hiç aranmayan bir kelime,
-o yüzden ad marka + arananan ifade şeklinde kurulmalı.
+Kaynak: eski `MAGAZA-LISTELEME.md` (`git mv` ile buraya taşındı, 28.10.2026).
+Tek amaç, izin gerekçeleri, uzak kod, veri kullanımı ve sertifikalar ayrı
+dosyada (iki dil ortak): [`../shared/gizlilik-sekmesi.md`](../shared/gizlilik-sekmesi.md).
+Uzunluk ve eşitlik kontrolü: `node scripts/check-listing-length.js`.
 
-Türkçe'de bu işi yapan başka eklenti bulunamadı (31.07.2026 taraması), yani
-niş boş. Rekabet düşükken doğru kelimeleri kapmak kolay.
+Mağaza içi arama üç alana bakar: **ad**, **kısa açıklama**, **detaylı
+açıklama**; ağırlık bu sırayla azalır. Türkçe'de bu işi yapan başka eklenti
+bulunamadı (31.07.2026 taraması).
 
----
+> **Ad ve kısa açıklama paketten okunur.** Chrome Web Store'da görünen ad
+> manifest `name`, özet `description` alanıdır; panelde düzenlenemez.
+> Manifest artık `__MSG_extName__` / `__MSG_extDescription__` kullanıyor;
+> Türkçe değerler `_locales/tr/messages.json`'da. Detaylı açıklama, ekran
+> görüntüleri ve YouTube videosu dil başına girilir — yalnız eklentide o dilin
+> `_locales/<kod>` klasörü varsa (developer.chrome.com/docs/webstore/cws-dashboard-listing;
+> PM 28.10 doğrulaması). `_locales/tr` var → Türkçe sayfa açılabilir.
+> Varsayılan dil `en` (`default_locale`); Türkçe dışındaki her dil İngilizceye düşer.
 
-> **Önemli — ad ve kısa açıklama paketten okunur.** Chrome Web Store'da
-> görünen ad manifest'teki `name`, kısa açıklama (özet) `description`
-> alanıdır; geliştirici panelinde düzenlenemez, değiştirmek için manifest'i
-> düzenleyip yeniden paketlemek gerekir
-> ([developer.chrome.com/docs/webstore/prepare](https://developer.chrome.com/docs/webstore/prepare)).
-> Manifest `description` = aşağıdaki **Kısa açıklama**, birebir (PM kararı,
-> 28.10.2026). Manifest `name` şimdilik `"IncomeVsDesires"` (15 karakter);
-> aşağıdaki uzun ad Yusuf onayı bekliyor. Safari de aynı manifest'i
-> kullanıyor. Kısa açıklama değişirse manifest de aynı anda değişmeli.
-> Uzunluk + eşitlik kontrolü: `node scripts/check-listing-length.js`.
-
-## Ad (75 karakter sınırı)
-
-> **Not:** Mağaza adı manifest `name`'den gelir; uzun ad Yusuf onayı
-> bekliyor, şu an mağazada `IncomeVsDesires` görünür.
+## Ad (manifest'ten, ≤ 75)
 
 ```
-IncomeVsDesires: Fiyatları Maaşına Göre Saate Çevirir
+IncomeVsDesires
 ```
 
-53 karakter. İçinde üç arama kelimesi var: **fiyat**, **maaş**, **saat**.
-
-Alternatifler:
+`_locales/tr/messages.json > extName` (betik eşitliği denetler). Uzun ad
+önerisi **Yusuf onayı bekliyor** (değiştirilmedi):
 
 | Seçenek | Karakter | Not |
 |---|---|---|
-| `IncomeVsDesires: Fiyatları Maaşına Göre Saate Çevirir` | 53 | önerilen |
-| `IncomeVsDesires: Fiyat Saat Çevirici, Saatlik Ücret Hesaplama` | 61 | daha çok kelime ama robotik okunuyor |
-| `IncomeVsDesires` | 15 | sadece marka; sıfır arama hacmi — şu an manifest'te bu (ad Yusuf onayına kadar) |
+| `IncomeVsDesires: Fiyatları Maaşına Göre Saate Çevirir` | 53 | önerilen; üç arama kelimesi (fiyat, maaş, saat) |
+| `IncomeVsDesires: Fiyat Saat Çevirici, Saatlik Ücret Hesaplama` | 61 | robotik okunuyor |
+| `IncomeVsDesires` | 15 | şu an manifest'te; aranmayan tek kelime |
 
-## Kısa açıklama (132 karakter sınırı)
-
-Arama sonuçlarında görünen tek metin bu. En yüksek dönüşüm etkisi burada.
+## Kısa açıklama (manifest'ten, ≤ 132)
 
 ```
 Maaşını gir, fiyatlar kaç saat çalıştığına dönüşsün. 500 TL yerine 1,8 saat. Veri toplamaz, kayıt istemez, ücretsiz.
 ```
 
-116 karakter (`node scripts/check-listing-length.js`). Ne yaptığını ilk cümlede söylüyor, ikinci cümlede örnek veriyor,
-üçüncüde en yaygın itirazı (gizlilik) kapatıyor.
+`_locales/tr/messages.json > extDescription` ile birebir (betik denetler).
+Örnek: 50.000 TL · 8 saat · 22 gün → saatlik ₺284,09; 500 TL →
+`IVD.formatDuration` = "1,8 saat" (`test/test-money.js`).
 
 ## Detaylı açıklama
 
@@ -73,7 +66,8 @@ Saatlik ücretin şöyle hesaplanır: net maaş / (günlük saat x aylık gün).
 BİRİMLER SENİN DÜZENİNDEN GELİR
 
 "1 gün" senin bir günlük mesain, "1 ay" ise tam bir maaşın. Takvim günü değil,
-çalışarak geçirdiğin süre. Böylece rakam soyut kalmıyor.
+çalışarak geçirdiğin süre. Böylece rakam soyut kalmıyor. Takvim süresini
+tercih edersen "1 gün = 24 saat" seçeneğini aç.
 
 
 SABİT GİDERLERİN
@@ -86,8 +80,9 @@ Kiranın maaşının yüzde kaçı olduğunu bilmek yerine, ayın kaç gününü
 
 DÖVİZLİ FİYATLAR
 
-Dolar, euro ve sterlin fiyatlar önce senin para birimine çevrilir. Kurlar
-Avrupa Merkez Bankası verisinden günlük alınır.
+Türk lirası, dolar, euro ve sterlin desteklenir. Bunlardan biriyle yazılmış
+bir fiyat önce senin para birimine çevrilir. Kurlar Avrupa Merkez Bankası
+verisinden günlük alınır.
 
 
 GERÇEK SAYFALARDA TEST EDİLDİ (28 Ekim 2026)
@@ -107,8 +102,16 @@ Sayfadaki fiyatların kaçını çevirdiği ve taramanın kaç milisaniye sürd�
   Sahibinden          20 fiyat      38 ms
   MediaMarkt           8 fiyat      29 ms   (ilk ekran; ürünler kaydırınca yüklenir)
 
+Aynı gün ABD'deki iki mağazada dolar fiyatlarla da denendi: IKEA US
+(40 fiyat) ve Zappos (283 fiyat).
+
 Eklenti site listesi tutmaz, sayfadaki fiyat yazımını tanır. Bu yüzden listede
 olmayan sitelerde de çalışır.
+
+
+DİL
+
+Türkçe ve İngilizce; tarayıcının diline göre açılır.
 
 
 GİZLİLİK
@@ -129,6 +132,10 @@ siteyi de panelden tek tıkla kapatabilirsin.
 Reklam yok, abonelik yok, "pro" sürüm yok.
 ```
 
+Kaynaklar: TR tablosu `docs/qa/saha-testi-2026-10-28.json`; ABD ölçümü
+`store/raw/README.md` › "Saha notu" (headless Chrome, sayfadaki çip sayısı;
+milisaniye ölçülmedi, o yüzden tabloya değil cümleye yazıldı).
+
 ---
 
 ## Diğer mağaza alanları
@@ -136,116 +143,34 @@ Reklam yok, abonelik yok, "pro" sürüm yok.
 | Alan | Değer |
 |---|---|
 | Kategori | Alışveriş (Shopping) |
-| Dil | Türkçe (birincil) |
-| Gizlilik politikası URL | `https://hamarat52.github.io/income-vs-desires/gizlilik.html` |
-| Destek sitesi | `https://hamarat52.github.io/income-vs-desires/` |
+| Dil | Türkçe (bu sayfa). Varsayılan dil İngilizce (`default_locale: en`) |
+| Gizlilik politikası URL | `https://hamarat52.github.io/income-vs-desires/gizlilik.html` — yayında (28.10 HTTP 200); 28.10'da eklenen Safari cümlesi push sonrası yayına girer |
+| Destek sitesi | `https://hamarat52.github.io/income-vs-desires/destek.html` — **push sonrası yayında olacak** (28.10: 404) |
+| Ana sayfa | `https://hamarat52.github.io/income-vs-desires/` |
 
-İki adres de yayında (28.10.2026, `curl` → HTTP 200). `incomevsdesires.com`
-alınmadı (yanıt yok); alan adı kararı Yusuf'ta. Alan adı alınırsa
-`site/posts.json > siteUrl` + `node site/build.js` ile birlikte bu iki satır da
-güncellenmeli.
-
-### Tek amaç beyanı (single purpose)
-
-Google inceleme sırasında bunu ister:
-
-> Eklentinin tek amacı, kullanıcının girdiği maaş bilgisine göre web
-> sayfalarındaki para tutarlarını çalışma süresine çevirerek göstermektir.
-
-### İzin gerekçeleri
-
-`manifest.json` ile birebir (28.10.2026): `permissions` = `storage`, `alarms`,
-`activeTab`; `host_permissions` = 3 kur kaynağı; tek `content_scripts`
-girdisi `<all_urls>` (+ `exclude_matches`). Başka izin yok.
-
-| İzin | Gerekçe |
-|---|---|
-| `storage` | Kullanıcının maaşını, çalışma düzenini, görünüm tercihlerini ve gider listesini (`storage.sync`) ve son çekilen kur tablosunu (`storage.local`) saklamak için. |
-| `activeTab` | Kullanıcı araç çubuğundaki panele tıkladığında yalnızca o anki sekmede: alan adını okuyup "bu sitede kapat" düğmesini göstermek ve "sayfayı yeniden tara" mesajını göndermek için. |
-| `alarms` | Döviz kurlarını günde bir kez tazelemek için. |
-| `host_permissions: api.frankfurter.dev` | Döviz kuru tablosunu çekmek için (ana kaynak, ECB verisi). |
-| `host_permissions: open.er-api.com`, `cdn.jsdelivr.net` | Ana kaynağa ulaşılamazsa sırayla denenen iki yedek kur kaynağı. İstekler yalnızca kur tablosunu ister; kullanıcıya ait hiçbir veri içermez. Eklentinin yaptığı dış istekler yalnızca bunlardır. |
-| `content_scripts: <all_urls>` | Fiyat hangi sitede olursa olsun çevrilebilsin diye. Eklenti site listesi tutmaz. Sayfa metni yalnızca cihazda okunur ve yerinde değiştirilir; hiçbir yere gönderilmez. E-posta, doküman ve 4 banka `exclude_matches` ile dışarıda. |
-
-### Gizlilik uygulamaları sekmesi — hazır cevaplar
-
-**Uzak kod kullanıyor musunuz?** → **Hayır, uzak kod kullanmıyorum.**
-
-Kanıt (28.10.2026, `src/` üzerinde grep): `eval(`, `new Function`,
-`importScripts`, dizgeli `setTimeout/setInterval`, dinamik `import(`,
-`chrome.scripting`/`executeScript` ve dış adresli `<script src>` **yok** (tek
-eşleşme `background.js:5`'teki "importScripts kaldırıldı" yorumu). Tüm
-`<script>` etiketleri paket içi dosyalar (`theme.js`, `lib/money.js`,
-`popup.js`, `options.js`). Tek `fetch` çağrısı `background.js:121`; yalnızca
-JSON kur tablosu alır, çalıştırılabilir kod değil.
-
-**Veri kullanımı — hangi kullanıcı verilerini topluyorsunuz?** → Hiçbir kutu
-işaretlenmez:
-
-| Kategori | Durum |
-|---|---|
-| Kişisel kimlik bilgileri | Toplanmıyor |
-| Sağlık bilgileri | Toplanmıyor |
-| Finansal ve ödeme bilgileri | Toplanmıyor (aşağıdaki nota bakın) |
-| Kimlik doğrulama bilgileri | Toplanmıyor |
-| Kişisel iletişimler | Toplanmıyor |
-| Konum | Toplanmıyor |
-| Web geçmişi | Toplanmıyor (adres yalnızca sekme içinde, tek sayfa uygulamalarında yeniden tarama için okunur; saklanmaz, gönderilmez) |
-| Kullanıcı etkinliği | Toplanmıyor |
-| Web sitesi içeriği | Toplanmıyor (fiyat metni cihazda okunup yerinde değiştirilir) |
-
-Dürüst değerlendirme — `storage.sync`: Maaş, çalışma düzeni ve gider listesi
-`chrome.storage.sync`'te tutuluyor. Kullanıcının Chrome senkronizasyonu
-açıksa bu veriler **Chrome tarafından** Google hesabına senkronlanır ve
-kullanıcının diğer cihazlarına gider. Geliştiricinin sunucusu yok; veri bize
-ya da üçüncü tarafa gelmez, Google'a giden aktarım Chrome'un kendi özelliği.
-Bu yüzden "toplanmıyor" cevabı savunulabilir; gizlilik politikası
-(`site/gizlilik.html`, "Bu veriler Chrome'un kendi storage.sync deposunda
-tutulur…") bunu zaten açıkça yazıyor. İnceleme maaşı "finansal bilgi" sayıp
-soru sorarsa iki seçenek var: (a) bu açıklamayla itiraz, (b) maaşı
-`storage.local`'a taşımak (cihazlar arası eşitleme kaybolur). Karar PM'de.
-
-Kur istekleri: üç kur kaynağına giden isteklerde kullanıcı verisi yok; her
-HTTP isteğinde olduğu gibi kaynak sunucu IP adresini görür.
-
-**Sertifikalar (üçü de işaretlenir):**
-
-- [x] Kullanıcı verilerini, onaylanmış kullanım durumları dışında üçüncü taraflara satmıyorum veya aktarmıyorum.
-- [x] Kullanıcı verilerini, öğemin tek amacıyla ilgisi olmayan amaçlarla kullanmıyorum veya aktarmıyorum.
-- [x] Kullanıcı verilerini kredi itibarını belirlemek veya borç verme amacıyla kullanmıyorum veya aktarmıyorum.
-
----
+`incomevsdesires.com` alınmadı; alan adı kararı Yusuf'ta. Alınırsa
+`site/posts.json > siteUrl` + `node site/build.js`, ardından bu tablo.
 
 ## Görseller
 
-Hepsi `store-assets/chrome/` altında; boyut, kaynak ve alan eşlemesi
-[`store-assets/chrome/README.md`](store-assets/chrome/README.md).
+Boyut, kaynak ve alan eşlemesi: [`../shared/gorseller.md`](../shared/gorseller.md).
 
-- **Mağaza ikonu (128×128)**: **`store-icon-128-padded.png` kullanılacak**
-  (Google'ın 96×96 görsel + 16 px saydam pay önerisi; PM kararı 28.10.2026).
-  `store-icon-128.png` (= `src/icons/icon-128.png`, kareyi tam dolduruyor)
+- **Mağaza ikonu (128×128)**: `shared/store-icon-128-padded.png` (96 + 16 px
+  saydam pay; PM kararı 28.10.2026). `shared/store-icon-128.png` yüklenmeyecek.
+- **Ekran görüntüleri (1280×800, alfasız PNG)**: mevcut set `tr/screenshots/`
+  (28.10, eklentinin Türkçe-only sürümüyle çekildi). Yeni ham kareler TR arayüzle
+  `store/raw/tr/desktop/` (2560×1600); ImageArtist çerçeveleyip buraya koyacak.
+- **Küçük tanıtım karesi 440×280** ve **marquee 1400×560**: `shared/` —
+  yerelleştirilemez, tek kare iki dile de gösterilir. Şu anki kareler Türkçe
+  metin taşıyor (bkz. `store/README.md` açık soru).
+- `store/arsiv/chrome-eski-35000tl/`: 35.000 TL ile çekilmiş eski kareler,
   yüklenmeyecek.
-- **Ekran görüntüleri (1280×800, alfasız PNG, 5 adet)**, yükleme sırası:
-  1. `screenshot-1-urun-sayfasi.png` — gerçek arama sayfası, fiyatların yerinde süreler
-  2. `screenshot-2-panel.png` — ayar paneli (üç alan)
-  3. `screenshot-3-giderler.png` — Giderler sayfası, halka grafik
-  4. `screenshot-4-once-sonra.png` — aynı kartların TL ve mesai hâli yan yana
-  5. `screenshot-5-test-edilen-siteler.png` — test edilmiş siteler (28.10.2026 rakamları)
-- **Küçük tanıtım karesi (440×280)**: `promo-small-440x280.png`.
-- **Marquee (1400×560, isteğe bağlı)**: `marquee-1400x560.png`.
-- `store-assets/` kökündeki eski üç kare 35.000 TL maaşla çekilmişti;
-  mağaza metniyle (50.000 TL) çeliştiği için kullanılmayacak.
-
----
 
 ## Dikkat
 
-- **Anahtar kelime doldurma yasak.** Google'ın mağaza politikası, açıklamaya
-  alakasız kelime yığmayı ihlal sayar ve yayından kaldırır. Yukarıdaki metin
-  kelimeleri cümle içinde geçiriyor, liste halinde değil. Böyle kalsın.
-- **Marka isimleri.** Trendyol, Hepsiburada, Amazon gibi isimler yalnızca
-  "burada çalışır" bilgisi olarak geçiyor. Bu genelde kabul edilir, ama
-  logolarını kullanma ve iş birliği izlenimi verme.
-- **İngilizce listeleme sonra.** Mağaza dil bazlı yerelleştirme destekliyor.
-  Türkçe'de sıralama tuttuktan sonra İngilizce sürüm ekle; "price to hours"
-  aramasında rekabet çok daha yüksek.
+- **Anahtar kelime doldurma yasak.** Kelimeler cümle içinde geçiyor, liste
+  hâlinde değil. Böyle kalsın.
+- **Marka isimleri** yalnızca "burada çalışır" bilgisi; logo yok, iş birliği
+  izlenimi yok.
+- **TR ve EN aynı özellikleri anlatır** (CWS diller arası tutarlılığı
+  denetliyor). EN: [`../en/listing.md`](../en/listing.md).

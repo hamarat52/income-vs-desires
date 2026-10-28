@@ -172,8 +172,10 @@ tek kaynaktan tutuyor, birbirinden kaymasınlar diye.
 Ana sayfada çalışan bir saatlik ücret hesaplayıcısı var. Hem ürünü gösteriyor
 hem de SEO'nun ana kancası; ayrıntı için [SEO.md](SEO.md).
 
-Mağaza listeleme metni, izin gerekçeleri ve eksik görseller:
-[MAGAZA-LISTELEME.md](MAGAZA-LISTELEME.md).
+Mağaza metinleri `store/` altında (Chrome Web Mağazası ve App Store, TR + EN;
+izin gerekçeleri, form cevapları, ham ekran görüntüleri). Kontrol listesi:
+[store/README.md](store/README.md); karakter sınırları:
+`node scripts/check-listing-length.js`.
 
 ## Dosyalar
 

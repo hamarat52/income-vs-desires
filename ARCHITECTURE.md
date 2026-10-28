@@ -181,11 +181,11 @@ Kaynak linkleri:
 
 - Dis bagimliliklar yalniz kur kaynaklari: Frankfurter (ECB verisi, ana) + iki yedek
   (open.er-api.com, jsDelivr currency-api; 2026-10-24'te kullanici istegiyle eklendi).
-  Baska servis eklemeden once sor; gizlilik sayfasi ve MAGAZA-LISTELEME.md izin
-  tablosu da guncellenmeli.
+  Baska servis eklemeden once sor; gizlilik sayfalari (TR + EN) ve
+  `store/chrome-web-store/shared/gizlilik-sekmesi.md` izin tablosu da guncellenmeli.
 - `exclude_matches` listesi bilincli bir gizlilik karari — daraltma veya genisletme
   talebini kullaniciya dogrula.
-- Magaza metinleri `MAGAZA-LISTELEME.md`, arama notlari `SEO.md`.
+- Magaza metinleri `store/` altinda (kontrol listesi `store/README.md`), arama notlari `SEO.md`.
 
 ## Proje bilgisi kasada
 
