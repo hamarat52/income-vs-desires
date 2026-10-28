@@ -85,7 +85,7 @@ tüm boyutları üretir. Önizleme: [`shared/ikon-onizleme.png`](shared/ikon-oni
 | `LargeIcon.imageset`, `Resources/Icon.png` (host app penceresi) | **eksik** — eski render; bu görevin yazma alanı dışında |
 | Play / Android / Windows | kapsam dışı (bu ürün için mağaza yok) |
 
-## 3. Mağaza görselleri — hazır (Apple seti Chrome kaynaklı, Safari çekimi bekliyor)
+## 3. Mağaza görselleri — hazır (iPhone/iPad gerçek Safari; Mac Chrome kaynaklı, macOS Safari çekimi bekliyor)
 
 Şablon `store/_src/` (tek komut: `bash store/_src/render.sh`); kontak föyleri
 [`shared/kontak-foyu-tr.jpg`](shared/kontak-foyu-tr.jpg) · [`shared/kontak-foyu-en.jpg`](shared/kontak-foyu-en.jpg).
@@ -95,12 +95,13 @@ tüm boyutları üretir. Önizleme: [`shared/ikon-onizleme.png`](shared/ikon-oni
 | Ham kareler TR + EN, 6 sahne × 3 cihaz (36 PNG) | **hazır** — [`raw/README.md`](raw/README.md) |
 | CWS ekran görüntüleri TR + EN, 5 × 1280×800 | **hazır** — `chrome-web-store/{tr,en}/screenshots/0*.png`; liste [`gorseller.md`](chrome-web-store/shared/gorseller.md) |
 | CWS 440×280, 1400×560 | **hazır** — dilden bağımsız `*-dilsiz.png` **önerilen**; eski TR metinli sürümler yerinde (yüklenmeyecek) |
-| App Store iPhone 1206×2622, iPad 2064×2752, Mac 2880×1800 — TR + EN, 5'er | **hazır (geçici)** — `app-store/{tr,en}/{iphone,ipad,mac}/`; kaynak Chrome görüntü alanı, Chrome öğesi yok; Safari'de gerçek çekim gelince değiştirilecek — [`ekran-goruntuleri.md`](app-store/shared/ekran-goruntuleri.md) |
+| App Store iPhone 1206×2622, iPad 2064×2752 — TR + EN, 5'er | **hazır (29.10)** — `app-store/{tr,en}/{iphone,ipad}/`; kaynak **gerçek Safari (iOS 27 simülatör)** `raw-safari/`, derleme `264072b` / `9f9b9e8` (EN 04–05 ve iPad EN düzeltmeli; hata A'lı kareler kullanılmadı); PNG RGB, alfa yok — [`ekran-goruntuleri.md`](app-store/shared/ekran-goruntuleri.md) |
+| App Store Mac 2880×1800 — TR + EN, 5'er | **hazır (geçici)** — `app-store/{tr,en}/mac/`; Chrome kaynaklı (Chrome öğesi yok), macOS Safari çekimi bekliyor |
 | Safari'de gerçek çekim — iPhone (simülatör) | **gerçek Safari kaynağı hazır** — TR 01…05 + `kayit.mov`, EN 01…05 + `kayit.mov` ([`raw-safari/README.md`](raw-safari/README.md)); EN 04/05/kayıt düzeltmeli derlemeyle (hata A yok); TR 03 ürün sayfasında (eski derlemede listede bulgu B) |
 | Safari'de gerçek çekim — iPad | **gerçek Safari kaynağı hazır** — iPad Pro 13" sim TR 01…05 + `kayit.mov` (38 sn), EN 01…05 (düzeltmeli derleme); **EN kayıt eksik** (kayıtta bulgu H) |
 | Safari'de gerçek çekim — Mac | **eksik** — gerçek Safari kaynağı yok (masaüstü girdisi onay ister; yalnız izin-yok kanıtı `raw-safari/_kanit/mac-*`) |
-| Safari ham kare alfa | simctl PNG'leri `hasAlpha: yes` (opak) — App Store'a girmeden düzleştirilmeli |
-| Eski kareler | `arsiv/chrome-tr-eski-2026-10-28/` (eski CWS TR), `arsiv/apple-hostapp-acilis/` (host app açılışı) |
+| Safari ham kare alfa | simctl PNG'leri `hasAlpha: yes` (opak) — mağaza karelerinde düzleştirildi (`flatten.py`, `hasAlpha: no`); ham kareler olduğu gibi |
+| Eski kareler | `arsiv/chrome-tr-eski-2026-10-28/` (eski CWS TR), `arsiv/apple-hostapp-acilis/` (host app açılışı), `arsiv/apple-chrome-kaynakli-2026-10-28/` (Chrome kaynaklı eski iPhone/iPad) |
 
 ## 4. Tanıtım videosu — eksik
 
