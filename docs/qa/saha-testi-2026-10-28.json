@@ -1,0 +1,601 @@
+{
+  "date": "2026-10-28",
+  "extension_version": "0.1.0",
+  "content_script_source": "src/content.js + src/lib/money.js (worktree release/safari-chrome, taban c280af2; ajan tarayicisindaki unpacked eklenti ana checkout ile ayni icerik kodu)",
+  "browser": "Ajan tarayicisi (Chrome, CDP port 9333), eklenti id infefkepjbapnkcobhomokojbagpkajj",
+  "settings_read_only": {
+    "salary": 50000,
+    "currency": "TRY",
+    "hoursPerDay": 8,
+    "daysPerMonth": 22,
+    "basis": "salary",
+    "display": "time",
+    "dayUnit": "shift",
+    "enabled": true
+  },
+  "rates": {
+    "source": "frankfurter",
+    "date": "2026-10-27",
+    "EUR": 1,
+    "GBP": 0.83658,
+    "TRY": 55.513,
+    "USD": 1.115
+  },
+  "method": [
+    "Her site kendi penceremizde yeni sekmede acildi (chrome.tabs.create, eklentinin options.html sayfasindan). Viewport Emulation.setDeviceMetricsOverride 1280x800, deviceScaleFactor 1. Kaydirma yok.",
+    "readyState=complete sonrasi 8 sn beklendi (document_idle + gec yuklenen kartlar + MutationObserver 250 ms).",
+    "elements = document.querySelectorAll(\"*\").length (eklentinin ekledigi .ivd-chip span'lari dahil).",
+    "Bulunan fiyat ve sure: panelin \"Sayfayi yeniden tara\" yolu. options.html'den chrome.tabs.sendMessage(tabId, {type:\"ivd:rescan\"}) gonderildi; content.js restart() = revertAll + apply (scan(document.body) senkron) calistirip {count} yanitliyor. Sure = performance.now() ile mesaj gidis-donus, 5 tekrarin medyani (0,8 sn arayla). count = content.js'in kendi chips.length degeri.",
+    "Mesaj ek yuku icin ayni sekmeye 3 kez bilinmeyen {type:\"ivd:noop\"} gonderildi (dinleyici yanit vermez, port kapanir): medyan 0,4-1,7 ms. Yani tarama suresine ~1 ms mesaj yuku dahil.",
+    "Tablodaki \"bulunan fiyat\" = yeniden tarama sayimi (elements_at_rescan / rescan_counts). chips_initial ilk yuklemedeki sayim; Trendyol'da farkli (asagidaki not)."
+  ],
+  "notes": [
+    "Amazon.com.tr: ilk deneme (s?k=spor+ayakkabı, 10:10) Amazon \"Uzgunuz / istegi islerken hata\" sayfasi verdi (21 element, 0 fiyat). 15:30'da s?k=kulaklık ile yeniden olculdu; tabloda bu ikinci olcum var.",
+    "n11: ilk deneme (10:10) chrome.tabs.create geri cagrisi zaman asimina dustu (olcum yok); 15:29'da ayni URL ile olculdu.",
+    "Trendyol: ilk yuklemede 188 chip, yeniden taramada 143. Ayrica 15:3x tani calismasinda ilk yukleme 91, yeniden tarama 49. Fark olan chip'lerin hepsi 0x0 boyutlu (gorunmeyen kart/ fiyat kopyasi: price-value, strikethrough-price, ty-plus-strip-view-price); ilk geciste gozlemci bunlari eklenirken ceviriyor, tam taramada isInvisible() 1x1 yaprak kuralina takiliyorlar. Gorunen fiyat sayisini degistirmiyor. Trendyol sonuc sayfasi yuklemeden yuklemeye degisiyor.",
+    "MediaMarkt: ilk ekranda 8 fiyat (urunler kaydirdikca yukleniyor). Ayri tani calismasinda 3 kez 800 px kaydirinca 33 chip, chip disinda kalan TL/₺ fiyat kutusu 0.",
+    "Boyner: arama sayfasinda urun kartlari test tarayicisinda yuklenmedi (kaydirinca da degismedi). Bulunan 5 fiyat sayfa kabugundaki metinler (200 TL, 2500 TL ...), urun fiyati degil. Durum: bilinmiyor.",
+    "Sahibinden: Temmuz'da bot korumasina takilmisti; 28.10'da /otomobil ilan listesi acildi, 20 fiyat cevrildi.",
+    "Google Alisveris (udm=28): \"unusual traffic\" sayfasi cikmadi, 62 fiyat (TRY 4,999.00 bicimi dahil) cevrildi.",
+    "Teknosa ve Hepsiburada orneklerinin bir kismi fiyat filtresi araliklari (500 TL, 2.000 TL ...) — sayfada gorunen fiyat metni oldugu icin sayildi."
+  ],
+  "sites": [
+    {
+      "key": "lcw",
+      "site": "LC Waikiki",
+      "requested_url": "https://www.lcw.com/arama?q=t-shirt",
+      "final_url": "https://www.lcw.com/arama?q=t-shirt",
+      "page_title": "T-shirt | LCW",
+      "measured_at": "2026-10-28T10:09:05+03:00",
+      "error": null,
+      "elements_initial": 7594,
+      "chips_initial": 145,
+      "elements_at_rescan": 7594,
+      "chips_after_rescan": 145,
+      "rescan_counts": [
+        145,
+        145,
+        145,
+        145,
+        145
+      ],
+      "rescan_ms": [
+        34.1,
+        32.6,
+        33,
+        46.4,
+        218.9
+      ],
+      "rescan_ms_median": 34.1,
+      "noop_ms": [
+        0.8,
+        0.6,
+        0.4
+      ],
+      "noop_ms_median": 0.6,
+      "sample_conversions": [
+        "299,99 TL -> 1,1 saat",
+        "299,99 TL -> 1,1 saat",
+        "199,99 TL -> 42 dk",
+        "229,99 TL -> 49 dk",
+        "179,99 TL -> 38 dk",
+        "699,99 TL -> 2,5 saat"
+      ]
+    },
+    {
+      "key": "migros",
+      "site": "Migros",
+      "requested_url": "https://www.migros.com.tr/arama?q=s%C3%BCt",
+      "final_url": "https://www.migros.com.tr/arama?q=s%C3%BCt",
+      "page_title": "süt - Migros",
+      "measured_at": "2026-10-28T10:09:26+03:00",
+      "error": null,
+      "elements_initial": 3648,
+      "chips_initial": 51,
+      "elements_at_rescan": 3648,
+      "chips_after_rescan": 51,
+      "rescan_counts": [
+        51,
+        51,
+        51,
+        51,
+        51
+      ],
+      "rescan_ms": [
+        18.9,
+        35.8,
+        31.3,
+        33.7,
+        21.4
+      ],
+      "rescan_ms_median": 31.3,
+      "noop_ms": [
+        0.6,
+        0.8,
+        0.6
+      ],
+      "noop_ms_median": 0.6,
+      "sample_conversions": [
+        "225,00 TL -> 48 dk",
+        "149,90 TL -> 32 dk",
+        "52,75 TL -> 11 dk",
+        "43,25 TL -> 9 dk",
+        "189,00 TL -> 40 dk",
+        "225,00 TL -> 48 dk"
+      ]
+    },
+    {
+      "key": "hepsiburada",
+      "site": "Hepsiburada",
+      "requested_url": "https://www.hepsiburada.com/ara?q=spor+ayakkab%C4%B1",
+      "final_url": "https://www.hepsiburada.com/ara?q=spor+ayakkab%C4%B1",
+      "page_title": "Spor Ayakkabı Fiyatları, Trend Modeller %32'ye Varan İndirim",
+      "measured_at": "2026-10-28T10:09:47+03:00",
+      "error": null,
+      "elements_initial": 6642,
+      "chips_initial": 90,
+      "elements_at_rescan": 6642,
+      "chips_after_rescan": 90,
+      "rescan_counts": [
+        90,
+        90,
+        90,
+        90,
+        90
+      ],
+      "rescan_ms": [
+        35.3,
+        54,
+        53.5,
+        42.5,
+        49.9
+      ],
+      "rescan_ms_median": 49.9,
+      "noop_ms": [
+        0.7,
+        0.7,
+        0.3
+      ],
+      "noop_ms_median": 0.7,
+      "sample_conversions": [
+        "2100 TL -> 7,4 saat",
+        "10400 TL -> 4,6 gün",
+        "20800 TL -> 9,2 gün",
+        "32400 TL -> 14 gün",
+        "62800 TL -> 1,3 ay",
+        "124000 TL -> 2,5 ay"
+      ]
+    },
+    {
+      "key": "amazon",
+      "site": "Amazon.com.tr",
+      "requested_url": "https://www.amazon.com.tr/s?k=spor+ayakkab%C4%B1",
+      "final_url": "https://www.amazon.com.tr/s?k=spor+ayakkab%C4%B1",
+      "page_title": "Üzgünüz",
+      "measured_at": "2026-10-28T10:10:13+03:00",
+      "error": null,
+      "elements_initial": 21,
+      "chips_initial": 0,
+      "elements_at_rescan": 21,
+      "chips_after_rescan": 0,
+      "rescan_counts": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rescan_ms": [
+        1.6,
+        1.9,
+        1.9,
+        3.5,
+        1.7
+      ],
+      "rescan_ms_median": 1.9,
+      "noop_ms": [
+        0.5,
+        0.5,
+        0.4
+      ],
+      "noop_ms_median": 0.5,
+      "sample_conversions": []
+    },
+    {
+      "key": "trendyol",
+      "site": "Trendyol",
+      "requested_url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "final_url": "https://www.trendyol.com/sr?q=spor%20ayakkab%C4%B1",
+      "page_title": "Arama Sonuçları - Trendyol",
+      "measured_at": "2026-10-28T10:10:33+03:00",
+      "error": null,
+      "elements_initial": 6982,
+      "chips_initial": 188,
+      "elements_at_rescan": 6937,
+      "chips_after_rescan": 143,
+      "rescan_counts": [
+        143,
+        143,
+        143,
+        143,
+        143
+      ],
+      "rescan_ms": [
+        52.6,
+        33.3,
+        27.1,
+        52.2,
+        30.7
+      ],
+      "rescan_ms_median": 33.3,
+      "noop_ms": [
+        0.6,
+        0.4,
+        1.1
+      ],
+      "noop_ms_median": 0.6,
+      "sample_conversions": [
+        "1.899,99 TL -> 6,7 saat",
+        "1.999,99 TL -> 7 saat",
+        "1.899,99 TL -> 6,7 saat",
+        "1.999,99 TL -> 7 saat",
+        "1.899,99 TL -> 6,7 saat",
+        "1.999,99 TL -> 7 saat"
+      ]
+    },
+    {
+      "key": "n11",
+      "site": "n11",
+      "requested_url": "https://www.n11.com/arama?q=spor+ayakkab%C4%B1",
+      "final_url": null,
+      "page_title": null,
+      "measured_at": "2026-10-28T10:10:54+03:00",
+      "error": "RuntimeError('Runtime.evaluate timed out; expression: new Promise(res=>chrome.tabs.create({url:\"https://www.n11.com/arama?q=spor+ayakkab%C4%B1\", active:true}, t=>res(t.id)))')",
+      "elements_initial": null,
+      "chips_initial": null,
+      "elements_at_rescan": null,
+      "chips_after_rescan": null,
+      "rescan_counts": [],
+      "rescan_ms": [],
+      "rescan_ms_median": null,
+      "noop_ms": [],
+      "noop_ms_median": null,
+      "sample_conversions": null
+    },
+    {
+      "key": "n11",
+      "site": "n11",
+      "requested_url": "https://www.n11.com/arama?q=spor+ayakkab%C4%B1",
+      "final_url": "https://www.n11.com/arama?q=spor+ayakkab%C4%B1",
+      "page_title": "Spor Ayakkabı - n11.com",
+      "measured_at": "2026-10-28T15:29:43+03:00",
+      "error": null,
+      "elements_initial": 4412,
+      "chips_initial": 93,
+      "elements_at_rescan": 4412,
+      "chips_after_rescan": 93,
+      "rescan_counts": [
+        93,
+        93,
+        93,
+        93,
+        93
+      ],
+      "rescan_ms": [
+        23.1,
+        25.1,
+        29.4,
+        24.7,
+        29.1
+      ],
+      "rescan_ms_median": 25.1,
+      "noop_ms": [
+        25,
+        0.4,
+        1.7
+      ],
+      "noop_ms_median": 1.7,
+      "sample_conversions": [
+        "7.499 TL -> 3,3 gün",
+        "6.899 TL -> 3 gün",
+        "899,90 TL -> 3,2 saat",
+        "399 TL -> 1,4 saat",
+        "3.079 TL -> 1,4 gün",
+        "2.863,47 TL -> 1,3 gün"
+      ]
+    },
+    {
+      "key": "ciceksepeti",
+      "site": "Çiçeksepeti",
+      "requested_url": "https://www.ciceksepeti.com/arama?query=orkide",
+      "final_url": "https://www.ciceksepeti.com/arama?query=orkide",
+      "page_title": "Cicek Siparisi, Online Cicek Gonder , CicekSepeti.com",
+      "measured_at": "2026-10-28T15:30:05+03:00",
+      "error": null,
+      "elements_initial": 1965,
+      "chips_initial": 45,
+      "elements_at_rescan": 1965,
+      "chips_after_rescan": 45,
+      "rescan_counts": [
+        45,
+        45,
+        45,
+        45,
+        45
+      ],
+      "rescan_ms": [
+        12.8,
+        10.7,
+        11.8,
+        11.6,
+        12.6
+      ],
+      "rescan_ms_median": 11.8,
+      "noop_ms": [
+        0.5,
+        0.4,
+        0.4
+      ],
+      "noop_ms_median": 0.4,
+      "sample_conversions": [
+        "1.399 TL -> 4,9 saat",
+        "1.099 TL -> 3,9 saat",
+        "999,99 TL -> 3,5 saat",
+        "1.099 TL -> 3,9 saat",
+        "999,99 TL -> 3,5 saat",
+        "999,99 TL -> 3,5 saat"
+      ]
+    },
+    {
+      "key": "teknosa",
+      "site": "Teknosa",
+      "requested_url": "https://www.teknosa.com/arama/?s=kulakl%C4%B1k",
+      "final_url": "https://www.teknosa.com/arama/?s=kulakl%C4%B1k",
+      "page_title": "kulaklık Fiyatları ve Modelleri - Teknosa",
+      "measured_at": "2026-10-28T15:30:25+03:00",
+      "error": null,
+      "elements_initial": 6817,
+      "chips_initial": 49,
+      "elements_at_rescan": 6817,
+      "chips_after_rescan": 49,
+      "rescan_counts": [
+        49,
+        49,
+        49,
+        49,
+        49
+      ],
+      "rescan_ms": [
+        37.9,
+        35.3,
+        36.2,
+        34.3,
+        34.6
+      ],
+      "rescan_ms_median": 35.3,
+      "noop_ms": [
+        0.7,
+        1.6,
+        0.7
+      ],
+      "noop_ms_median": 0.7,
+      "sample_conversions": [
+        "500 TL -> 1,8 saat",
+        "1000 TL -> 3,5 saat",
+        "2.000 TL -> 7 saat",
+        "5.000 TL -> 2,2 gün",
+        "10.000 TL -> 4,4 gün",
+        "25.000 TL -> 11 gün"
+      ]
+    },
+    {
+      "key": "amazon",
+      "site": "Amazon.com.tr",
+      "requested_url": "https://www.amazon.com.tr/s?k=kulakl%C4%B1k",
+      "final_url": "https://www.amazon.com.tr/s?k=kulakl%C4%B1k",
+      "page_title": "Amazon.com.tr : kulaklık",
+      "measured_at": "2026-10-28T15:30:55+03:00",
+      "error": null,
+      "elements_initial": 11093,
+      "chips_initial": 79,
+      "elements_at_rescan": 11093,
+      "chips_after_rescan": 79,
+      "rescan_counts": [
+        79,
+        79,
+        79,
+        79,
+        79
+      ],
+      "rescan_ms": [
+        126.9,
+        401.9,
+        124.4,
+        108.5,
+        80.8
+      ],
+      "rescan_ms_median": 124.4,
+      "noop_ms": [
+        0.7,
+        1.1,
+        0.8
+      ],
+      "noop_ms_median": 0.8,
+      "sample_conversions": [
+        "1.499,00TL -> 5,3 saat",
+        "488,99TL -> 1,7 saat",
+        "2.499,00TL -> 1,1 gün",
+        "338,00TL -> 1,2 saat",
+        "349,00TL -> 1,2 saat",
+        "488,99TL -> 1,7 saat"
+      ]
+    },
+    {
+      "key": "google-shopping",
+      "site": "Google Alışveriş",
+      "requested_url": "https://www.google.com/search?q=spor+ayakkab%C4%B1&udm=28",
+      "final_url": "https://www.google.com/search?q=spor+ayakkab%C4%B1&udm=28",
+      "page_title": "spor ayakkabı - Google Shopping",
+      "measured_at": "2026-10-28T15:31:16+03:00",
+      "error": null,
+      "elements_initial": 8725,
+      "chips_initial": 62,
+      "elements_at_rescan": 8725,
+      "chips_after_rescan": 62,
+      "rescan_counts": [
+        62,
+        62,
+        62,
+        62,
+        62
+      ],
+      "rescan_ms": [
+        40.4,
+        38.4,
+        45.5,
+        46.7,
+        41
+      ],
+      "rescan_ms_median": 41,
+      "noop_ms": [
+        0.6,
+        0.6,
+        1.2
+      ],
+      "noop_ms_median": 0.6,
+      "sample_conversions": [
+        "TRY 1,000 -> 3,5 saat",
+        "TRY 4,999.00 -> 2,2 gün",
+        "TRY 5,299.99 -> 2,3 gün",
+        "TRY 4,701.55 -> 2,1 gün",
+        "TRY 599.90 -> 2,1 saat",
+        "TRY 523.00 -> 1,8 saat"
+      ]
+    },
+    {
+      "key": "boyner",
+      "site": "Boyner",
+      "requested_url": "https://www.boyner.com.tr/arama?q=ayakkab%C4%B1",
+      "final_url": "https://www.boyner.com.tr/arama?q=ayakkab%C4%B1",
+      "page_title": "İnternetin Boyner'i Online Alışverişin Adresi",
+      "measured_at": "2026-10-28T15:31:41+03:00",
+      "error": null,
+      "elements_initial": 3932,
+      "chips_initial": 5,
+      "elements_at_rescan": 3932,
+      "chips_after_rescan": 5,
+      "rescan_counts": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "rescan_ms": [
+        25.8,
+        22.7,
+        25.7,
+        18.9,
+        23.3
+      ],
+      "rescan_ms_median": 23.3,
+      "noop_ms": [
+        0.6,
+        0.7,
+        0.7
+      ],
+      "noop_ms_median": 0.7,
+      "sample_conversions": [
+        "200 TL -> 42 dk",
+        "2500 TL -> 1,1 gün",
+        "500 TL -> 1,8 saat",
+        "7000 TL -> 3,1 gün",
+        "1000 TL -> 3,5 saat"
+      ]
+    },
+    {
+      "key": "mediamarkt",
+      "site": "MediaMarkt",
+      "requested_url": "https://www.mediamarkt.com.tr/tr/search.html?query=kulakl%C4%B1k",
+      "final_url": "https://www.mediamarkt.com.tr/tr/search.html?query=kulakl%C4%B1k",
+      "page_title": "\"kulaklık\" için arama sonucu | MediaMarkt",
+      "measured_at": "2026-10-28T15:32:02+03:00",
+      "error": null,
+      "elements_initial": 5684,
+      "chips_initial": 8,
+      "elements_at_rescan": 5684,
+      "chips_after_rescan": 8,
+      "rescan_counts": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "rescan_ms": [
+        29.2,
+        48.6,
+        27.2,
+        28.6,
+        30.1
+      ],
+      "rescan_ms_median": 29.2,
+      "noop_ms": [
+        1.5,
+        0.5,
+        0.4
+      ],
+      "noop_ms_median": 0.5,
+      "sample_conversions": [
+        "₺8.399 -> 3,7 gün",
+        "₺8399,00 -> 3,7 gün",
+        "₺1.399,83 -> 4,9 saat",
+        "₺1.149 -> 4 saat",
+        "₺1149,00 -> 4 saat",
+        "₺1.899 -> 6,7 saat"
+      ]
+    },
+    {
+      "key": "sahibinden",
+      "site": "Sahibinden",
+      "requested_url": "https://www.sahibinden.com/otomobil",
+      "final_url": "https://www.sahibinden.com/otomobil",
+      "page_title": "2.El Arabalar ve Satılık Sıfır Km Otomobil Fiyatları sahibinden.com'da",
+      "measured_at": "2026-10-28T15:32:24+03:00",
+      "error": null,
+      "elements_initial": 3282,
+      "chips_initial": 20,
+      "elements_at_rescan": 3282,
+      "chips_after_rescan": 20,
+      "rescan_counts": [
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "rescan_ms": [
+        39.4,
+        37.9,
+        35.9,
+        37.6,
+        36.4
+      ],
+      "rescan_ms_median": 37.6,
+      "noop_ms": [
+        0.7,
+        0.8,
+        0.6
+      ],
+      "noop_ms_median": 0.7,
+      "sample_conversions": [
+        "1.428.950 TL -> 2,4 yıl",
+        "650.000 TL -> 1,1 yıl",
+        "3.450.000 TL -> 5,8 yıl",
+        "11.400.000 TL -> 19 yıl",
+        "1.265.000 TL -> 2,1 yıl",
+        "7.650.000 TL -> 13 yıl"
+      ]
+    }
+  ]
+}
