@@ -2,10 +2,10 @@ function show(platform, enabled, useSettingsInsteadOfPreferences) {
     document.body.classList.add(`platform-${platform}`);
 
     if (useSettingsInsteadOfPreferences) {
-        document.getElementsByClassName('platform-mac state-on')[0].innerText = "IncomeVsDesires’s extension is currently on. You can turn it off in the Extensions section of Safari Settings.";
-        document.getElementsByClassName('platform-mac state-off')[0].innerText = "IncomeVsDesires’s extension is currently off. You can turn it on in the Extensions section of Safari Settings.";
-        document.getElementsByClassName('platform-mac state-unknown')[0].innerText = "You can turn on IncomeVsDesires’s extension in the Extensions section of Safari Settings.";
-        document.getElementsByClassName('platform-mac open-preferences')[0].innerText = "Quit and Open Safari Settings…";
+        document.getElementsByClassName('platform-mac state-on')[0].innerText = "IncomeVsDesires uzantısı şu anda açık. Safari > Ayarlar > Uzantılar bölümünden kapatabilirsin.";
+        document.getElementsByClassName('platform-mac state-off')[0].innerText = "IncomeVsDesires uzantısı şu anda kapalı. Safari > Ayarlar > Uzantılar bölümünden açabilir, ardından web sitelerine izin verebilirsin.";
+        document.getElementsByClassName('platform-mac state-unknown')[0].innerText = "IncomeVsDesires uzantısını Safari > Ayarlar > Uzantılar bölümünden açabilirsin.";
+        document.getElementsByClassName('platform-mac open-preferences')[0].innerText = "Çık ve Safari Ayarlarını Aç…";
     }
 
     if (typeof enabled === "boolean") {
