@@ -41,6 +41,17 @@ hedefleri aynı `manifest.json` + `src/` ile hazırlanıyor; henüz yayında de�
   durur (Chrome senkronizasyonu açıksa Chrome bunları kullanıcının Google
   hesabıyla eşitler). Dışarıya giden tek istek kur tablosudur.
 
+### Düzeltildi
+
+- Safari: iki yer tutuculu metinlerde `$` içeren değer bozuluyordu (EN panel
+  "One hour of your work ≈ $227.278.41", doğrusu $28.41). Değerler artık
+  `i18n.getMessage`'a verilmiyor, metne eklentinin kendisi yerleştiriyor
+  (`src/lib/i18n.js` `t()`); Chrome ve Safari aynı sonucu verir.
+- Dokunmatik: çipe dokunmak bazı ürün kartlarında (iOS Safari, Trendyol mobil
+  listesi, mağaza vitrini) çipi döndürmeden ürün sayfasını açıyordu. Çip artık
+  parmak kalkınca döner ve dokunuşun ardından tıklama üretilmez; kaydırma ve
+  fare tıklaması değişmedi. iOS Safari'de yeniden doğrulanması bekliyor.
+
 ### Bilinen sınırlar
 
 - Yalnız TRY / USD / EUR / GBP; para kodları büyük harfle tanınır.

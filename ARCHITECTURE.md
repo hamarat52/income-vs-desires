@@ -164,14 +164,28 @@ Statik risk listesi 1-3, gozleme gore:
    "Diger Web Siteleri: Izin Ver" secimi kur alan adlarini da "Izin Ver" yapti; "Sor" durumunda
    fetch denenmedi -> "izinsiz de gecer" kismi GOZLENMEDI.
 
-Bulgular (kod duzeltilmedi; rapor):
+Bulgular (MobileDev raporu; A ve B sonradan duzeltildi, asagidaki alt maddeler):
 - **A (yuksek, EN):** Safari `i18n.getMessage` yer tutucu degisimi ardisik: `rateSalary`
   ("... ≈ $ARG1$ · ... ≈ $ARG2$") EN'de "$227.278.41" uretti (dogrusu $28.41). Aciklama
   (gozleme uyan hipotez): `$1` -> "$28.41" yazildiktan sonra icindeki "$2" ikinci degerle
   ("$227.27") yeniden degistiriliyor. Iki+ yer tutuculu ve degeri "$<rakam>" iceren her mesaj
   etkilenir (USD/CAD/AUD...). Chrome'da yok. TR (₺) etkilenmiyor.
+  - *Duzeltme (WebDev, f29044d):* `src/lib/i18n.js` `t()` degerleri getMessage'a `$`'siz
+    nobetciyle (U+E000 i U+E001) verip donen metinde kendisi yerlestiriyor. `test/test-i18n.js`
+    Safari davranisli sahte getMessage ile tum yer tutuculu mesajlari (EN+TR, USD/TRY) sinar;
+    eski kodla 5 FAIL, yeniyle gecer. iOS Safari'de yeniden dogrulanmali (EN 04 karesi).
+- **D (incelendi, WebDev):** `options.js`'te yaris kosulu bulunamadi. Karede oran satiri bos ve
+  8/22 yer tutucu -> betik `await chrome.storage.sync.get` / `local.get` (options.js:119-126)
+  adiminda bekliyordu ya da reddedildi; Safari tarafi, dogrulanmadi. Kod degismedi.
 - **B (orta, dokunmatik):** Trendyol mobil listesinde cipe dokunus urun sayfasina gidiyor
   (Chrome'da fare tiklamasi gitmiyordu). Ayni cip urun sayfasinda dogru donuyor; Zappos'ta da dogru.
+  - *Duzeltme (WebDev, 9f9b9e8):* dokunulan kart magaza vitrini (`a.seller-store-product-card` >
+    `div.css-slider.ios-device`, React `onTouchEnd` -> `stopPropagation`). Chrome mobil oykunmesinde
+    (iPhone UA, dokunmatik) hata URETILEMEDI: tiklama cipe geliyor, gezinme yok. Safari'de tiklamanin
+    bize hic ulasmadigi ya da cipin disini hedefledigi dusunuluyor (dogrulanmadi). `src/content.js`
+    artik cipi `touchend`'de dondurup `touchend`'i iptal ediyor -> tarayici fare olaylari + tiklama
+    (link gezinmesi) uretmiyor. Tek parmak, <=10 px, <=700 ms; kaydirma/fare degismedi.
+    **iOS Safari'de yeniden dogrulanmali.**
 - **C (bilgi):** IKEA US mobil duzende gorunen bolunmus fiyat ("$" + "39" + ".99") cevrilmiyor;
   popup 40 donusum diyor (Chrome mobil emulasyonunda da gorunur 3/40 idi).
 - **D (dogrulanmadi):** EN Giderler sayfasi bir kez maas/saat alanlarini bos acti (kayitli
