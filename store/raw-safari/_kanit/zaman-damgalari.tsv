@@ -3,3 +3,9 @@ iphone/tr/02-eklenti-kapali.png	28.10.2026 22:20:03	https://www.trendyol.com/sr?
 iphone/tr/03a-cip-dokunmadan-once.png	28.10.2026 22:29:46	trendyol.com ürün sayfası (Marjin Kadın Sneaker Merita Kahve Süet; listedeki karta dokununca açıldı)	alt çubukta 'Sepette 6,7 saat'
 iphone/tr/03-cipe-dokunuldu.png	28.10.2026 22:29:46	aynı ürün sayfası	'6,7 saat' çipine tek dokunuş → '1.899,99 TL' (gezinme yok)
 iphone/tr/04-popup.png	28.10.2026 22:30:43	trendyol.com ürün sayfası üstünde Safari uzantı sayfası (tam yükseklik)	Açık · 50.000 TRY · 8/22 · 'Bir saatin ≈ ₺284,09 · bir mesai ≈ ₺2.272,73' · 'www.trendyol.com için kapat' görünür · 'Kurlar güncel (28.10.2026).'
+iphone/tr/05-giderler-halka.png	28.10.2026 22:52:47	safari-web-extension://…/src/options.html (popup 'Giderlerin ve grafik →' ile açıldı; adres çubuğu boş)	Kira 18.000 TRY eklendi → 'AYIN NEREYE GİDİYOR · KİRA 7,9 gün %36 · ayda 63,4 saat · SANA KALAN 14 gün %64 · ayda 112,6 saat', halka '22 gün aylık mesain'
+iphone/en/04-popup.png	28.10.2026 22:59:51	https://www.ikea.com/us/en/search/?q=desk%20lamp üstünde uzantı sayfası	On · 5,000 USD · 8/22 · HATA: 'One hour of your work ≈ $227.278.41 · one workday ≈ $227.27' (beklenen $28.41) · 'Turn off for www.ikea.com' görünür · kur satırı boş
+iphone/en/01-eklenti-acik.png	28.10.2026 23:13:22	https://www.zappos.com/sneakers	çipler: 3.7 hours (Nike) / 2.3 hours (Skechers) / 5.6 hours (ECCO)
+iphone/en/02-eklenti-kapali.png	28.10.2026 23:14:55	https://www.zappos.com/sneakers	popup anahtarı Off; aynı sayfa yüklemesi: $105 / $65 / $159.99
+iphone/en/03a-cip-dokunmadan-once.png	28.10.2026 23:16:37	https://www.zappos.com/sneakers	anahtar yeniden On; '2.3 hours' (Skechers)
+iphone/en/03-cipe-dokunuldu.png	28.10.2026 23:16:37	https://www.zappos.com/sneakers	'2.3 hours' çipine tek dokunuş → '$65', gezinme yok (liste sayfasında kaldı)
