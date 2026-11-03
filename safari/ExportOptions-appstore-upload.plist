@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  App Store Connect'e YUKLEME (destination=upload). Elle kullanma; yalniz:
+    IVD_YUKLE_ONAY=evet bash safari/apple_yayin.sh yukle
+  Betik once on kontrolu ve kuru export dogrulamasini gecirir, basarili
+  yuklemeyi safari/yuklenen-yapilar.txt dosyasina yazar.
+-->
+<dict>
+	<key>method</key>
+	<string>app-store-connect</string>
+	<key>destination</key>
+	<string>upload</string>
+	<key>teamID</key>
+	<string>28TVDBBT3G</string>
+	<key>signingStyle</key>
+	<string>automatic</string>
+	<key>uploadSymbols</key>
+	<true/>
+	<key>manageAppVersionAndBuildNumber</key>
+	<false/>
+</dict>
+</plist>
