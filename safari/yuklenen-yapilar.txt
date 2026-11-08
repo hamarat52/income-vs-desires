@@ -2,3 +2,4 @@
 # Satır biçimi: <platform> <sürüm> <yapı> <tarih> <not>
 #   platform: macos | ios   (ASC'de yapı numarası her platform için ayrı tutulur)
 # Satırları apple_yayin.sh yukle başarıyla bittiğinde kendisi ekler; elle silme.
+macos 0.1.0 1 2026-11-08 xcodebuild-upload
