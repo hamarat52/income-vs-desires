@@ -125,9 +125,9 @@ Not available for the first version. Template for version 2:
 
 | Field | Value | Status |
 |---|---|---|
-| Support URL (required) | `https://hamarat52.github.io/income-vs-desires/en/support.html` | **live after push** (28.10: 404). Real contact: GitHub Issues + email (publishing the email is **Yusuf's approval**) |
-| Marketing URL (optional) | `https://hamarat52.github.io/income-vs-desires/` | live, Turkish only |
-| Privacy policy URL (required, app level) | `https://hamarat52.github.io/income-vs-desires/en/privacy.html` | **live after push**; TR page live now |
+| Support URL (required) | `https://hamaratlabs.com/income-vs-desires/en/support` | **live** (2026-11-08 `curl` 200). Contact: GitHub Issues + email `hermes.agent.hamarat@gmail.com` (Yusuf's decision, 2026-11-08) |
+| Marketing URL (optional) | `https://hamaratlabs.com/income-vs-desires/` | **live** (2026-11-08 `curl` 200), Turkish only |
+| Privacy policy URL (required, app level) | `https://hamaratlabs.com/income-vs-desires/en/privacy` | **live** (2026-11-08 `curl` 200) |
 
 ## Copyright
 

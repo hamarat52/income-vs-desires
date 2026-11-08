@@ -135,9 +135,9 @@ Notlar:
 
 | Alan | Değer | Durum |
 |---|---|---|
-| Destek URL (zorunlu) | `https://hamarat52.github.io/income-vs-desires/destek.html` | **Push sonrası yayında olacak** (28.10: 404). Gerçek iletişim: GitHub Issues + e-posta (e-postanın herkese açık yayımlanması **Yusuf onayı**) |
-| Pazarlama URL (isteğe bağlı) | `https://hamarat52.github.io/income-vs-desires/` | yayında (HTTP 200) |
-| Gizlilik politikası URL (zorunlu) | `https://hamarat52.github.io/income-vs-desires/gizlilik.html` | yayında; 28.10'da eklenen Safari cümlesi push sonrası yayına girer |
+| Destek URL (zorunlu) | `https://hamaratlabs.com/income-vs-desires/destek` | **yayında** (2026-11-08 `curl` 200). İletişim: GitHub Issues + e-posta `hermes.agent.hamarat@gmail.com` (Yusuf kararı 2026-11-08) |
+| Pazarlama URL (isteğe bağlı) | `https://hamaratlabs.com/income-vs-desires/` | **yayında** (2026-11-08 `curl` 200) |
+| Gizlilik politikası URL (zorunlu) | `https://hamaratlabs.com/income-vs-desires/gizlilik` | **yayında** (2026-11-08 `curl` 200; Safari cümlesi dahil) |
 
 ## Telif / Copyright
 

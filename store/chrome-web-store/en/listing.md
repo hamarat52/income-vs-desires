@@ -127,12 +127,12 @@ all from `IVD.formatDuration` with 5,000 USD · 8 h · 22 days.
 |---|---|
 | Category | Shopping |
 | Language | English (default, `default_locale: en`) |
-| Privacy policy URL | `https://hamarat52.github.io/income-vs-desires/en/privacy.html` — **live after push** (28.10: 404). Until then the TR page is live: `…/gizlilik.html` |
-| Support URL | `https://hamarat52.github.io/income-vs-desires/en/support.html` — **live after push** |
-| Homepage | `https://hamarat52.github.io/income-vs-desires/` (Turkish only) |
+| Privacy policy URL | `https://hamaratlabs.com/income-vs-desires/en/privacy`: **live** (2026-11-08 `curl` 200). TR page also live: `https://hamaratlabs.com/income-vs-desires/gizlilik` |
+| Support URL | `https://hamaratlabs.com/income-vs-desires/en/support`: **live** (2026-11-08 `curl` 200) |
+| Homepage | `https://hamaratlabs.com/income-vs-desires/`: **live** (2026-11-08 `curl` 200), Turkish only |
 
 Note (not verified in the dashboard): the privacy-policy URL appears to be a
-single field per item (Privacy tab), not per language — pick one (see
+single field per item (Privacy tab), not per language; pick one (see
 `store/README.md`, open questions).
 
 ## Images

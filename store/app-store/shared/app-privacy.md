@@ -44,10 +44,10 @@ isteği gerçek zamanlı karşılamanın ötesinde erişebileceği şekilde ilet
 
 ## Gizlilik politikası URL / Privacy policy URL (zorunlu / required)
 
-- TR: `https://hamarat52.github.io/income-vs-desires/gizlilik.html` (yayında / live)
-- EN: `https://hamarat52.github.io/income-vs-desires/en/privacy.html` (push sonrası / after push)
+- TR: `https://hamaratlabs.com/income-vs-desires/gizlilik` (yayında / live, 2026-11-08 `curl` 200)
+- EN: `https://hamaratlabs.com/income-vs-desires/en/privacy` (yayında / live, 2026-11-08 `curl` 200)
 
 Not: Gizlilik URL'si "App Information" düzeyinde, yerelleştirilebilir değil gibi
-görünüyor (Apple referansında "can be localized" ifadesi yok) — birincil dil
+görünüyor (Apple referansında "can be localized" ifadesi yok); birincil dil
 hangisiyse onun sayfası girilir. / Appears to be one URL per app (the Apple
 reference doesn't say it can be localized).

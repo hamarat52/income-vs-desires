@@ -94,5 +94,5 @@ the source server sees the IP address.
 
 ## Gizlilik politikası URL / Privacy policy URL
 
-- TR: `https://hamarat52.github.io/income-vs-desires/gizlilik.html` (yayında)
-- EN: `https://hamarat52.github.io/income-vs-desires/en/privacy.html` (push sonrası)
+- TR: `https://hamaratlabs.com/income-vs-desires/gizlilik` (yayında, 2026-11-08 `curl` 200)
+- EN: `https://hamaratlabs.com/income-vs-desires/en/privacy` (yayında, 2026-11-08 `curl` 200)

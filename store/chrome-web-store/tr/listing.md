@@ -144,12 +144,13 @@ milisaniye ölçülmedi, o yüzden tabloya değil cümleye yazıldı).
 |---|---|
 | Kategori | Alışveriş (Shopping) |
 | Dil | Türkçe (bu sayfa). Varsayılan dil İngilizce (`default_locale: en`) |
-| Gizlilik politikası URL | `https://hamarat52.github.io/income-vs-desires/gizlilik.html` — yayında (28.10 HTTP 200); 28.10'da eklenen Safari cümlesi push sonrası yayına girer |
-| Destek sitesi | `https://hamarat52.github.io/income-vs-desires/destek.html` — **push sonrası yayında olacak** (28.10: 404) |
-| Ana sayfa | `https://hamarat52.github.io/income-vs-desires/` |
+| Gizlilik politikası URL | `https://hamaratlabs.com/income-vs-desires/gizlilik`: **yayında** (2026-11-08 `curl` 200; Safari cümlesi dahil) |
+| Destek sitesi | `https://hamaratlabs.com/income-vs-desires/destek`: **yayında** (2026-11-08 `curl` 200) |
+| Ana sayfa | `https://hamaratlabs.com/income-vs-desires/`: **yayında** (2026-11-08 `curl` 200) |
 
-`incomevsdesires.com` alınmadı; alan adı kararı Yusuf'ta. Alınırsa
-`site/posts.json > siteUrl` + `node site/build.js`, ardından bu tablo.
+Tek site hamaratlabs.com (Yusuf kararı 2026-11-08); eski GitHub Pages kopyası
+kapanıyor, ayrı alan adı yok. Kaynak `site/`, yayına kopyalama hamaratlabs.com
+tarafında (bkz. kök `README.md`, "Tanıtım sitesi").
 
 ## Görseller
 

@@ -2,8 +2,9 @@
 
 Kontrol listesi: `OBS/Everything/Agent Rehberi/Mağaza Hazırlık Paketi.md`
 (0–8). Her kalem: **hazır** / **eksik** / **Yusuf'ta**. Durum 28.10.2026,
-dal `release/safari-chrome`. Push yapılmadı: "push sonrası" yazan URL'ler
-henüz yayında değil.
+dal `release/safari-chrome`. Site adresleri 2026-11-08'de güncellendi: tanıtım,
+destek ve gizlilik sayfaları `https://hamaratlabs.com/income-vs-desires/`
+altında yayında (bölüm 6).
 
 ## Yerleşim
 
@@ -172,19 +173,23 @@ of string type, and 112 or fewer characters long").
 CWS detaylı açıklama için 16.000 sınırı bu turda resmi belgeden okunmadı
 (betikteki üst sınır; metinler çok altında).
 
-## 6. Yasal ve form cevapları — hazır, URL'lerin ikisi push sonrası
+## 6. Yasal ve form cevapları: hazır, URL'ler yayında (hamaratlabs.com)
+
+Adres durumu 2026-11-08'de `curl -s -o /dev/null -w "%{http_code}"` ile
+ölçüldü; aşağıdaki tüm adresler 200. Eski GitHub Pages kopyası kapatılıyor,
+mağaza alanlarına yalnız bu adresler girilir.
 
 | Öğe | Durum |
 |---|---|
-| Gizlilik TR `…/gizlilik.html` | **yayında** (28.10 `curl` 200); 28.10 güncellemesi (Safari cümlesi, EN bağlantısı) push sonrası |
-| Gizlilik EN `…/en/privacy.html` | hazır (`site/en/privacy.html`), **push sonrası yayında olacak** (şu an 404) |
-| Destek TR `…/destek.html` · EN `…/en/support.html` | hazır, **push sonrası yayında olacak** (şu an 404). İçerik: GitHub Issues (200) + e-posta `hermes.agent.hamarat@gmail.com` (Yusuf kararı 2026-11-08: kurum e-postası her yerden kaldırıldı, herkese açık destek adresi bu) |
-| Pazarlama `https://hamarat52.github.io/income-vs-desires/` | yayında (200), yalnız Türkçe |
-| CWS gizlilik sekmesi (tek amaç, izinler, uzak kod, veri, sertifikalar) | hazır — [`chrome-web-store/shared/gizlilik-sekmesi.md`](chrome-web-store/shared/gizlilik-sekmesi.md) (TR+EN) |
-| App Privacy | hazır — Data Not Collected, [`app-privacy.md`](app-store/shared/app-privacy.md) |
-| Yaş anketi | hazır — [`yas-derecelendirme.md`](app-store/shared/yas-derecelendirme.md) |
-| Şifreleme | hazır — `ITSAppUsesNonExemptEncryption = NO` iki host app'te, [`sifreleme.md`](app-store/shared/sifreleme.md) |
-| Review notu (TR+EN), demo hesap | hazır — [`review-notes.md`](app-store/shared/review-notes.md); hesap gerekmez |
+| Gizlilik TR `https://hamaratlabs.com/income-vs-desires/gizlilik` | **yayında** (2026-11-08 `curl` 200; Safari cümlesi ve EN bağlantısı dahil) |
+| Gizlilik EN `https://hamaratlabs.com/income-vs-desires/en/privacy` | **yayında** (2026-11-08 `curl` 200) |
+| Destek TR `https://hamaratlabs.com/income-vs-desires/destek` · EN `https://hamaratlabs.com/income-vs-desires/en/support` | **yayında** (2026-11-08 `curl` 200, ikisi de). İçerik: GitHub Issues + e-posta `hermes.agent.hamarat@gmail.com` (Yusuf kararı 2026-11-08: kurum e-postası her yerden kaldırıldı, herkese açık destek adresi bu) |
+| Pazarlama / ana sayfa `https://hamaratlabs.com/income-vs-desires/` | **yayında** (2026-11-08 `curl` 200), yalnız Türkçe; blog (`…/blog/`) da yalnız Türkçe |
+| CWS gizlilik sekmesi (tek amaç, izinler, uzak kod, veri, sertifikalar) | hazır: [`chrome-web-store/shared/gizlilik-sekmesi.md`](chrome-web-store/shared/gizlilik-sekmesi.md) (TR+EN) |
+| App Privacy | hazır: Data Not Collected, [`app-privacy.md`](app-store/shared/app-privacy.md) |
+| Yaş anketi | hazır: [`yas-derecelendirme.md`](app-store/shared/yas-derecelendirme.md) |
+| Şifreleme | hazır: `ITSAppUsesNonExemptEncryption = NO` iki host app'te, [`sifreleme.md`](app-store/shared/sifreleme.md) |
+| Review notu (TR+EN), demo hesap | hazır: [`review-notes.md`](app-store/shared/review-notes.md); hesap gerekmez |
 | Üçüncü taraf lisans / atıf | eksik değil: pakette üçüncü taraf kod yok; kur verisi Frankfurter/ECB, gizlilik sayfasında anılıyor |
 
 ## 7. Uygulama içi dil — hazır
@@ -203,8 +208,8 @@ paketleniyor; host app açılış metni `navigator.language` ile TR/EN.
 ## Yusuf'un yapacakları
 
 - Ad kararı (CWS uzun ad; App Store TR/EN ad) — `chrome-web-store/tr/listing.md`, `app-store/{tr,en}/listing.md`.
-- Destek sayfalarında e-posta adresinin yayımlanmasına onay — `site/destek.html`, `site/en/support.html`.
-- Push (site yayını: destek + EN gizlilik) — ardından URL'lerin 200 döndüğünü kontrol.
+- ~~Destek sayfalarında e-posta adresinin yayımlanmasına onay~~: karar verildi (2026-11-08, `hermes.agent.hamarat@gmail.com`).
+- ~~Push (site yayını: destek + EN gizlilik)~~: site hamaratlabs.com'a taşındı, URL'ler 200 (2026-11-08, bölüm 6).
 - CWS: `bash scripts/build-cws-zip.sh` çıktısını yükleme, TR + EN listeleme metinlerini girme, Gönder.
 - App Store Connect: uygulama kaydı (bundle `com.hamarat52.IncomeVsDesires`), imza/sertifika, Xcode Archive + yükleme, metinler, Gönder.
 
