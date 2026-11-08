@@ -1,4 +1,4 @@
-// IncomeVsDesires ikon seti — SVG üretici (bağımlılık yok, `node icons.mjs <çıktı-klasörü>`).
+// IncomeVsDesires ikon seti: SVG üretici (bağımlılık yok, `node icons.mjs <çıktı-klasörü>`).
 //
 // Ana çizim: hamaratlabs-web/src/AppIcon.jsx, 'Income vs Desires' girdisi
 // (yeşil #43e08c → #0c9a6c, cam terazi glyph'i, aynı filtre zinciri, aynı Apple

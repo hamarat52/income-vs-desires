@@ -3,7 +3,7 @@
 İnternette gezerken gördüğün fiyatları, **senin maaşına göre ne kadar çalışman
 gerektiğine** çeviren Chrome eklentisi.
 
-> Spor ayakkabı — ~~500 TL~~ → **1,8 saat**
+> Spor ayakkabı: ~~500 TL~~ → **1,8 saat**
 
 Süreye tıklarsan orijinal fiyat geri gelir.
 
@@ -37,15 +37,15 @@ mesai gerektiğini yazar ve uyarı çıkar.
 
 Grafik renkleri `dataviz` referans paletinin ilk üç kategorik yuvası; hem açık
 hem koyu zeminde `validate_palette.js` ile doğrulandı (all-pairs CVD ΔE 9.2 /
-9.4). Değerler ayrıca tabloda ve efsanede yazılı — renk tek başına bilgi
+9.4). Değerler ayrıca tabloda ve efsanede yazılı; renk tek başına bilgi
 taşımıyor.
 
 Sayfanın altında iki bölüm daha var:
 
-- **Test edilmiş siteler** — aşağıdaki saha testinin sonucu. Liste
+- **Test edilmiş siteler**: aşağıdaki saha testinin sonucu. Liste
   `src/options.js` içindeki `TESTED_SITES` sabitinden gelir. Kullanıcının
   kapattığı siteler "bu sitede kapalı" etiketiyle işaretlenir.
-- **Hata bildir / özellik iste** — rapora eklenti sürümü, tarayıcı, para birimi
+- **Hata bildir / özellik iste**: rapora eklenti sürümü, tarayıcı, para birimi
   ve çalışma düzeni otomatik eklenir; **maaş ve gider listesi asla eklenmez**.
   Gönderilecek metin `<details>` içinde olduğu gibi gösterilir.
 
@@ -54,10 +54,10 @@ Sayfanın altında iki bölüm daha var:
 
 ## Panel
 
-- **Sayfayı yeniden tara** — geç yüklenen ya da kaçan fiyatlar için. Basınca kaç
+- **Sayfayı yeniden tara**: geç yüklenen ya da kaçan fiyatlar için. Basınca kaç
   fiyatın çevrildiğini butonun üstünde yazar. (Eklentiyi kapatıp açmakla aynı
   işi yapar, sekmeyi yenilemeye gerek yok.)
-- **`<site>` için kapat** — o alan adında eklentiyi devre dışı bırakır.
+- **`<site>` için kapat**: o alan adında eklentiyi devre dışı bırakır.
 
 ### Gösterim seçenekleri
 
@@ -126,13 +126,13 @@ gerekmez:
   belge aynı kalır; içerik bazen gözlemcinin göremeyeceği şekilde yerinde
   değişir.
 
-  `history.pushState` yamamak işe yaramaz — içerik betiği ayrı bir JS
+  `history.pushState` yamamak işe yaramaz; içerik betiği ayrı bir JS
   dünyasında çalışır, sayfanın kendi çağrısını göremez. `webNavigation` izni
   ise gezinme geçmişine erişim ister ve gizlilik sözünü bozardı.
 
 ## Tasarım dili
 
-Eklenti ve site aynı dili konuşuyor: **"mesai kartı"** — kağıt yüzey, cetvel
+Eklenti ve site aynı dili konuşuyor: **"mesai kartı"**: kağıt yüzey, cetvel
 çizgileri, monospace rakamlar, tek mühür aksanı (`#b8371f`). Rakamlar ürünün
 kendisi olduğu için tipografi onların etrafında kuruldu: sayı gördüğün her yer
 monospace, açıklama metni sans.
@@ -201,7 +201,7 @@ izin gerekçeleri, form cevapları, ham ekran görüntüleri). Kontrol listesi:
 | `src/background.js` | Kur tablosunu günde bir çeker (Frankfurter, yoksa iki yedek kaynak) ve `storage.local`'da önbelleğe alır |
 | `src/popup.*` | Ayar paneli |
 | `src/options.*` | Giderler sayfası: gider listesi, stat tile'lar, halka grafik |
-| `test/demo.html` | Eklenti yüklemeden test etmek için sahte `chrome.*` API'li sayfa — tarayıcıda direkt aç |
+| `test/demo.html` | Eklenti yüklemeden test etmek için sahte `chrome.*` API'li sayfa, tarayıcıda direkt aç |
 | `test/test-money.js` | Birim testleri: fiyat yakalama, sayı ayrıştırma, süre birimleri (`node test/test-money.js`) |
 | `test/test-background.js` | Service worker testleri: kur çekme, önbellek, çöküş yolları (`node test/test-background.js`) |
 | `test/test-popup.js` | Panel testi: bekleyen kayıt Giderler açılmadan yazılıyor mu (`node test/test-popup.js`) |
@@ -234,7 +234,7 @@ yükü dahil), 5 tekrarın medyanı. Kaydırma yapılmadı. **Element** sayfadak
 | Çiçeksepeti | 1.965 | 45 | 12 ms |
 | Sahibinden | 3.282 | 20 | 38 ms |
 | MediaMarkt | 5.684 | 8 (ilk ekran) | 29 ms |
-| Boyner | — | bilinmiyor | — |
+| Boyner | ölçülmedi | bilinmiyor | ölçülmedi |
 
 Boyner'de ürün kartları test tarayıcısında yüklenmedi (bulunan 5 tutar sayfa
 kabuğundaki metinlerdi). MediaMarkt ürünleri kaydırdıkça yüklüyor; kaydırınca
@@ -244,11 +244,11 @@ setine bölünmüştü; bu ölçüm onların yerini alır.
 
 İlk saha testinde (31.07.2026) çıkıp düzeltilen hatalar:
 
-1. **Hepsiburada** — kuruş ayrı elementte (`2.144<span>,35 TL</span>`). Eski kod
+1. **Hepsiburada**: kuruş ayrı elementte (`2.144<span>,35 TL</span>`). Eski kod
    `,35 TL`'yi ayrı fiyat sanıp "7 dk" yazıyordu. → alt ağaç düzleştirme.
-2. **Amazon** — fiyat iki kez yazılı, ilki `.a-offscreen` ile gizli. Eşleşme iki
+2. **Amazon**: fiyat iki kez yazılı, ilki `.a-offscreen` ile gizli. Eşleşme iki
    kopyanın arasına denk gelip fiyatı ekrandan siliyordu. → gizli metin dışlanır.
-3. **Google Alışveriş** — manifest'te tüm `google.com` hariç tutulmuştu; açıldı.
+3. **Google Alışveriş**: manifest'te tüm `google.com` hariç tutulmuştu; açıldı.
    Ardından `checkVisibility()` 1.568 elementin 1.077'sini görünmez sayıp ürün
    kartlarını yuttu (3 fiyat bulunuyordu) → o kontrol kaldırıldı, 68'e çıktı.
 4. `"Beden 42 500 TL"` → 42.500 TL okunuyordu. Normal boşluk artık binlik ayracı

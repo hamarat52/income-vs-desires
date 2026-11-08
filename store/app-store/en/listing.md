@@ -1,4 +1,4 @@
-# App Store Connect — English listing (Safari extension: macOS + iOS/iPadOS)
+# App Store Connect: English listing (Safari extension: macOS + iOS/iPadOS)
 
 Same features as the Turkish listing ([`../tr/listing.md`](../tr/listing.md)).
 Shared forms: [`../shared/`](../shared/) (app privacy, age rating, encryption,
@@ -9,7 +9,7 @@ Rules (PM check 28.10, developer.apple.com/help/app-store-connect/reference):
 name ≤ 30, subtitle ≤ 30, promotional text ≤ 170, description ≤ 4000,
 keywords ≤ 100 **bytes** (each > 2 characters, don't repeat the app or company
 name). Guideline 2.3.10: no other platform names (**no "Chrome"**); 2.3.7: no
-price talk in metadata — no "free" in the promotional text.
+price talk in metadata; no "free" in the promotional text.
 
 App Store localization: Name, subtitle, description, keywords, promotional
 text, screenshots, support and marketing URLs can be localized; add
@@ -137,6 +137,6 @@ Not available for the first version. Template for version 2:
 
 ## Screenshots
 
-`en/{iphone,ipad,mac}/` — empty, ImageArtist fills them. Raw EN frames
-(English UI, IKEA US, Chrome viewport — to be replaced with Safari captures):
+`en/{iphone,ipad,mac}/`: empty, ImageArtist fills them. Raw EN frames
+(English UI, IKEA US, Chrome viewport, to be replaced with Safari captures):
 `store/raw/en/{iphone,ipad,desktop}/`.

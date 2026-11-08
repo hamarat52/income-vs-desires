@@ -23,12 +23,12 @@ Bu sayfa Mac'te hangilerinin seçilebildiğini ayrıca listelemiyor (yalnız
 |---|---|---|
 | Birincil / Primary | **Finans / Finance** | Xcode değeriyle eşleşmesi gereken tek geçerli ve uygun değer; ortak kategori olduğundan iOS'ta da Finans görünür. |
 | İkincil / Secondary | **Alışveriş / Shopping** | iOS'ta mevcut; Chrome'daki kategoriyle uyumlu. App Store Connect'te Mac için ikincilde seçilebildiği **doğrulanmadı**. Olmazsa **Yaşam Tarzı / Lifestyle**. |
-| Seçenek | **Safari Extensions** | Apple'ın kategori listesinde var; Xcode karşılığı olmadığı için birincilde kullanılamayabilir. İkincil için değerlendirilebilir — **açık soru**. |
+| Seçenek | **Safari Extensions** | Apple'ın kategori listesinde var; Xcode karşılığı olmadığı için birincilde kullanılamayabilir. İkincil için değerlendirilebilir (**açık soru**). |
 
 ## Fiyat / Price
 
 - **Ücretsiz / Free.** Uygulama içi satın alma yok / no in-app purchases.
 - Telif / Copyright: `2026 Muhammed Yusuf Hamarat`
-- Sürüm / Version: `0.1.0` (build `1`) — `MARKETING_VERSION` /
+- Sürüm / Version: `0.1.0` (build `1`): `MARKETING_VERSION` /
   `CURRENT_PROJECT_VERSION` (pbxproj), manifest `version` `0.1.0`.
 - Platformlar / Platforms: macOS 12+, iOS/iPadOS 17+ (host app 17.0 hedefli).

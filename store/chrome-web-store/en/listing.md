@@ -1,8 +1,8 @@
-# Chrome Web Store — English listing
+# Chrome Web Store: English listing
 
 Default listing language: the manifest has `"default_locale": "en"`, so every
 locale other than Turkish falls back to this page. Same features as the
-Turkish listing ([`../tr/listing.md`](../tr/listing.md)) — CWS checks that
+Turkish listing ([`../tr/listing.md`](../tr/listing.md)); CWS checks that
 localized listings are consistent. Privacy-tab answers (single purpose,
 permission justifications, remote code, data usage, certifications):
 [`../shared/gizlilik-sekmesi.md`](../shared/gizlilik-sekmesi.md).
@@ -11,7 +11,7 @@ Lengths and manifest equality: `node scripts/check-listing-length.js`.
 > Name and summary come from the package: `_locales/en/messages.json`
 > (`extName`, `extDescription`). The detailed description, screenshots and
 > YouTube video are entered per language in the dashboard.
-> Note: the manifest summary contains **no "$" sign** — Chrome 156 showed
+> Note: the manifest summary contains **no "$" sign**: Chrome 156 showed
 > `$$50` for the escaped form in `chrome://extensions` (manifest localization
 > doesn't unescape `$$`), so it says "50 dollars".
 
@@ -116,7 +116,7 @@ No ads, no subscription, no "pro" version.
 Sources: Turkish table `docs/qa/saha-testi-2026-10-28.json` (the full list of
 11 is in the Turkish listing); US check `store/raw/README.md` › "Saha notu"
 (headless Chrome, chip count on the page; scan time not measured there).
-Example numbers: `$79.99 → 2.8 hours`, rent `$1,500 → 6.6 days`, `30%` —
+Example numbers: `$79.99 → 2.8 hours`, rent `$1,500 → 6.6 days`, `30%`,
 all from `IVD.formatDuration` with 5,000 USD · 8 h · 22 days.
 
 ---
@@ -138,7 +138,7 @@ single field per item (Privacy tab), not per language; pick one (see
 ## Images
 
 - Store icon (128×128): `shared/store-icon-128-padded.png` (same for all languages).
-- Screenshots (1280×800): `en/screenshots/` — empty; raw EN frames (English UI,
+- Screenshots (1280×800): `en/screenshots/`: empty; raw EN frames (English UI,
   IKEA US, 2560×1600) are in `store/raw/en/desktop/`. ImageArtist frames them.
 - Small promo tile 440×280 and marquee 1400×560 are **not localizable**
   (one image for all languages): `shared/`.

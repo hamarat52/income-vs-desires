@@ -26,13 +26,13 @@ isteği gerçek zamanlı karşılamanın ötesinde erişebileceği şekilde ilet
 - Giderler sayfasındaki "hata bildir" bir `mailto:` bağlantısı
   (`src/options.js`, `FEEDBACK_EMAIL`): kullanıcı metni kendi e-posta
   uygulamasında görüp kendisi gönderir; maaş ve gider içermez. Apple'ın
-  "isteğe bağlı geri bildirim" istisnası kapsamında değerlendirildi —
+  "isteğe bağlı geri bildirim" istisnası kapsamında değerlendirildi;
   **açık soru** (`store/README.md`).
 
 ## Rationale (EN)
 
 - Pay, schedule, expenses and turned-off sites live in Safari's extension
-  storage (`storage.sync/local`); they never reach the developer — there is no
+  storage (`storage.sync/local`); they never reach the developer; there is no
   server.
 - Only outgoing requests: the exchange-rate table (`api.frankfurter.dev`,
   backups `open.er-api.com`, `cdn.jsdelivr.net`). No user data in the request.
@@ -40,7 +40,7 @@ isteği gerçek zamanlı karşılamanın ötesinde erişebileceği şekilde ilet
   tracking, no collected data types and no required-reason APIs.
 - "Report a bug" is a `mailto:` link; the user sees and sends the email from
   their own mail app. It contains neither pay nor expenses. Treated as optional
-  user-initiated feedback — **open question**.
+  user-initiated feedback (**open question**).
 
 ## Gizlilik politikası URL / Privacy policy URL (zorunlu / required)
 

@@ -1,4 +1,4 @@
-# Chrome Web Store — Gizlilik uygulamaları sekmesi / Privacy practices tab
+# Chrome Web Store: Gizlilik uygulamaları sekmesi / Privacy practices tab
 
 İki dil için ortak (sekme tek; metin alanları İngilizce de yazılabilir).
 Kaynak: eski `MAGAZA-LISTELEME.md` bölümleri, 28.10.2026'da `manifest.json` ve
@@ -68,7 +68,7 @@ Hiçbir kutu işaretlenmez. / No box is checked.
 | Kullanıcı etkinliği / User activity | Toplanmıyor / Not collected |
 | Web sitesi içeriği / Website content | Toplanmıyor (fiyat metni cihazda okunup yerinde değiştirilir) / Not collected (price text is read and replaced on the device) |
 
-Dürüst değerlendirme — `storage.sync`: Maaş, çalışma düzeni ve gider listesi
+Dürüst değerlendirme (`storage.sync`): Maaş, çalışma düzeni ve gider listesi
 `chrome.storage.sync`'te. Kullanıcının Chrome senkronizasyonu açıksa veriler
 **Chrome tarafından** Google hesabına senkronlanır. Geliştiricinin sunucusu
 yok; veri bize ya da üçüncü tarafa gelmez. "Toplanmıyor" savunulabilir;
@@ -77,7 +77,7 @@ yazıyor. İnceleme maaşı "finansal bilgi" sayıp sorarsa: (a) bu açıklamayl
 itiraz, (b) maaşı `storage.local`'a taşımak (cihazlar arası eşitleme kaybolur).
 Karar PM'de.
 
-Honest note — `storage.sync`: pay, schedule and expenses live in
+Honest note (`storage.sync`): pay, schedule and expenses live in
 `chrome.storage.sync`; with Chrome sync on, **Chrome** syncs them through the
 user's Google account. There is no developer server; nothing reaches us or a
 third party.

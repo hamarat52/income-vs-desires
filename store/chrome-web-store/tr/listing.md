@@ -1,4 +1,4 @@
-# Chrome Web Mağazası — Türkçe listeleme
+# Chrome Web Mağazası: Türkçe listeleme
 
 Kaynak: eski `MAGAZA-LISTELEME.md` (`git mv` ile buraya taşındı, 28.10.2026).
 Tek amaç, izin gerekçeleri, uzak kod, veri kullanımı ve sertifikalar ayrı
@@ -13,7 +13,7 @@ bulunamadı (31.07.2026 taraması).
 > manifest `name`, özet `description` alanıdır; panelde düzenlenemez.
 > Manifest artık `__MSG_extName__` / `__MSG_extDescription__` kullanıyor;
 > Türkçe değerler `_locales/tr/messages.json`'da. Detaylı açıklama, ekran
-> görüntüleri ve YouTube videosu dil başına girilir — yalnız eklentide o dilin
+> görüntüleri ve YouTube videosu dil başına girilir; yalnız eklentide o dilin
 > `_locales/<kod>` klasörü varsa (developer.chrome.com/docs/webstore/cws-dashboard-listing;
 > PM 28.10 doğrulaması). `_locales/tr` var → Türkçe sayfa açılabilir.
 > Varsayılan dil `en` (`default_locale`); Türkçe dışındaki her dil İngilizceye düşer.
@@ -161,7 +161,7 @@ Boyut, kaynak ve alan eşlemesi: [`../shared/gorseller.md`](../shared/gorseller.
 - **Ekran görüntüleri (1280×800, alfasız PNG)**: mevcut set `tr/screenshots/`
   (28.10, eklentinin Türkçe-only sürümüyle çekildi). Yeni ham kareler TR arayüzle
   `store/raw/tr/desktop/` (2560×1600); ImageArtist çerçeveleyip buraya koyacak.
-- **Küçük tanıtım karesi 440×280** ve **marquee 1400×560**: `shared/` —
+- **Küçük tanıtım karesi 440×280** ve **marquee 1400×560**: `shared/`:
   yerelleştirilemez, tek kare iki dile de gösterilir. Şu anki kareler Türkçe
   metin taşıyor (bkz. `store/README.md` açık soru).
 - `store/arsiv/chrome-eski-35000tl/`: 35.000 TL ile çekilmiş eski kareler,

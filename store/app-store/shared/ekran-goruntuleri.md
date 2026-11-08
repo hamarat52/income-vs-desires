@@ -14,13 +14,13 @@ ve PM'in 28.10 doğrulaması:
 Hepsi PNG, alfa yok (`sips -g hasAlpha` → `no`, Pillow modu `RGB`). Safari ham kareleri
 (simctl, RGBA) şablonda kırpılıp `store/_src/flatten.py` ile RGB'ye düzleştirildi.
 
-## Kaynak ve dürüstlük — ÖNEMLİ
+## Kaynak ve dürüstlük (ÖNEMLİ)
 
 | Set | Kaynak |
 |---|---|
-| iPhone TR + EN | **gerçek Safari (iOS 27 simülatör, iPhone 18 Pro)**, gerçek uzantı, gerçek site — `store/raw-safari/iphone/<dil>/` |
-| iPad TR + EN | **gerçek Safari (iOS 27 simülatör, iPad Pro 13" M5)**, gerçek uzantı, gerçek site — `store/raw-safari/ipad/<dil>/` |
-| Mac TR + EN | **Chrome kaynaklı, macOS Safari çekimi bekliyor** — `store/raw/<dil>/desktop/` (Chrome görüntü alanı; Chrome öğesi yok) |
+| iPhone TR + EN | **gerçek Safari (iOS 27 simülatör, iPhone 18 Pro)**, gerçek uzantı, gerçek site: `store/raw-safari/iphone/<dil>/` |
+| iPad TR + EN | **gerçek Safari (iOS 27 simülatör, iPad Pro 13" M5)**, gerçek uzantı, gerçek site: `store/raw-safari/ipad/<dil>/` |
+| Mac TR + EN | **Chrome kaynaklı, macOS Safari çekimi bekliyor**: `store/raw/<dil>/desktop/` (Chrome görüntü alanı; Chrome öğesi yok) |
 
 Derleme (ayrıntı [`../../raw-safari/README.md`](../../raw-safari/README.md)):
 - `264072b` (28.10 21:04): iPhone TR 01–05, iPhone EN 01–03, iPad TR 01–05.
@@ -37,11 +37,11 @@ Kurallar:
   iPad adres çubuğu + uzantı popover'ı) yer yer görünür; odak eklentidir.
 - Rehber 2.3.10: hiçbir karede "Chrome" yazısı/arayüzü yok (Apple seti Safari'den).
 - Rehber 2.3.7: fiyat/"ücretsiz" ifadesi yok. Görünen fiyatlar sitenin ürün fiyatları.
-- Rehber 2.3.9: site logoları kırpım dışında — Trendyol ve Zappos üst bandı, Marjin
+- Rehber 2.3.9: site logoları kırpım dışında: Trendyol ve Zappos üst bandı, Marjin
   satıcı afişi/logosu, iPad sekme çubuğu (site favicon'ları, "Zappos" sekme başlığı),
   iPad durum çubuğundaki "◀ Ayarlar" dönüş bağlantısı. Kalan: adres çubuğundaki alan
   adı (`trendyol.com`, `zappos.com`, düz metin), ürün adlarındaki marka metni
-  (adidas, Nike, SKECHERS…) ve ürün fotoğrafındaki marka işaretleri — ürün kartının parçası.
+  (adidas, Nike, SKECHERS…) ve ürün fotoğrafındaki marka işaretleri; bunlar ürün kartının parçası.
 - Rehber 2.3.3: her kare eklentiyi kullanımda gösteriyor (açılış ekranı yok).
 - Örnek maaş gerçek kişi verisi değil: TR 50.000 TL · 8 saat · 22 gün (₺284,09/sa);
   EN $5,000 · 8 h · 22 days ($28.41/sa). Gider: Kira 18.000 TRY / Rent $1,500.

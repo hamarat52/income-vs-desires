@@ -18,7 +18,7 @@ content, chat, ads, purchases, in-app browser, location or health content.
 | Tıbbi/tedavi bilgisi; sağlık konuları / Medical or treatment info; health topics | Yok / None |
 | Kullanıcı içeriği, mesajlaşma, sosyal medya / User-generated content, messaging, social media | Hayır / No |
 | Reklam / Advertising | Hayır / No |
-| Sınırsız web erişimi / Unrestricted web access | Hayır — uygulama web sitesi açmaz; uzantı kullanıcının kendi Safari'sinde çalışır (host app `Main.html` CSP `default-src 'self'`) / No — the app opens no websites; the extension runs in the user's own Safari |
+| Sınırsız web erişimi / Unrestricted web access | Hayır: uygulama web sitesi açmaz; uzantı kullanıcının kendi Safari'sinde çalışır (host app `Main.html` CSP `default-src 'self'`) / No: the app opens no websites; the extension runs in the user's own Safari |
 | Ebeveyn denetimi, yaş doğrulama / Parental controls, age assurance | Hayır / No |
 | Made for Kids | Hayır / No |
 

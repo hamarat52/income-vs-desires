@@ -1,5 +1,5 @@
 /* Sahne verisi. Kırpım kutuları [x, y, w, h] ham görüntünün CSS pikseli cinsinden
-   (ham piksel / dsf). Ham kareler: store/raw/<dil>/<cihaz>/ — README'de URL ve saat.
+   (ham piksel / dsf). Ham kareler: store/raw/<dil>/<cihaz>/ (README'de URL ve saat).
    Başlık/alt yazıdaki her rakam ilgili ham karede görünür (meta.json "chips" ve
    "note" alanlarından okundu); uydurma rakam yok. */
 window.DEVICES = {
@@ -249,7 +249,7 @@ window.buildScenes = function (set, lang) {
       { src: R('on'), dev: d, crop: C.s2, w: C.s2W, tag: ['on', t.on] }
     ] });
   } else if (C.s2a) {
-    // EN iPhone: iki ürün (TERTIAL, FORSÅ), her biri kapalı/açık — 4 kırpım yerine 2×2 değil, iki satır
+    // EN iPhone: iki ürün (TERTIAL, FORSÅ), her biri kapalı/açık; 4 kırpım yerine 2×2 değil, iki satır
     S.push({ title: t.s2, sub: sub2, layout: 'stack', shots: [
       { src: R('off'), dev: d, crop: C.s2a, w: C.s2W, tag: ['off', t.off] },
       { src: R('on'), dev: d, crop: C.s2a, w: C.s2W, tag: ['on', t.on] }

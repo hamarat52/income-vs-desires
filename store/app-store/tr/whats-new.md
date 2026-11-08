@@ -1,11 +1,11 @@
-# Yenilikler (What's New) — şablon
+# Yenilikler (What's New): şablon
 
 İlk sürümde (0.1.0) App Store Connect bu alanı **göstermez**; ikinci sürümden
 itibaren zorunlu, ≤ 4000 karakter, yerelleştirilebilir (Apple "Platform
 version information" referansı). Chrome Web Mağazası'nda karşılığı yok.
 Kaynak: `CHANGELOG.md`. Rehber 2.3.10: başka platform adı yazma.
 
-## 0.1.0 (ilk sürüm — mağazaya girilmez, kayıt için)
+## 0.1.0 (ilk sürüm, mağazaya girilmez, kayıt için)
 
 ```
 İlk sürüm.

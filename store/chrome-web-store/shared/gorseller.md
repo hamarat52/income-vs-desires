@@ -1,6 +1,6 @@
 # Chrome Web Store görselleri
 
-## Güncel set (28.10.2026, ImageArtist) — YÜKLENECEK OLANLAR
+## Güncel set (28.10.2026, ImageArtist): YÜKLENECEK OLANLAR
 
 | Mağaza alanı | TR | EN | Not |
 |---|---|---|---|
@@ -29,7 +29,7 @@ Ekran görüntüsü sırası (her iki dilde aynı): 1) sayfada süreler, 2) önc
 
 Ayar paneli notu: PM, panelin 1280 genişlikte göründüğünü not etmişti; bu turda
 kullanılan `04-ayar-paneli.png` ham karesi zaten gerçek popup genişliğinde
-(300 CSS px, 600×1128 @2x) — kırpma/önizleme sayfası gerekmedi. EN'deki
+(300 CSS px, 600×1128 @2x); kırpma/önizleme sayfası gerekmedi. EN'deki
 "days / mo" kesik değil, `_locales/en/messages.json`'daki metnin kendisi.
 
 Dilden bağımsız tanıtım kareleri yalnız marka adı + simge taşır: eklentinin
@@ -66,8 +66,8 @@ ayda 22 gün** (saatlik ₺284,09).
 | `screenshot-5-test-edilen-siteler.png` | 1280×800 | Ekran görüntüsü 5 | Eklentinin gerçek `options.html`'i, "Test edilmiş siteler" bölümü açık (Chrome for Testing, yukarıdaki profil, %80). Rakamlar `src/options.js > TESTED_SITES` = `docs/qa/saha-testi-2026-10-28.json`. |
 | `promo-small-440x280.png` | 440×280 | Küçük tanıtım karesi (zorunlu) | `src/promo-small-440x280.html` render'ı. Marka yeşili #43e08c→#0c9a6c, ikon `src/icons/icon-128.png`. "500 TL → 1,8 saat" = 500 / 284,09 (eklentinin `IVD.formatDuration`'ı ile doğrulandı). |
 | `marquee-1400x560.png` | 1400×560 | Marquee tanıtım görseli (isteğe bağlı) | `src/marquee-1400x560.html` render'ı. Örnekler `IVD.formatDuration` ile doğrulandı: 500 TL → 1,8 saat, 2.499 TL → 1,1 gün, 50.000 TL → 1 ay. |
-| `store-icon-128.png` | 128×128 (alfa var) | — (kullanılmayacak) | `src/icons/icon-128.png`'nin birebir kopyası (`cmp` aynı). |
-| `store-icon-128-padded.png` | 128×128 (alfa var) | **Mağaza ikonu — kullanılacak** (PM kararı, 28.10.2026) | Aynı ikon 96×96'ya küçültülüp 16 px saydam pay ile ortalandı (Google'ın "96×96 görsel + 16 px pay" önerisi). |
+| `store-icon-128.png` | 128×128 (alfa var) | yok (kullanılmayacak) | `src/icons/icon-128.png`'nin birebir kopyası (`cmp` aynı). |
+| `store-icon-128-padded.png` | 128×128 (alfa var) | **Mağaza ikonu, kullanılacak** (PM kararı, 28.10.2026) | Aynı ikon 96×96'ya küçültülüp 16 px saydam pay ile ortalandı (Google'ın "96×96 görsel + 16 px pay" önerisi). |
 
 ## Notlar
 

@@ -1,4 +1,4 @@
-/* Mağaza ekran görüntüsü şablonu — tek sayfa, ?set=…&lang=…&i=… ile sahne seçer.
+/* Mağaza ekran görüntüsü şablonu: tek sayfa, ?set=…&lang=…&i=… ile sahne seçer.
    Tasarım dili eklentinin "mesai kartı"ndan (src/tokens.css): kağıt, mürekkep,
    monospace rakamlar; marka yeşili #43e08c → #0c9a6c yalnız vurguda. */
 :root {

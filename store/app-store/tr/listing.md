@@ -1,4 +1,4 @@
-# App Store Connect — Türkçe listeleme (Safari uzantısı: macOS + iOS/iPadOS)
+# App Store Connect: Türkçe listeleme (Safari uzantısı: macOS + iOS/iPadOS)
 
 Kaynak: eski `APP-STORE-LISTELEME.md` (`git mv` ile buraya taşındı, 28.10.2026).
 Ortak formlar `../shared/` altında: [`app-privacy.md`](../shared/app-privacy.md),
@@ -13,7 +13,7 @@ Kurallar (PM 28.10 doğrulaması, developer.apple.com/help/app-store-connect/ref
 ad ≤ 30, alt başlık ≤ 30, tanıtım ≤ 170, açıklama ≤ 4000, anahtar kelime
 ≤ 100 **bayt** (her biri > 2 karakter, ad/şirket adı tekrarlanmaz);
 "Yenilikler" ilk sürümde yok. Rehber 2.3.10: metinde başka platform adı yok
-(**"Chrome" geçmez**); 2.3.7: fiyat bilgisiyle meta veri şişirilmez — bu yüzden
+(**"Chrome" geçmez**); 2.3.7: fiyat bilgisiyle meta veri şişirilmez; bu yüzden
 tanıtım metninden "ücretsiz" çıkarıldı, açıklamada fiyat bölümü yok.
 
 Tek uygulama kaydı: bundle ID `com.hamarat52.IncomeVsDesires`, macOS ve iOS'ta
@@ -147,7 +147,7 @@ Notlar:
 
 ## Ekran görüntüleri
 
-`tr/iphone/`, `tr/ipad/` — host uygulamanın açılış ekranı (eski set, uzantıyı
+`tr/iphone/`, `tr/ipad/`: host uygulamanın açılış ekranı (eski set, uzantıyı
 çalışırken göstermiyor). `tr/mac/` boş. Ham uzantı kareleri (Chrome görüntü
 alanı, Safari çekimiyle değiştirilecek): `store/raw/tr/{iphone,ipad,desktop}/`.
 Ayrıntı: [`../shared/ekran-goruntuleri.md`](../shared/ekran-goruntuleri.md).

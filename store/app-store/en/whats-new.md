@@ -1,11 +1,11 @@
-# What's New — template
+# What's New: template
 
 App Store Connect doesn't show this field for the first version (0.1.0); it
 is required from the second version on, ≤ 4000 characters, localizable
 (Apple "Platform version information" reference). No equivalent in the Chrome
 Web Store. Source: `CHANGELOG.md`. Guideline 2.3.10: no other platform names.
 
-## 0.1.0 (first version — not entered in the store, for the record)
+## 0.1.0 (first version, not entered in the store, for the record)
 
 ```
 First release.

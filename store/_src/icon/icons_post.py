@@ -144,7 +144,7 @@ for r, (label, rgb) in enumerate(bgs):
         x = 170 + i * CW + (CW - disp.width) // 2
         y = y0 + (RH - disp.height) // 2
         sheet.paste(disp, (x, y), disp)
-d.text((14, H - 32), "IncomeVsDesires ikon seti — gerçek piksel boyutu (×N: en yakın komşu büyütme). "
+d.text((14, H - 32), "IncomeVsDesires ikon seti: gerçek piksel boyutu (×N: en yakın komşu büyütme). "
        "Kaynak: store/_src/icon/icons.mjs (AppIcon.jsx)", font=small, fill=(87, 83, 74))
 prev = os.path.join(STORE_SHARED, "ikon-onizleme.png")
 sheet.save(prev, optimize=True)
