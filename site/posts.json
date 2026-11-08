@@ -1,12 +1,12 @@
 {
-  "siteUrl": "https://hamarat52.github.io/income-vs-desires",
+  "siteUrl": "https://hamaratlabs.com/income-vs-desires",
   "pages": [
-    { "path": "/", "changefreq": "monthly", "priority": "1.0" },
-    { "path": "/blog/", "changefreq": "weekly", "priority": "0.7" },
-    { "path": "/gizlilik.html", "changefreq": "yearly", "priority": "0.3" },
-    { "path": "/destek.html", "changefreq": "yearly", "priority": "0.3" },
-    { "path": "/en/privacy.html", "changefreq": "yearly", "priority": "0.3" },
-    { "path": "/en/support.html", "changefreq": "yearly", "priority": "0.3" }
+    { "path": "/", "changefreq": "monthly", "priority": "1.0", "lastmod": "2026-11-08" },
+    { "path": "/blog/", "changefreq": "weekly", "priority": "0.7", "lastmod": "2026-11-08" },
+    { "path": "/gizlilik", "changefreq": "yearly", "priority": "0.3", "lastmod": "2026-11-08" },
+    { "path": "/destek", "changefreq": "yearly", "priority": "0.3", "lastmod": "2026-11-08" },
+    { "path": "/en/privacy", "changefreq": "yearly", "priority": "0.3", "lastmod": "2026-11-08" },
+    { "path": "/en/support", "changefreq": "yearly", "priority": "0.3", "lastmod": "2026-11-08" }
   ],
   "posts": [
     {

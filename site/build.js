@@ -30,17 +30,18 @@ const trDate = (iso) =>
 
 // --- alan adını her sayfaya yay ---------------------------------------------
 //
-// Alan adı henüz alınmadı. Tek doğru kaynak posts.json'daki `siteUrl`; burada
-// tüm sayfalardaki mutlak adresler ona göre yeniden yazılıyor. Domain alınınca
-// posts.json'da tek satır değiştirip bu betiği çalıştırmak yeterli.
+// Site https://hamaratlabs.com/income-vs-desires/ altında yayında. Tek doğru
+// kaynak posts.json'daki `siteUrl`; burada tüm sayfalardaki mutlak adresler ona
+// göre yeniden yazılıyor.
 //
 // Sadece adres taşıyan satırlara dokunuluyor (canonical / og:url /
 // mainEntityOfPage), gövde metnindeki bağlantılar zaten göreli.
 //
-// siteUrl alt yol içerebilir (ör. https://hamarat52.github.io/income-vs-desires,
-// GitHub Pages proje yolu). Bu yüzden eski adresin sadece origin'ini değiştirmek
-// yetmez (ikinci çalıştırmada yol iki kez eklenirdi); her sayfanın adresi dosya
-// konumundan baştan kuruluyor: siteUrl + sayfanın yolu. Tekrar çalıştırmak güvenli.
+// siteUrl alt yol içerir (/income-vs-desires). Bu yüzden eski adresin sadece
+// origin'ini değiştirmek yetmez (ikinci çalıştırmada yol iki kez eklenirdi); her
+// sayfanın adresi dosya konumundan baştan kuruluyor: siteUrl + sayfanın yolu.
+// Yayındaki adresler uzantısız (destek.html -> /destek), o yüzden .html atılıyor.
+// Tekrar çalıştırmak güvenli.
 //
 // Sayfa içi bağlantılar (style.css, calc.js, /blog/ …) SAYFA-GÖRELİ yazılır
 // (./style.css, ../style.css): böylece site hem alan adının kökünde hem bir alt
@@ -52,7 +53,13 @@ const ADDRESS = /https?:\/\/[^\s"'<>]+/gi;
 const ROOT_RELATIVE = /(?:href|src)="\/(?!\/)[^"]*"/g;
 
 const pagePathOf = (file) =>
-  '/' + path.relative(ROOT, file).split(path.sep).join('/').replace(/(^|\/)index\.html$/, '$1');
+  '/' +
+  path
+    .relative(ROOT, file)
+    .split(path.sep)
+    .join('/')
+    .replace(/(^|\/)index\.html$/, '$1')
+    .replace(/\.html$/, '');
 
 function htmlFiles(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -174,10 +181,12 @@ fs.writeFileSync(path.join(ROOT, 'blog', 'index.html'), blogIndex, 'utf8');
 
 const today = new Date().toISOString().slice(0, 10);
 
+// Sayfaların lastmod'u posts.json'da sabit (yoksa bugün): betiği başka bir gün
+// tekrar çalıştırmak sitemap'i boşuna değiştirmesin.
 const urls = [
   ...pages.map((page) => ({ loc: siteUrl + page.path, lastmod: today, ...page })),
   ...posts.map((post) => ({
-    loc: `${siteUrl}/blog/${post.slug}.html`,
+    loc: `${siteUrl}/blog/${post.slug}`,
     lastmod: post.date,
     changefreq: 'yearly',
     priority: '0.8',
@@ -202,10 +211,14 @@ ${urls
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), sitemap, 'utf8');
 
 // --- robots.txt -------------------------------------------------------------
+//
+// Site alt yolda yayında; tarayıcılar robots.txt'yi ve sitemap'i alan adının
+// kökünde okur (https://hamaratlabs.com/sitemap.xml, hamaratlabs derlemesi
+// üretir). Bu dosya ve site/sitemap.xml kaynak olarak tutulur, yayına kopyalanmaz.
 
 fs.writeFileSync(
   path.join(ROOT, 'robots.txt'),
-  `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`,
+  `User-agent: *\nAllow: /\n\nSitemap: ${new URL(siteUrl).origin}/sitemap.xml\n`,
   'utf8'
 );
 
@@ -218,13 +231,6 @@ const missing = posts.filter(
 console.log(`blog/index.html · sitemap.xml (${urls.length} url) · robots.txt yazıldı`);
 console.log(`alan adı: ${siteUrl}${rewritten ? ` (${rewritten} sayfada güncellendi)` : ''}`);
 
-if (!process.env.IVD_DOMAIN_HAZIR) {
-  console.log(
-    'NOT: alan adı henüz alınmadı. Alınca posts.json > siteUrl satırını\n' +
-      '     değiştirip bu betiği tekrar çalıştır, canonical adresler kendi kendine düzelir.'
-  );
-}
-
 // --- kök-göreli yol kontrolü ------------------------------------------------
 
 const rootRelative = htmlFiles(ROOT).flatMap((file) =>
@@ -234,7 +240,7 @@ const rootRelative = htmlFiles(ROOT).flatMap((file) =>
 );
 
 if (rootRelative.length) {
-  console.warn('UYARI: kök-göreli yol var, alt yolda (GitHub Pages) kırılır. Sayfa-göreli yaz:');
+  console.warn('UYARI: kök-göreli yol var, alt yolda (/income-vs-desires/) kırılır. Sayfa-göreli yaz:');
   rootRelative.forEach((hit) => console.warn(`  - ${hit}`));
   process.exitCode = 1;
 }
