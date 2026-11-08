@@ -41,6 +41,12 @@ hedefleri aynı `manifest.json` + `src/` ile hazırlanıyor; henüz yayında de�
   durur (Chrome senkronizasyonu açıksa Chrome bunları kullanıcının Google
   hesabıyla eşitler). Dışarıya giden tek istek kur tablosudur.
 
+### Değişenler
+
+- Destek e-postası `hermes.agent.hamarat@gmail.com` oldu: Giderler
+  sayfasındaki "E-posta ile gönder" düğmesi ve destek sayfaları (TR
+  `site/destek.html`, EN `site/en/support.html`) bu adrese gider.
+
 ### Düzeltildi
 
 - Safari: iki yer tutuculu metinlerde `$` içeren değer bozuluyordu (EN panel

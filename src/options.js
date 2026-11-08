@@ -18,7 +18,7 @@
   const LEFTOVER = { id: 'kalan', label: t('catLeftover'), color: 'var(--series-kalan)' };
 
   /** Geri bildirimlerin gideceği adres. Boşsa gönder butonu gizlenir. */
-  const FEEDBACK_EMAIL = 'yusuf.hamarat@ozu.edu.tr';
+  const FEEDBACK_EMAIL = 'hermes.agent.hamarat@gmail.com';
 
   /**
    * 28.10.2026'da gerçek sayfalarda ölçüldü; ham veri ve yöntem

@@ -178,7 +178,7 @@ CWS detaylı açıklama için 16.000 sınırı bu turda resmi belgeden okunmadı
 |---|---|
 | Gizlilik TR `…/gizlilik.html` | **yayında** (28.10 `curl` 200); 28.10 güncellemesi (Safari cümlesi, EN bağlantısı) push sonrası |
 | Gizlilik EN `…/en/privacy.html` | hazır (`site/en/privacy.html`), **push sonrası yayında olacak** (şu an 404) |
-| Destek TR `…/destek.html` · EN `…/en/support.html` | hazır, **push sonrası yayında olacak** (şu an 404). İçerik: GitHub Issues (200) + e-posta `yusuf.hamarat@ozu.edu.tr` — **e-postanın herkese açık yayımlanması Yusuf onayı** |
+| Destek TR `…/destek.html` · EN `…/en/support.html` | hazır, **push sonrası yayında olacak** (şu an 404). İçerik: GitHub Issues (200) + e-posta `hermes.agent.hamarat@gmail.com` (Yusuf kararı 2026-11-08: kurum e-postası her yerden kaldırıldı, herkese açık destek adresi bu) |
 | Pazarlama `https://hamarat52.github.io/income-vs-desires/` | yayında (200), yalnız Türkçe |
 | CWS gizlilik sekmesi (tek amaç, izinler, uzak kod, veri, sertifikalar) | hazır — [`chrome-web-store/shared/gizlilik-sekmesi.md`](chrome-web-store/shared/gizlilik-sekmesi.md) (TR+EN) |
 | App Privacy | hazır — Data Not Collected, [`app-privacy.md`](app-store/shared/app-privacy.md) |
