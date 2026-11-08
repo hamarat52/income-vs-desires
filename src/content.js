@@ -28,7 +28,7 @@
     'TIME', 'U', 'VAR', 'WBR',
   ]);
 
-  /** Blok sınırı işareti — hiçbir desene uymaz, eşleşmeler bunu aşamaz. */
+  /** Blok sınırı işareti: hiçbir desene uymaz, eşleşmeler bunu aşamaz. */
   const BREAK = '\u0000';
 
   /** Bir elementin "fiyat kutusu" sayılması için üst sınır. */
@@ -57,7 +57,7 @@
   const UNSAFE_ANCESTORS =
     '[data-ivd], pre, code, textarea, [contenteditable=""], [contenteditable="true"]';
 
-  /** Sayfaya eklediğimiz her chip, eklenme sırasıyla — geri almak için tutuyoruz. */
+  /** Sayfaya eklediğimiz her chip, eklenme sırasıyla; geri almak için tutuyoruz. */
   const chips = [];
 
   /**
@@ -197,7 +197,7 @@
       if (el.dataset && el.dataset.ivd !== undefined) continue;
 
       const box = flatten(el);
-      if (!box) continue; // sınırı aşıyor — çocuklarına in
+      if (!box) continue; // sınırı aşıyor, çocuklarına in
 
       claimed = el;
       if (!/\d/.test(box.text)) continue;
@@ -236,7 +236,7 @@
         if (child.nodeType !== Node.ELEMENT_NODE) continue; // yorumlar bölmez
 
         // Kendi eklediğimiz chip'ler, taranmayan etiketler ve görünmeyen
-        // metinler birer duvar — içlerine hiç girmiyoruz.
+        // metinler birer duvar; içlerine hiç girmiyoruz.
         if (
           SKIP_TAGS.has(child.tagName) ||
           child.dataset?.ivd !== undefined ||
@@ -400,7 +400,7 @@
    * tıklama ya bize hiç ulaşmadı ya da çipin dışını hedefledi. Hangisi
    * olduğu Safari'de doğrulanamadı; bu yüzden olayı kaynağında yakalıyoruz:
    * touchend iptal edilince tarayıcı ardından gelen fare olaylarını ve
-   * tıklamayı (link gezinmesini) hiç üretmez — WebKit ve Blink aynı.
+   * tıklamayı (link gezinmesini) hiç üretmez; WebKit ve Blink aynı.
    *
    * Yalnız gerçek dokunuş: tek parmak, ≤10 px kayma, ≤700 ms. Kaydırma
    * hareketinde touchend zaten iptal edilemez (`cancelable` false).

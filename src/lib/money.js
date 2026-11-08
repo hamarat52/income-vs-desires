@@ -1,5 +1,5 @@
 /**
- * IncomeVsDesires — ortak para/süre kütüphanesi.
+ * IncomeVsDesires: ortak para/süre kütüphanesi.
  *
  * Klasik script olarak yüklenir (content script, popup ve service worker
  * aynı dosyayı paylaşabilsin diye). Her şeyi `globalThis.IVD` altına koyar.

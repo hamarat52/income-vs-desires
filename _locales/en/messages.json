@@ -216,7 +216,7 @@
     "message": "Doesn’t run on this page"
   },
   "flashInactive": {
-    "message": "Off — enter your pay first"
+    "message": "Off, enter your pay first"
   },
   "flashCount": {
     "message": "$ARG1$ prices converted",
@@ -333,7 +333,7 @@
     }
   },
   "donutNeeded": {
-    "message": "needed — more than a month"
+    "message": "needed, more than a month"
   },
   "donutMonthly": {
     "message": "your work month"

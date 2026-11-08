@@ -163,7 +163,7 @@
       : t('rateEmpty');
     el.rate.classList.toggle('muted', !rate);
     renderBasisNote(rate);
-    // Eksik olan alanı işaretle — boş bir input'taki placeholder dolu sanılıyor.
+    // Eksik olan alanı işaretle: boş bir input'taki placeholder dolu sanılıyor.
     el.salary.classList.toggle('missing', !settings.salary);
 
     if (!host) {
@@ -196,7 +196,7 @@
     await save({ disabledHosts: [...list] });
   }
 
-  /** Açık sekmeye "baştan tara" dedirtir — geç yüklenen fiyatlar için. */
+  /** Açık sekmeye "baştan tara" dedirtir, geç yüklenen fiyatlar için. */
   async function rescan() {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!tab?.id) return flash(t('flashNoTab'));
@@ -236,7 +236,7 @@
     return value !== '' && Number.isFinite(n) && n > 0 ? n : null;
   }
 
-  // Kur bilgisi — bayatsa arka planda tazele.
+  // Kur bilgisi: bayatsa arka planda tazele.
   chrome.runtime.sendMessage({ type: 'ivd:refreshRates' }, (payload) => {
     if (chrome.runtime.lastError || !payload) return;
     const when = new Date(payload.fetchedAt).toLocaleDateString(IVDi18n.numberLocale());

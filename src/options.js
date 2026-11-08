@@ -8,7 +8,7 @@
   const { t } = IVDi18n;
   IVDi18n.localizePage(document);
 
-  /** Kategoriler sabit sırada — renk varlığa bağlı, sıralamaya değil. */
+  /** Kategoriler sabit sırada; renk varlığa bağlı, sıralamaya değil. */
   const CATEGORIES = [
     { id: 'kira', label: t('catRent'), color: 'var(--series-kira)' },
     { id: 'abonelik', label: t('catSubscription'), color: 'var(--series-abonelik)' },
@@ -363,7 +363,7 @@
   }
 
   /** Gideri her zaman maaşın para biriminde aylık tutara indirger. (render()
-   *  bundan önce çağrıldığı için bildirim olarak yazıldı — ok fonksiyonu
+   *  bundan önce çağrıldığı için bildirim olarak yazıldı; ok fonksiyonu
    *  TDZ'ye takılıyor.) */
   function monthlyAmount(item) {
     return IVD.expenseMonthly(item, settings.currency, rates) ?? 0;

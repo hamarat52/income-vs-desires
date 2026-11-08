@@ -1,5 +1,5 @@
 /**
- * IncomeVsDesires — arayüz dili.
+ * IncomeVsDesires: arayüz dili.
  *
  * Metinlerin tek kaynağı `_locales/<dil>/messages.json`; burada yalnızca
  * `chrome.i18n.getMessage` sarılıyor. Dil tarayıcının arayüz dilinden gelir:
@@ -35,7 +35,7 @@
   const SENTINEL = /\uE000(\d+)\uE001/g;
 
   /**
-   * Çeviri. Eksik anahtar ekranda anahtarın kendisi olarak görünür —
+   * Çeviri. Eksik anahtar ekranda anahtarın kendisi olarak görünür;
    * sessizce boş kalırsa fark edilmiyordu.
    *
    * Değerler getMessage'a doğrudan VERİLMEZ. Safari (iOS/macOS 27) yer
@@ -52,7 +52,7 @@
     const text = raw(key, marks);
     if (!text) return key;
     // Fonksiyonla değiştir: dize verilirse String.replace değerdeki "$&", "$1"
-    // gibi kalıpları yorumlar — kaçtığımız hatanın aynısı.
+    // gibi kalıpları yorumlar; kaçtığımız hatanın aynısı.
     return text.replace(SENTINEL, (match, i) => {
       const n = Number(i);
       return n < values.length ? values[n] : match;
