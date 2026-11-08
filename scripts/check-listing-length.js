@@ -30,7 +30,8 @@ for (const lang of ['tr', 'en']) {
   const name = fromManifest(lang, manifest.name);
   const desc = fromManifest(lang, manifest.description);
   rows.push(['CWS', lang, 'ad (manifest)', name, 75, 'kr']);
-  rows.push(['CWS', lang, 'özet (manifest)', desc, 132, 'kr']);
+  // Özet CWS (132) ve Safari uzantısı (ITMS-90862: 112) için aynı metin: dar sınır geçerli.
+  rows.push(['CWS', lang, 'özet (manifest)', desc, 112, 'kr']);
   rows.push(['CWS', lang, 'detaylı açıklama', block(f, lang === 'tr' ? 'Detaylı açıklama' : 'Detailed description'), 16000, 'kr']);
   // Mağaza adı/özeti paketten okunur: listing'deki blok _locales ile birebir olmalı.
   if (block(f, lang === 'tr' ? 'Ad' : 'Name') !== name) errors.push(`CWS ${lang}: listing adı ≠ _locales extName`);

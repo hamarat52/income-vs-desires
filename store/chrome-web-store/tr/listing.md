@@ -33,10 +33,10 @@ IncomeVsDesires
 | `IncomeVsDesires: Fiyat Saat Çevirici, Saatlik Ücret Hesaplama` | 61 | robotik okunuyor |
 | `IncomeVsDesires` | 15 | şu an manifest'te; aranmayan tek kelime |
 
-## Kısa açıklama (manifest'ten, ≤ 132)
+## Kısa açıklama (manifest'ten, ≤ 112)
 
 ```
-Maaşını gir, fiyatlar kaç saat çalıştığına dönüşsün. 500 TL yerine 1,8 saat. Veri toplamaz, kayıt istemez, ücretsiz.
+Maaşını gir, fiyatlar çalışma saatine dönüşsün. 500 TL yerine 1,8 saat. Veri toplamaz, kayıt istemez, ücretsiz.
 ```
 
 `_locales/tr/messages.json > extDescription` ile birebir (betik denetler).

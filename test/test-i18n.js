@@ -1,6 +1,6 @@
 /**
  * _locales denetimi: iki dil aynı anahtarları ve yer tutucuları taşıyor mu,
- * koddaki her anahtar var mı, mağaza özeti 132 karakteri aşıyor mu.
+ * koddaki her anahtar var mı, mağaza özeti 112 karakteri (Safari) aşıyor mu.
  *
  *   node test/test-i18n.js
  */
@@ -73,7 +73,8 @@ console.log('\n--- mağaza özeti (manifest description) ---');
 for (const lang of LANGS) {
   const get = stub.makeGetMessage(messages[lang]);
   const desc = get('extDescription');
-  check(`${lang} özet ≤132 (${[...desc].length})`, [...desc].length <= 132, true);
+  // Safari/App Store Connect ITMS-90862: description ≤112 (CWS 132; dar sınır geçerli).
+  check(`${lang} özet ≤112 (${[...desc].length})`, [...desc].length <= 112, true);
   check(`${lang} ad ≤75`, [...get('extName')].length <= 75, true);
   // Manifest __MSG_…__ yerelleştirmesi "$$" kaçışını çözmüyor (Chrome 156'da
   // chrome://extensions "$$50" gösterdi); manifest metinlerinde "$" olmamalı.

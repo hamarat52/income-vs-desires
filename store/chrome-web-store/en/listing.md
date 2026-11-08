@@ -24,10 +24,10 @@ IncomeVsDesires
 Same name in both languages (name decision is Yusuf's; not changed). A
 descriptive EN name for later, **awaiting Yusuf**: `IncomeVsDesires: Prices in Hours of Your Work` (46).
 
-## Summary (from manifest, ≤ 132)
+## Summary (from manifest, ≤ 112)
 
 ```
-Enter your pay and see prices as hours of your work. 50 dollars becomes 1.8 hours. No data collection, no sign-up, free.
+Enter your pay, see prices as hours of work. 50 dollars becomes 1.8 hours. No data collection, no sign-up, free.
 ```
 
 Example verified with the extension's own `IVD.formatDuration`

@@ -143,13 +143,18 @@ ad/özet = `_locales` (tr, en) birebir; manifest metinlerinde `$` yok; Apple
 metinlerinde "Chrome" yok; tanıtımda "ücretsiz/free" yok; anahtar kelimeler
 > 2 karakter ve ad/alt başlık kelimelerini tekrar etmiyor.
 
+Manifest özeti CWS'de 132, Safari uzantısında 112 karakter sınırlı; aynı metin
+iki mağazaya gittiği için dar sınır (112) uygulanır. Kaynak: App Store Connect
+yükleme reddi ITMS-90862, 08.11.2026 ("The description field must be present,
+of string type, and 112 or fewer characters long").
+
 | Mağaza | Dil | Alan | Sınır | Karakter | UTF-8 bayt | Durum |
 |---|---|---|---|---|---|---|
 | CWS | tr | ad (manifest) | 75 kr | 15 | 15 | OK |
-| CWS | tr | özet (manifest) | 132 kr | 116 | 132 | OK |
+| CWS | tr | özet (manifest) | 112 kr | 111 | 123 | OK |
 | CWS | tr | detaylı açıklama | 16000 kr | 2774 | 3026 | OK |
 | CWS | en | ad (manifest) | 75 kr | 15 | 15 | OK |
-| CWS | en | özet (manifest) | 132 kr | 120 | 120 | OK |
+| CWS | en | özet (manifest) | 112 kr | 112 | 112 | OK |
 | CWS | en | detaylı açıklama | 16000 kr | 2605 | 2605 | OK |
 | App Store | tr | ad | 30 kr | 27 | 29 | OK |
 | App Store | tr | alt başlık | 30 kr | 28 | 33 | OK |

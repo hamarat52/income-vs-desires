@@ -12,8 +12,8 @@
     "description": "Eklenti adı (mağaza adı da buradan gelir)."
   },
   "extDescription": {
-    "message": "Enter your pay and see prices as hours of your work. 50 dollars becomes 1.8 hours. No data collection, no sign-up, free.",
-    "description": "Manifest description = mağaza özeti, en fazla 132 karakter. \"$\" YAZMAYIN: manifest yerelleştirmesi \"$$\" kaçışını çözmüyor (Chrome 156, chrome://extensions \"$$50\" gösterdi)."
+    "message": "Enter your pay, see prices as hours of work. 50 dollars becomes 1.8 hours. No data collection, no sign-up, free.",
+    "description": "Manifest description = mağaza özeti, en fazla 112 karakter (Safari/App Store Connect ITMS-90862 sınırı; CWS 132). \"$\" YAZMAYIN: manifest yerelleştirmesi \"$$\" kaçışını çözmüyor (Chrome 156, chrome://extensions \"$$50\" gösterdi)."
   },
   "actionTitle": {
     "message": "IncomeVsDesires",
