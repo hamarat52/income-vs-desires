@@ -276,7 +276,16 @@ paket_dogrula() {  # $1 platform $2 export dizini
     ext=$(uzanti_yolu macos "$app")
     codesign --verify --deep --strict "$app" && ok "codesign --verify --deep --strict geçti" || kotu "codesign doğrulaması başarısız"
     dagitim_imza "$app" app; dagitim_imza "$ext" uzantı
-    profil_bak "$app/Contents/embedded.provisionprofile" app; profil_bak "$ext/Contents/embedded.provisionprofile" uzantı
+    profil_bak "$app/Contents/embedded.provisionprofile" app
+    # macOS'ta profil yalnız ana bundle için zorunlu (ITMS-90889). İç içe bundle profilsizse
+    # imzasında application-identifier olmamalı (ITMS-90885). Kaynak: developer.apple.com/forums/thread/733942
+    if [ -f "$ext/Contents/embedded.provisionprofile" ]; then profil_bak "$ext/Contents/embedded.provisionprofile" uzantı
+    else
+      local et; et=$(gecici ent); codesign -d --entitlements - --xml "$ext" > "$et/e.plist" 2>/dev/null || true
+      local aid; aid=$(pb com.apple.application-identifier "$et/e.plist")
+      [ -z "$aid" ] && uyar "uzantı profilsiz, imzada application-identifier yok: macOS'ta TestFlight için geçerli (profil yalnız ana bundle'da zorunlu)" \
+        || kotu "uzantı profilsiz ama imzada application-identifier '$aid' var (ITMS-90885)"
+    fi
     local x; for x in "$app" "$ext"; do [ "$(sandbox_bak "$x")" = true ] && ok "$(basename "$x"): app-sandbox = true" || kotu "$(basename "$x"): app-sandbox yok"; done
   fi
   local b v y; b=$(pb CFBundleIdentifier "$(info_plist "$p" "$app")"); v=$(pb CFBundleShortVersionString "$(info_plist "$p" "$app")"); y=$(pb CFBundleVersion "$(info_plist "$p" "$app")")
