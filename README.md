@@ -155,19 +155,34 @@ dururdu.
 
 ## Tanıtım sitesi
 
-`site/` altında, bağımlılığı olmayan statik bir site. Tasarım dili "mesai
-kartı": kağıt yüzey, cetvel çizgileri, monospace rakamlar, tek mühür aksanı.
-Eklentideki noktalı alt çizgi motifi siteye de taşındı.
+Site **https://hamaratlabs.com/income-vs-desires/** adresinde yayında
+(destek, gizlilik, EN destek/gizlilik ve blog sayfaları dahil, uzantısız
+adreslerle). `site/` bu sitenin kaynağı: bağımlılığı olmayan statik bir site.
+Tasarım dili "mesai kartı": kağıt yüzey, cetvel çizgileri, monospace rakamlar,
+tek mühür aksanı. Eklentideki noktalı alt çizgi motifi siteye de taşındı.
+
+Yayına alma bu repodan yapılmaz (GitHub Pages iş akışı kaldırıldı). Kopyalama
+hamaratlabs.com tarafında yapılır: pm-hamaratlabs'in kopyalama betiği
+(`ivd-tasima/kopyala.mjs`) belirli bir commit'teki `site/` dosyalarını
+hamaratlabs-web'e alır; adres satırlarını ve göreli `.html` bağlantılarını
+uzantısız adrese çevirir, alt bilgiye hamaratlabs.com bağlantısını ekler.
+`site/` değişince güncelleme için o tarafa haber verilir. Betik her HTML
+sayfasında alt bilgi kapanışını (`      </div>` + `    </footer>`) tam bir kez
+bekler; sayfa yapısı değişirse bu kalıp korunmalı.
 
 ```bash
 node site/build.js
 ```
 
-`posts.json`'dan `blog/index.html`, `sitemap.xml` ve `robots.txt` üretir.
-Yazıların kendisi elle yazılıyor; derleyici sadece listeyi ve SEO dosyalarını
-tek kaynaktan tutuyor, birbirinden kaymasınlar diye.
+`posts.json`'dan `blog/index.html`, `sitemap.xml` ve `robots.txt` üretir,
+sayfalardaki canonical/og:url/mainEntityOfPage adreslerini `siteUrl`'den
+yeniden kurar. Yazıların kendisi elle yazılıyor; derleyici sadece listeyi ve
+SEO dosyalarını tek kaynaktan tutuyor, birbirinden kaymasınlar diye. Tekrar
+çalıştırmak güvenli. `sitemap.xml` ve `robots.txt` yayına kopyalanmaz; canlı
+site haritası hamaratlabs.com'un kendi `sitemap.xml` dosyasıdır.
 
-Önizleme: `npx serve site -l 4321` → `http://localhost:4321`.
+Yerel önizleme: `npx serve site -l 4321` → `http://localhost:4321` (yerelde
+bağlantılar `.html` uzantılı çalışır).
 
 Ana sayfada çalışan bir saatlik ücret hesaplayıcısı var. Hem ürünü gösteriyor
 hem de SEO'nun ana kancası; ayrıntı için [SEO.md](SEO.md).
